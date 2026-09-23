@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="320" viewBox="0 0 880 320" role="img" aria-labelledby="titulo desc">
+<title id="titulo">4 trilhas de estudo</title>
+<desc id="desc">Núcleo Comum: 8 tópicos (7 de prioridade alta, 1 média, 0 baixa), 65 itens, 31 links; Front-end: 10 tópicos (8 de prioridade alta, 1 média, 1 baixa), 72 itens, 36 links; Back-end: 8 tópicos (5 de prioridade alta, 3 média, 0 baixa), 56 itens, 31 links; Fullstack: 6 tópicos (3 de prioridade alta, 3 média, 0 baixa), 32 itens, 20 links.</desc>
+<style>
+svg{--bg:#1a1a19;--bg2:#222220;--borda:#2f2f2c;--tinta:#f4f4f1;--tinta2:#c3c2b7;--suave:#9c9a91;--grade:#2c2c2a;--base:#383835;--acento:#6da7ec;--acentoSuave:#16263d;--acentoTexto:#9ec5f4;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300;--o1:#86b6ef;--o2:#3987e5;--o3:#1c5cab;--neutro:#5a5954}
+text{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;fill:var(--tinta)}
+.cartao{fill:var(--bg);stroke:var(--borda)}
+.t2{fill:var(--tinta2)} .suave{fill:var(--suave)} .acento{fill:var(--acento)}
+.titulo{font-size:17px;font-weight:650} .sub{font-size:13px;fill:var(--tinta2)} .rot{font-size:13px}
+.val{font-size:12.5px;font-variant-numeric:tabular-nums;fill:var(--tinta2)} .mini{font-size:12px;fill:var(--suave)}
+.grade{stroke:var(--grade);stroke-width:1} .base{stroke:var(--base);stroke-width:1}
+.s1{fill:var(--s1)} .s2{fill:var(--s2)} .s3{fill:var(--s3)} .s4{fill:var(--s4)} .s5{fill:var(--s5)} .s6{fill:var(--s6)}
+.o1{fill:var(--o1)} .o2{fill:var(--o2)} .o3{fill:var(--o3)} .neutro{fill:var(--neutro)}
+.bom{fill:#0ca30c} .critico{fill:#d03b3b} .aviso{fill:#fab219}
+.cresce{transform-box:fill-box;transform-origin:left center;animation:cresce .9s cubic-bezier(.2,.7,.2,1) both}
+.surge{animation:surge .6s ease-out both}
+@keyframes cresce{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes surge{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+<rect class="cartao" x="0.5" y="0.5" width="879" height="319" rx="16"/>
+
+<text class="titulo" x="24" y="38">4 trilhas, 32 tópicos, 225 itens de checklist</text>
+<text class="sub" x="24" y="60">Cada tópico tem prioridade, descrição, links "Onde estudar", checklist marcável e anotações.</text>
+<rect class="o1" x="24" y="74" width="12" height="12" rx="3"/><text class="rot t2" x="42" y="84">Prioridade alta</text><rect class="o2" x="154.22" y="74" width="12" height="12" rx="3"/><text class="rot t2" x="172.22" y="84">Prioridade média</text><rect class="o3" x="298.22" y="74" width="12" height="12" rx="3"/><text class="rot t2" x="316.22" y="84">Prioridade baixa</text>
+<text class="rot" x="24" y="115" font-weight="650">Núcleo Comum</text><rect class="o1 cresce" x="180" y="100" width="278" height="20" rx="2" style="animation-delay:0ms"><title>Prioridade alta: 7 tópico(s)</title></rect><rect class="o2 cresce" x="460" y="100" width="38" height="20" rx="2" style="animation-delay:0ms"><title>Prioridade média: 1 tópico(s)</title></rect><text class="val" x="508" y="115">8 tópicos</text><text class="rot t2" x="680" y="115">65 itens · 31 links</text>
+<text class="rot" x="24" y="161" font-weight="650">Front-end</text><rect class="o1 cresce" x="180" y="146" width="318" height="20" rx="2" style="animation-delay:90ms"><title>Prioridade alta: 8 tópico(s)</title></rect><rect class="o2 cresce" x="500" y="146" width="38" height="20" rx="2" style="animation-delay:90ms"><title>Prioridade média: 1 tópico(s)</title></rect><rect class="o3 cresce" x="540" y="146" width="38" height="20" rx="2" style="animation-delay:90ms"><title>Prioridade baixa: 1 tópico(s)</title></rect><text class="val" x="588" y="161">10 tópicos</text><text class="rot t2" x="680" y="161">72 itens · 36 links</text>
+<text class="rot" x="24" y="207" font-weight="650">Back-end</text><rect class="o1 cresce" x="180" y="192" width="198" height="20" rx="2" style="animation-delay:180ms"><title>Prioridade alta: 5 tópico(s)</title></rect><rect class="o2 cresce" x="380" y="192" width="118" height="20" rx="2" style="animation-delay:180ms"><title>Prioridade média: 3 tópico(s)</title></rect><text class="val" x="508" y="207">8 tópicos</text><text class="rot t2" x="680" y="207">56 itens · 31 links</text>
+<text class="rot" x="24" y="253" font-weight="650">Fullstack</text><rect class="o1 cresce" x="180" y="238" width="118" height="20" rx="2" style="animation-delay:270ms"><title>Prioridade alta: 3 tópico(s)</title></rect><rect class="o2 cresce" x="300" y="238" width="118" height="20" rx="2" style="animation-delay:270ms"><title>Prioridade média: 3 tópico(s)</title></rect><text class="val" x="428" y="253">6 tópicos</text><text class="rot t2" x="680" y="253">32 itens · 20 links</text>
+<text class="mini" x="24" y="304">Fonte: data/trilhas.json (tópicos por &quot;prioridade&quot;; itens de &quot;checklist&quot; e &quot;links&quot;).</text>
+</svg>

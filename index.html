@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rumo ao Júnior — sistema de estudo</title>
+  <meta name="description" content="Sistema de estudo para a prova técnica de efetivação como Dev Júnior: trilhas, cronograma, flashcards com repetição espaçada, quiz, simulados e Pomodoro.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23256abf'/%3E%3Ccircle cx='12' cy='12' r='7' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='m15 9-1.5 4.5L9 15l1.5-4.5z' fill='white'/%3E%3C/svg%3E">
+
+  <!-- Aplica o tema salvo antes de desenhar a página (evita "piscar" claro→escuro). -->
+  <script>
+    (function () {
+      try {
+        var salvo = JSON.parse(localStorage.getItem('rumo-junior:estado') || 'null');
+        var tema = salvo && salvo.config && salvo.config.tema;
+        if (tema === 'escuro') document.documentElement.setAttribute('data-theme', 'dark');
+        if (tema === 'claro') document.documentElement.setAttribute('data-theme', 'light');
+      } catch (e) { /* sem acesso ao localStorage: usa o tema do sistema */ }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/paginas.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo" data-pular>Pular para o conteúdo</a>
+
+  <div class="app" id="app">
+    <!-- Barra superior: aparece só em telas pequenas -->
+    <header class="topo">
+      <button type="button" class="btn btn-fantasma btn-icone botao-menu" id="botao-menu" aria-expanded="false" aria-controls="menu-lateral" aria-label="Abrir menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <a class="marca" href="#/dashboard">
+        <span class="marca-logo" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+        </span>
+        <span class="marca-nome"><strong>Rumo ao Júnior</strong></span>
+      </a>
+      <div class="indicadores" id="indicadores-topo"></div>
+    </header>
+
+    <nav class="lateral" id="menu-lateral" aria-label="Principal">
+      <a class="marca" href="#/dashboard">
+        <span class="marca-logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+        </span>
+        <span class="marca-nome"><strong>Rumo ao Júnior</strong><span>preparação para a efetivação</span></span>
+      </a>
+      <div class="indicadores" id="indicadores-lateral"></div>
+      <ul class="nav-lista" id="nav-lista"></ul>
+      <div class="lateral-rodape">
+        <div class="linha">
+          <button type="button" class="btn btn-fantasma btn-p cresce" id="botao-tema"></button>
+        </div>
+        <div class="linha">
+          <button type="button" class="btn btn-p cresce" id="botao-exportar">Exportar</button>
+          <button type="button" class="btn btn-p cresce" id="botao-importar">Importar</button>
+        </div>
+        <p class="mini muted" id="info-backup"></p>
+        <a class="btn btn-fantasma btn-p" id="link-manual" href="manual/index.html" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Manual de uso<span class="sr-only"> (abre em nova aba)</span>
+        </a>
+      </div>
+    </nav>
+    <div class="sobreposicao" id="sobreposicao" aria-hidden="true"></div>
+
+    <main class="conteudo" id="conteudo" tabindex="-1">
+      <!-- Mostrado se a página for aberta direto do disco (file://) -->
+      <div class="pagina" id="aviso-protocolo" hidden>
+        <div class="card">
+          <h1>Abra pelo servidor local</h1>
+          <p class="subtitulo" style="margin-top:.75rem">Você abriu o arquivo direto do disco (<code>file://</code>). Por segurança, o navegador bloqueia módulos JavaScript e a leitura dos arquivos JSON nesse modo.</p>
+          <ol style="margin-top:1rem; display:grid; gap:.5rem">
+            <li><strong>VS Code:</strong> instale a extensão <em>Live Server</em>, clique com o botão direito em <code>index.html</code> → <em>Open with Live Server</em>.</li>
+            <li><strong>Terminal:</strong> dentro da pasta do projeto, rode <code>npx serve</code> e abra o endereço mostrado (ex.: <code>http://localhost:3000</code>).</li>
+          </ol>
+          <p class="muted pequeno" style="margin-top:1rem">Detalhes no arquivo README.md.</p>
+        </div>
+      </div>
+      <div class="pagina" id="carregando">
+        <p class="muted">Carregando…</p>
+      </div>
+    </main>
+  </div>
+
+  <div class="toasts" id="avisos" aria-live="polite" aria-atomic="false"></div>
+  <dialog class="dialogo" id="dialogo"></dialog>
+  <input type="file" id="arquivo-backup" accept="application/json,.json" hidden>
+
+  <noscript>
+    <p style="padding:1rem">Este sistema precisa de JavaScript ativado.</p>
+  </noscript>
+
+  <script>
+    // Aviso para quem abriu com duplo clique (file://): módulos ES não carregam nesse modo.
+    if (location.protocol === 'file:') {
+      document.getElementById('aviso-protocolo').hidden = false;
+      document.getElementById('carregando').hidden = true;
+    }
+  </script>
+</body>
+</html>

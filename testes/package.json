@@ -1,0 +1,21 @@
+{
+  "name": "rumo-ao-junior-testes",
+  "private": true,
+  "description": "Testes de ponta a ponta (Playwright) do sistema de estudo Rumo ao Júnior",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "relatorio": "playwright show-report relatorio",
+    "manual:capturas": "playwright test -c capturas.config.ts && node manual/sincronizar-dimensoes.cjs",
+    "readme:testes": "node readme/resumo-testes.mjs",
+    "readme:graficos": "node readme/graficos.mjs",
+    "readme:demos": "playwright test -c readme.config.ts",
+    "readme:visuais": "npm run readme:testes && npm run readme:graficos && npm run readme:demos"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "serve": "^14.2.6"
+  }
+}

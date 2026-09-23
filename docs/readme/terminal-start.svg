@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="447" viewBox="0 0 880 447" role="img" aria-labelledby="titulo desc">
+<title id="titulo">start.bat em ação</title>
+<desc id="desc">Terminal animado com o texto real do start.bat: o menu de opções, a escolha da opção 1 e as mensagens ao iniciar o servidor em http://localhost:3000.</desc>
+<style>
+svg{--bg:#ffffff;--bg2:#f3f3ef;--borda:#e1e0d9;--tinta:#111110;--tinta2:#4a4945;--suave:#676660;--grade:#e1e0d9;--base:#c3c2b7;--acento:#256abf;--acentoSuave:#e5eefa;--acentoTexto:#184f95;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#008300;--o1:#184f95;--o2:#3987e5;--o3:#86b6ef;--neutro:#c3c2b7}
+@media (prefers-color-scheme: dark){svg{--bg:#1a1a19;--bg2:#222220;--borda:#2f2f2c;--tinta:#f4f4f1;--tinta2:#c3c2b7;--suave:#9c9a91;--grade:#2c2c2a;--base:#383835;--acento:#6da7ec;--acentoSuave:#16263d;--acentoTexto:#9ec5f4;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300;--o1:#86b6ef;--o2:#3987e5;--o3:#1c5cab;--neutro:#5a5954}}
+text{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;fill:var(--tinta)}
+.cartao{fill:var(--bg);stroke:var(--borda)}
+.t2{fill:var(--tinta2)} .suave{fill:var(--suave)} .acento{fill:var(--acento)}
+.titulo{font-size:17px;font-weight:650} .sub{font-size:13px;fill:var(--tinta2)} .rot{font-size:13px}
+.val{font-size:12.5px;font-variant-numeric:tabular-nums;fill:var(--tinta2)} .mini{font-size:12px;fill:var(--suave)}
+.grade{stroke:var(--grade);stroke-width:1} .base{stroke:var(--base);stroke-width:1}
+.s1{fill:var(--s1)} .s2{fill:var(--s2)} .s3{fill:var(--s3)} .s4{fill:var(--s4)} .s5{fill:var(--s5)} .s6{fill:var(--s6)}
+.o1{fill:var(--o1)} .o2{fill:var(--o2)} .o3{fill:var(--o3)} .neutro{fill:var(--neutro)}
+.bom{fill:#0ca30c} .critico{fill:#d03b3b} .aviso{fill:#fab219}
+.cresce{transform-box:fill-box;transform-origin:left center;animation:cresce .9s cubic-bezier(.2,.7,.2,1) both}
+.surge{animation:surge .6s ease-out both}
+@keyframes cresce{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes surge{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cartao{fill:#0c0c0c;stroke:#333}
+.barra{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;font-size:12.5px;fill:#d4d4d4}
+.linha{font-family:"Cascadia Mono", "Cascadia Code", Consolas, "SFMono-Regular", Menlo, monospace;font-size:13.5px;fill:#cccccc;white-space:pre;animation-duration:16.12s;animation-iteration-count:2;animation-timing-function:linear}
+.opcao{fill:#e8e8e8} .forte{fill:#ffffff;font-weight:700} .digitado{fill:#6da7ec}
+.cursor{fill:#cccccc;animation:pisca 1.05s steps(1) 31}
+@keyframes pisca{50%{opacity:0}}
+@keyframes l1{0%,4.28%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(48,end)}8.53%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l2{0%,8.78%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(37,end)}12.06%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l3{0%,12.31%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(48,end)}16.56%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l5{0%,17.37%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(40,end)}20.91%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l6{0%,21.16%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(36,end)}24.35%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l7{0%,24.6%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(44,end)}28.5%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l8{0%,28.75%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(43,end)}32.56%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l9{0%,32.81%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(28,end)}35.29%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l11{0%,36.1%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(57,end)}41.15%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l13{0%,47.29%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(53,end)}51.99%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l15{0%,52.79%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(45,end)}56.78%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l16{0%,57.03%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(51,end)}61.55%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+@keyframes l17{0%,61.8%{clip-path:inset(0 100% 0 0);animation-timing-function:steps(72,end)}68.18%,99.5%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+<rect class="cartao" x="0.5" y="0.5" width="879" height="446" rx="16"/>
+
+<rect x="1" y="1" width="878" height="445" rx="15" fill="#0c0c0c"/>
+<rect x="1" y="1" width="878" height="34" rx="15" fill="#1f1f1f"/><rect x="1" y="20" width="878" height="15" fill="#1f1f1f"/>
+<rect x="16" y="11" width="13" height="13" rx="3" fill="#256abf"/>
+<text x="38" y="23" class="barra">Rumo ao Júnior — start.bat</text>
+<text x="858" y="23" class="barra" text-anchor="end">✕</text>
+
+<text class="linha" x="22" y="77" style="animation-name:l1">  ==============================================</text>
+<text class="linha" x="22" y="96" style="animation-name:l2">   Rumo ao Júnior - sistema de estudo</text>
+<text class="linha" x="22" y="115" style="animation-name:l3">  ==============================================</text>
+
+<text class="linha opcao" x="22" y="153" style="animation-name:l5">   [1] Abrir o app no navegador (padrão)</text>
+<text class="linha opcao" x="22" y="172" style="animation-name:l6">   [2] Rodar os testes automatizados</text>
+<text class="linha opcao" x="22" y="191" style="animation-name:l7">   [3] Testes no modo visual (Playwright UI)</text>
+<text class="linha opcao" x="22" y="210" style="animation-name:l8">   [4] Abrir o relatório dos últimos testes</text>
+<text class="linha opcao" x="22" y="229" style="animation-name:l9">   [5] Abrir o manual de uso</text>
+
+<text class="linha forte" x="22" y="267" style="animation-name:l11">   Escolha de 1 a 5 (o app abre sozinho em 8 segundos): <tspan class="digitado">1</tspan></text>
+
+<text class="linha" x="22" y="305" style="animation-name:l13">  Iniciando o servidor local em http://localhost:3000</text>
+
+<text class="linha" x="22" y="343" style="animation-name:l15">  - Deixe esta janela aberta enquanto estuda.</text>
+<text class="linha" x="22" y="362" style="animation-name:l16">  - Para encerrar: feche a janela ou aperte Ctrl+C.</text>
+<text class="linha" x="22" y="381" style="animation-name:l17">  - Use sempre este mesmo endereço: o progresso fica salvo por endereço.</text>
+
+<rect class="cursor" x="24" y="387" width="8" height="16"/>
+</svg>

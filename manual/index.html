@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manual do Rumo ao Júnior</title>
+<script>
+  // Alguns servidores locais (ex.: "serve") trocam /manual/index.html por /manual, sem a barra final.
+  // Sem a barra, os caminhos relativos (img/...) apontariam para a pasta errada: devolve a barra
+  // antes de o navegador pedir qualquer imagem.
+  (function () {
+    var p = location.pathname;
+    if (location.protocol === 'file:' || /\/$/.test(p) || /\/index(\.html?)?$/.test(p) || /\.[a-z0-9]+$/i.test(p)) return;
+    history.replaceState(null, '', p + '/' + location.search + location.hash);
+  })();
+</script>
+<meta name="description" content="Manual ilustrado do Rumo ao Júnior: primeiros passos, guia de cada página, atalhos, backup e solução de problemas.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23256abf'/%3E%3Ccircle cx='12' cy='12' r='7' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='m15 9-1.5 4.5L9 15l1.5-4.5z' fill='white'/%3E%3C/svg%3E">
+<style>
+  /* ============ Tokens (os mesmos do app) ============ */
+  :root {
+    color-scheme: light;
+    --fundo: #f4f4f1;
+    --superficie: #ffffff;
+    --superficie-2: #f3f3ef;
+    --borda: #e1e0d9;
+    --borda-forte: #c3c2b7;
+    --tinta: #111110;
+    --tinta-2: #4a4945;
+    --suave: #676660;
+    --acento: #256abf;
+    --acento-fundo: #256abf;
+    --acento-suave: #e5eefa;
+    --acento-suave-texto: #184f95;
+    --marca: #c2410c;           /* números das marcações dos prints */
+    --marca-suave: #fdebe1;
+    --marca-texto: #9a3412;
+    --aviso-suave: #fdf1d6;
+    --aviso-texto: #7a4f00;
+    --sombra-img: 0 1px 2px rgba(17, 17, 16, 0.06), 0 6px 20px rgba(17, 17, 16, 0.06);
+    --fonte: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "Cascadia Code", "Cascadia Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --fundo: #0f0f0e;
+      --superficie: #1a1a19;
+      --superficie-2: #222220;
+      --borda: #2f2f2c;
+      --borda-forte: #4a4944;
+      --tinta: #f4f4f1;
+      --tinta-2: #c3c2b7;
+      --suave: #9c9a91;
+      --acento: #6da7ec;
+      --acento-fundo: #256abf;
+      --acento-suave: #16263d;
+      --acento-suave-texto: #9ec5f4;
+      --marca: #c2410c;
+      --marca-suave: #2d1a10;
+      --marca-texto: #f4a67a;
+      --aviso-suave: #2e2410;
+      --aviso-texto: #fab219;
+      --sombra-img: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --fundo: #0f0f0e;
+    --superficie: #1a1a19;
+    --superficie-2: #222220;
+    --borda: #2f2f2c;
+    --borda-forte: #4a4944;
+    --tinta: #f4f4f1;
+    --tinta-2: #c3c2b7;
+    --suave: #9c9a91;
+    --acento: #6da7ec;
+    --acento-fundo: #256abf;
+    --acento-suave: #16263d;
+    --acento-suave-texto: #9ec5f4;
+    --marca: #c2410c;
+    --marca-suave: #2d1a10;
+    --marca-texto: #f4a67a;
+    --aviso-suave: #2e2410;
+    --aviso-texto: #fab219;
+    --sombra-img: 0 8px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  /* ============ Base ============ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-padding-top: 24px; -webkit-text-size-adjust: 100%; }
+  /* rolagem suave só nos cliques do sumário: ao abrir um link direto (#secao), o salto é imediato */
+  @media (prefers-reduced-motion: no-preference) { html.rolagem-suave { scroll-behavior: smooth; } }
+  body {
+    margin: 0;
+    background: var(--fundo);
+    color: var(--tinta);
+    font: 17px/1.65 var(--fonte);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; height: auto; }
+  [hidden] { display: none !important; }
+  a { color: var(--acento); text-underline-offset: 0.18em; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus { outline: none; }
+  :focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; border-radius: 4px; }
+  h1, h2, h3, h4 { line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; margin: 0; }
+  p, ul, ol { margin: 0; }
+  code, kbd, pre { font-family: var(--mono); }
+  :not(pre) > code { font-size: 0.86em; background: var(--superficie-2); border: 1px solid var(--borda); padding: 0.05em 0.35em; border-radius: 5px; overflow-wrap: anywhere; }
+  kbd {
+    display: inline-block; min-width: 1.6em; padding: 0.05em 0.45em; text-align: center;
+    font-size: 0.8em; line-height: 1.5; color: var(--tinta-2);
+    background: var(--superficie); border: 1px solid var(--borda-forte); border-bottom-width: 2px; border-radius: 5px;
+  }
+  .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+  /* ============ Cabeçalho ============ */
+  .capa {
+    border-bottom: 1px solid var(--borda);
+    background: var(--superficie);
+  }
+  .capa-interna {
+    max-width: 1240px; margin: 0 auto; padding: 36px 24px 32px;
+    display: grid; gap: 18px;
+  }
+  .marca-app { display: flex; align-items: center; gap: 12px; color: var(--tinta); text-decoration: none; }
+  .marca-app .logo { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: var(--acento-fundo); color: #fff; flex: none; }
+  .marca-app span { font-weight: 650; font-size: 1rem; }
+  .capa h1 { font-size: clamp(2rem, 1.4rem + 2.2vw, 2.9rem); font-weight: 700; }
+  .capa .linha-fina { color: var(--tinta-2); font-size: 1.1rem; max-width: 62ch; }
+  .atalhos-capa { display: flex; flex-wrap: wrap; gap: 8px; }
+  .atalhos-capa a {
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px;
+    border: 1px solid var(--borda-forte); color: var(--tinta); text-decoration: none; font-size: 0.92rem; font-weight: 600;
+    background: var(--superficie);
+  }
+  .atalhos-capa a:hover { border-color: var(--acento); color: var(--acento-suave-texto); background: var(--acento-suave); }
+
+  /* ============ Estrutura: sumário + conteúdo ============ */
+  .estrutura {
+    max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px;
+    display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 56px; align-items: start;
+  }
+  .sumario {
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px);
+    max-height: calc(100vh - 40px); overflow-y: auto; font-size: 0.93rem; padding-right: 6px;
+  }
+  .sumario > details > summary { list-style: none; cursor: pointer; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave); padding: 4px 0 10px; }
+  .sumario > details > summary::-webkit-details-marker { display: none; }
+  .busca { position: relative; margin-bottom: 14px; }
+  .busca input {
+    width: 100%; font: inherit; font-size: 0.93rem; color: var(--tinta); background: var(--superficie);
+    border: 1px solid var(--borda-forte); border-radius: 8px; padding: 8px 10px 8px 34px;
+  }
+  .busca input:focus { outline: 3px solid var(--acento); outline-offset: 1px; border-color: var(--acento); }
+  .busca svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--suave); pointer-events: none; }
+  .resultados { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 2px; }
+  .resultados a { display: block; padding: 6px 8px; border-radius: 6px; text-decoration: none; color: var(--tinta); }
+  .resultados a:hover { background: var(--superficie-2); }
+  .resultados small { display: block; color: var(--suave); font-size: 0.8rem; }
+  .resultados .vazio { color: var(--suave); padding: 6px 8px; }
+  .grupo-sumario { margin-top: 14px; }
+  .grupo-sumario > p { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave); margin-bottom: 4px; }
+  .grupo-sumario ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 1px; }
+  .grupo-sumario a {
+    display: block; padding: 5px 10px; border-radius: 6px; color: var(--tinta-2); text-decoration: none; border-left: 2px solid transparent;
+  }
+  .grupo-sumario a:hover { color: var(--tinta); background: var(--superficie-2); }
+  .grupo-sumario a[aria-current="true"] { color: var(--acento-suave-texto); background: var(--acento-suave); border-left-color: var(--acento); font-weight: 600; }
+
+  .conteudo { min-width: 0; display: grid; gap: 72px; }
+  .secao { display: grid; gap: 20px; scroll-margin-top: 20px; }
+  .secao > * { min-width: 0; }
+  .rotulo-secao { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--acento-suave-texto); }
+  .secao h2 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2rem); font-weight: 700; }
+  .secao h3 { font-size: 1.2rem; font-weight: 650; margin-top: 14px; scroll-margin-top: 20px; }
+  .secao p, .secao li { max-width: 68ch; }
+  .secao > p, .secao > ul { color: var(--tinta); }
+  .lead { font-size: 1.08rem; color: var(--tinta-2); }
+  .secao ul:not([class]) { padding-left: 1.3rem; display: grid; gap: 6px; }
+
+  /* ============ Passos (sequência real → números azuis) ============ */
+  ol.passos { list-style: none; padding: 0; counter-reset: passo; display: grid; gap: 14px; }
+  ol.passos > li { counter-increment: passo; position: relative; padding-left: 46px; min-height: 32px; }
+  ol.passos > li::before {
+    content: counter(passo); position: absolute; left: 0; top: -2px; width: 32px; height: 32px; border-radius: 50%;
+    display: grid; place-items: center; font-weight: 700; font-size: 0.95rem;
+    background: var(--acento-suave); color: var(--acento-suave-texto); border: 1px solid color-mix(in srgb, var(--acento) 35%, transparent);
+  }
+  ol.passos .resultado { display: block; color: var(--tinta-2); font-size: 0.95rem; margin-top: 2px; }
+
+  /* ============ Figuras com marcações ============ */
+  figure.tela { margin: 0; display: grid; gap: 14px; }
+  figure.tela .ampliar {
+    display: block; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 12px; width: fit-content; max-width: 100%;
+  }
+  figure.tela img {
+    display: block; border: 1px solid var(--borda); border-radius: 12px; box-shadow: var(--sombra-img); background: #fff;
+  }
+  figure.tela figcaption { font-size: 0.9rem; color: var(--suave); }
+  .par-celular { display: flex; flex-wrap: wrap; gap: 20px; }
+  .par-celular .ampliar img { width: 260px; }
+  ol.legenda {
+    list-style: none; padding: 0; margin: 0; counter-reset: marca;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px 28px;
+  }
+  ol.legenda > li { counter-increment: marca; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; font-size: 0.97rem; max-width: none; }
+  ol.legenda > li::before {
+    content: counter(marca); width: 26px; height: 26px; border-radius: 50%; margin-top: 1px;
+    display: grid; place-items: center; background: var(--marca); color: #fff; font-weight: 700; font-size: 0.82rem;
+  }
+  .legenda-titulo { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave); }
+
+  /* ============ Notas ============ */
+  .nota { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; padding: 14px 18px; border-radius: 10px; background: var(--acento-suave); max-width: 76ch; }
+  .nota svg { color: var(--acento-suave-texto); margin-top: 3px; }
+  .nota.atencao { background: var(--aviso-suave); }
+  .nota.atencao svg { color: var(--aviso-texto); }
+  .nota p { max-width: none; }
+
+  /* ============ Console do start.bat ============ */
+  .console {
+    margin: 0; border-radius: 10px; overflow-x: auto; max-width: 720px;
+    background: #0c0c0c; color: #cccccc; border: 1px solid #333;
+    font-size: 0.86rem; line-height: 1.55; padding: 0;
+  }
+  .console .barra { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #1f1f1f; color: #d4d4d4; font-family: var(--fonte); font-size: 0.8rem; border-bottom: 1px solid #333; }
+  .console .barra::before { content: ""; width: 12px; height: 12px; border-radius: 3px; background: #256abf; }
+  .console code { display: block; padding: 14px 18px; white-space: pre; background: none; border: 0; font-size: inherit; color: inherit; }
+  .console .destaque { color: #ffffff; font-weight: 700; }
+
+  /* ============ Tabelas de referência ============ */
+  .tabela-rolagem { overflow-x: auto; border: 1px solid var(--borda); border-radius: 10px; background: var(--superficie); max-width: 860px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--borda); vertical-align: top; }
+  th { background: var(--superficie-2); font-size: 0.82rem; color: var(--tinta-2); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ============ Mapa das páginas ============ */
+  .mapa { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+  .mapa a {
+    display: grid; gap: 2px; height: 100%; padding: 12px 14px; border-radius: 10px; text-decoration: none;
+    border: 1px solid var(--borda); background: var(--superficie); color: var(--tinta);
+  }
+  .mapa a:hover { border-color: var(--acento); }
+  .mapa strong { font-size: 0.98rem; }
+  .mapa span { font-size: 0.87rem; color: var(--tinta-2); }
+
+  /* ============ Perguntas frequentes ============ */
+  .faq { display: grid; gap: 10px; max-width: 860px; }
+  .faq details { border: 1px solid var(--borda); border-radius: 10px; background: var(--superficie); }
+  .faq summary { cursor: pointer; padding: 14px 18px; font-weight: 650; list-style: none; display: flex; gap: 10px; align-items: baseline; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::before { content: "+"; font-weight: 700; color: var(--acento); width: 1ch; flex: none; }
+  .faq details[open] summary::before { content: "−"; }
+  .faq .resposta { padding: 0 18px 16px 42px; display: grid; gap: 12px; }
+
+  /* ============ Rodapé ============ */
+  .rodape { border-top: 1px solid var(--borda); padding-top: 24px; color: var(--suave); font-size: 0.9rem; display: grid; gap: 10px; }
+  .rodape ul { padding-left: 1.2rem; display: grid; gap: 4px; }
+
+  /* ============ Ampliação de imagem ============ */
+  dialog.zoom { padding: 0; border: 0; background: transparent; max-width: calc(100vw - 32px); max-height: calc(100vh - 32px); }
+  dialog.zoom::backdrop { background: rgba(10, 10, 10, 0.82); }
+  dialog.zoom img { display: block; max-width: calc(100vw - 32px); max-height: calc(100vh - 90px); width: auto; height: auto; border-radius: 10px; background: #fff; }
+  dialog.zoom .fechar-zoom {
+    margin: 0 0 10px auto; display: flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.4); background: rgba(20,20,20,.7); color: #fff; font: inherit; font-size: 0.9rem; cursor: pointer;
+  }
+
+  /* ============ Responsivo ============ */
+  @media (max-width: 960px) {
+    .estrutura { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 20px; }
+    .sumario { position: static; max-height: none; overflow: visible; padding: 14px 16px; border: 1px solid var(--borda); border-radius: 12px; background: var(--superficie); }
+    .sumario > details > summary { padding: 0; font-size: 0.85rem; }
+    .sumario > details[open] > summary { padding-bottom: 12px; }
+    .conteudo { gap: 56px; }
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .capa-interna, .estrutura { padding-inline: 16px; }
+    ol.passos > li { padding-left: 42px; }
+    .faq .resposta { padding-left: 18px; }
+  }
+
+  /* ============ Impressão ============ */
+  @page { margin: 16mm 14mm; }
+  @media print {
+    body { background: #fff; color: #000; font-size: 11pt; }
+    .sumario, .atalhos-capa, dialog.zoom { display: none !important; }
+    .estrutura { display: block; padding: 0; max-width: none; }
+    .conteudo { gap: 28px; }
+    figure.tela, .nota, table, .console, .faq details { break-inside: avoid; }
+    .secao h2 { break-after: avoid; }
+    figure.tela img { box-shadow: none; }
+    .faq details { border: 0; }
+    .faq .resposta { display: grid !important; padding-left: 18px; }
+    a { color: inherit; }
+  }
+</style>
+</head>
+<body>
+
+<header class="capa">
+  <div class="capa-interna">
+    <span class="marca-app">
+      <span class="logo" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+      </span>
+      <span>Rumo ao Júnior</span>
+    </span>
+    <h1>Manual do Rumo ao Júnior</h1>
+    <p class="linha-fina">Como usar o seu sistema de estudo, página por página: do primeiro clique no <code>start.bat</code> ao simulado final. Atualizado em setembro de 2026.</p>
+    <nav class="atalhos-capa" aria-label="Atalhos do manual">
+      <a href="#comecar">Primeiros passos</a>
+      <a href="#flashcards">Flashcards</a>
+      <a href="#atalhos">Atalhos de teclado</a>
+      <a href="#backup">Backup</a>
+      <a href="#problemas">Problemas comuns</a>
+    </nav>
+  </div>
+</header>
+
+<div class="estrutura">
+  <aside class="sumario" aria-label="Sumário do manual">
+    <details id="caixa-sumario" open>
+      <summary>Sumário</summary>
+      <div class="busca" role="search">
+        <label class="sr-only" for="campo-busca">Buscar no manual</label>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="campo-busca" type="search" placeholder="Buscar (ex.: backup, reforço)" autocomplete="off">
+      </div>
+      <ul class="resultados" id="resultados-busca" aria-live="polite" hidden></ul>
+      <nav aria-label="Seções" id="nav-sumario">
+        <div class="grupo-sumario">
+          <p>Comece aqui</p>
+          <ul>
+            <li><a href="#sobre-manual">Como usar este manual</a></li>
+            <li><a href="#comecar">Primeiros passos</a></li>
+            <li><a href="#visao-geral">Visão geral da tela</a></li>
+          </ul>
+        </div>
+        <div class="grupo-sumario">
+          <p>Guias por página</p>
+          <ul>
+            <li><a href="#painel">Painel</a></li>
+            <li><a href="#trilhas">Trilhas</a></li>
+            <li><a href="#cronograma">Cronograma</a></li>
+            <li><a href="#flashcards">Flashcards</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+            <li><a href="#simulado">Simulado</a></li>
+            <li><a href="#pomodoro">Pomodoro</a></li>
+            <li><a href="#diario">Diário</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#backup">Ajustes e backup</a></li>
+            <li><a href="#celular">No celular</a></li>
+          </ul>
+        </div>
+        <div class="grupo-sumario">
+          <p>Referência</p>
+          <ul>
+            <li><a href="#atalhos">Atalhos de teclado</a></li>
+            <li><a href="#sm2">Notas e intervalos (SM-2)</a></li>
+            <li><a href="#regras">Regras do app</a></li>
+            <li><a href="#start-bat">Opções do start.bat</a></li>
+          </ul>
+        </div>
+        <div class="grupo-sumario">
+          <p>Entenda e resolva</p>
+          <ul>
+            <li><a href="#metodo">Por que funciona assim</a></li>
+            <li><a href="#problemas">Problemas comuns</a></li>
+            <li><a href="#avancado">Editar conteúdo e testes</a></li>
+          </ul>
+        </div>
+      </nav>
+    </details>
+  </aside>
+
+  <main class="conteudo" id="conteudo">
+
+    <!-- ===================================================== -->
+    <section class="secao" id="sobre-manual" data-busca>
+      <p class="rotulo-secao">Comece aqui</p>
+      <h2>Como usar este manual</h2>
+      <p class="lead">Se é a sua primeira vez, leia <a href="#comecar">Primeiros passos</a>: é o roteiro do primeiro dia, na ordem, do <code>start.bat</code> ao primeiro backup. Depois, use os guias de cada página quando precisar.</p>
+      <ul>
+        <li><strong>Primeiros passos</strong>: um roteiro do primeiro dia, na ordem.</li>
+        <li><strong>Guias por página</strong>: o que cada tela mostra e como fazer cada tarefa.</li>
+        <li><strong>Referência</strong>: atalhos, intervalos do SM-2 e regras (o que conta para a sequência, onde ficam os dados).</li>
+        <li><strong>Entenda e resolva</strong>: por que o método funciona e o que fazer quando algo dá errado.</li>
+      </ul>
+      <p>Para voltar a este manual, dê dois cliques em <strong>manual.bat</strong>, na pasta do projeto. Também dá para clicar em <strong>Manual de uso</strong>, no rodapé do menu do app, ou escolher a opção <strong>5</strong> do <code>start.bat</code>. Procurando algo específico? Use a busca do sumário.</p>
+      <div class="nota">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <p>Os prints usam <strong>dados de exemplo</strong>: um plano no Dia 11, com algumas horas estudadas e um quiz já feito. Os <span style="color:var(--marca-texto);font-weight:700">números laranja</span> nas imagens correspondem às legendas logo abaixo de cada print. Clique em qualquer imagem para ampliar.</p>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="comecar" data-busca>
+      <p class="rotulo-secao">Primeiros passos</p>
+      <h2>Seu primeiro dia, passo a passo</h2>
+      <p class="lead">Siga na ordem. Cada passo diz onde clicar e o que você deve ver em seguida. O Dia 1 do plano leva cerca de 2 horas, contando o diagnóstico.</p>
+
+      <h3 id="abrir">1. Abra o app</h3>
+      <p>Na pasta do projeto (<code>prova</code>), dê dois cliques em <strong>start.bat</strong>. Uma janela preta abre com este menu:</p>
+      <pre class="console" role="region" tabindex="0" aria-label="Janela do start.bat"><span class="barra">Rumo ao Júnior</span><code>  ==============================================
+   Rumo ao Júnior - sistema de estudo
+  ==============================================
+
+   [1] Abrir o app no navegador (padrão)
+   [2] Rodar os testes automatizados
+   [3] Testes no modo visual (Playwright UI)
+   [4] Abrir o relatório dos últimos testes
+   [5] Abrir o manual de uso
+
+<span class="destaque">   Escolha de 1 a 5 (o app abre sozinho em 8 segundos):</span></code></pre>
+      <ol class="passos">
+        <li>Aperte <kbd>1</kbd> ou espere 8 segundos.<span class="resultado">O navegador abre em <code>http://localhost:3000</code> com o Painel.</span></li>
+        <li>Deixe a janela preta aberta enquanto estuda: ela é o servidor do app.<span class="resultado">Para encerrar, feche a janela ou aperte <kbd>Ctrl</kbd>+<kbd>C</kbd> nela.</span></li>
+      </ol>
+      <div class="nota atencao">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+        <p><strong>Não abra o <code>index.html</code> com duplo clique.</strong> Nesse modo, o navegador bloqueia partes do app e você só vê um aviso pedindo para abrir pelo servidor local. Se aparecer o aviso abaixo, use o <code>start.bat</code>.</p>
+      </div>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Aviso exibido quando o index.html é aberto direto do disco"><img src="img/aviso-file.webp" width="1008" height="302" loading="lazy" alt="Aviso “Abra pelo servidor local”, com as opções Live Server e npx serve."></button>
+        <figcaption>O aviso que aparece quando o app é aberto direto do disco (<code>file://</code>).</figcaption>
+      </figure>
+      <p>Prefere o terminal? No VS Code, rode <code>.\start.bat app</code>. Outras opções: a extensão <strong>Live Server</strong> ou o comando <code>npx serve</code>, ambos explicados no <code>README.md</code>. Qualquer que seja o jeito, <a href="#dados">use sempre o mesmo endereço</a>.</p>
+
+      <h3 id="plano">2. Comece o plano de 6 semanas</h3>
+      <p>No primeiro acesso, o Painel mostra o cartão <strong>Comece seu plano de 6 semanas</strong>:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Cartão para começar o plano, no Painel"><img src="img/painel-comecar.webp" width="1024" height="372" loading="lazy" alt="Cartão “Comece seu plano de 6 semanas” com a data de início e os botões Começar plano e Começar na segunda."></button>
+        <figcaption class="sr-only">Cartão de início do plano, com marcações numeradas.</figcaption>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Data de início</strong>: o Dia 1 do plano. Vem preenchida com hoje.</span></li>
+        <li><span><strong>Começar plano</strong>: inicia o plano na data escolhida.</span></li>
+        <li><span><strong>Começar na segunda</strong>: inicia na próxima segunda. Assim os dias longos caem no sábado e o domingo fica para descanso.</span></li>
+        <li><span>Lembrete do passo mais importante de todos: descobrir como vai ser a sua prova.</span></li>
+      </ol>
+      <ol class="passos">
+        <li>No Painel, clique em <strong>Começar na segunda</strong> (recomendado) ou em <strong>Começar plano</strong>.<span class="resultado">O cartão some, e o subtítulo passa a dizer “Dia 1 de 42 do plano” (ou, se começar na segunda, em que dia o plano começa).</span></li>
+        <li>Pergunte ao RH ou ao seu gestor: a prova é prática ou teórica? Qual stack? Quanto tempo? Pode consultar?<span class="resultado">Anote a resposta no <a href="#diario">Diário</a>.</span></li>
+      </ol>
+
+      <h3 id="primeiro-dia">3. Faça o Dia 1</h3>
+      <ol class="passos">
+        <li>No card <strong>Próxima tarefa</strong> do Painel, clique no botão da tarefa (por exemplo, <strong>Abrir o quiz diagnóstico</strong>).<span class="resultado">O app abre a página certa, já configurada.</span></li>
+        <li>Faça o <strong>diagnóstico</strong>: 20 questões no modo prova, cerca de 30 minutos, sem consultar. <a href="#quiz">Veja como funciona o quiz</a>.<span class="resultado">No fim, o Painel mostra os seus pontos fracos.</span></li>
+        <li>Volte ao Painel e clique em <strong>Concluir</strong> em cada tarefa terminada.<span class="resultado">A próxima tarefa aparece no lugar.</span></li>
+        <li>Faça a primeira revisão de <a href="#flashcards">flashcards</a> (15 min).<span class="resultado">O contador ao lado de “Flashcards”, no menu, vai diminuindo.</span></li>
+      </ol>
+
+      <h3 id="fechar-dia">4. Feche o dia</h3>
+      <ol class="passos">
+        <li>No <strong>Diário</strong>, escreva o que estudou e o que ficou difícil.<span class="resultado">Salva sozinho enquanto você digita.</span></li>
+        <li>No rodapé do menu lateral, clique em <strong>Exportar</strong>.<span class="resultado">O navegador baixa <code>rumo-ao-junior-backup-AAAA-MM-DD.json</code>. Guarde numa nuvem.</span></li>
+      </ol>
+      <p>Rotina dos dias seguintes: cerca de 1h45 por dia, com <strong>30 min</strong> de algoritmo, <strong>60 min</strong> de estudo ou projeto e <strong>15 min</strong> de flashcards. O domingo é de descanso ativo, só com a fila de flashcards.</p>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="visao-geral" data-busca>
+      <p class="rotulo-secao">Comece aqui</p>
+      <h2>Visão geral da tela</h2>
+      <p>Todas as páginas seguem o mesmo desenho: o menu à esquerda e o conteúdo à direita. Esta é a tela do Painel, com os dados de exemplo:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Painel com as áreas principais marcadas"><img src="img/painel-visao-geral.webp" width="1280" height="800" loading="lazy" alt="Painel de estudo com o menu lateral, os indicadores, a próxima tarefa e os botões de backup marcados."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Menu</strong>: as dez páginas do app. O número azul em Flashcards mostra quantos cartões esperam revisão hoje.</span></li>
+        <li><span><strong>Indicadores</strong>: progresso geral, sequência de dias estudados, revisões de hoje e horas da semana.</span></li>
+        <li><span><strong>Próxima tarefa</strong> do cronograma, com os botões para concluir, focar com Pomodoro ou abrir a página certa.</span></li>
+        <li><span><strong>Rodapé do menu</strong>: alternar tema claro/escuro, <strong>Exportar</strong> e <strong>Importar</strong> backup, a data do último backup e o link <strong>Manual de uso</strong>, que abre este manual.</span></li>
+        <li><span>Atalhos para <strong>Revisar flashcards</strong> e abrir o <strong>Pomodoro</strong>.</span></li>
+      </ol>
+      <p>O que você encontra em cada página:</p>
+      <ul class="mapa">
+        <li><a href="#painel"><strong>Painel</strong><span>Resumo do dia e do progresso</span></a></li>
+        <li><a href="#trilhas"><strong>Trilhas</strong><span>O que estudar, com checklist</span></a></li>
+        <li><a href="#cronograma"><strong>Cronograma</strong><span>O plano de 42 dias</span></a></li>
+        <li><a href="#flashcards"><strong>Flashcards</strong><span>Revisão espaçada (SM-2)</span></a></li>
+        <li><a href="#quiz"><strong>Quiz</strong><span>Treino e prova cronometrada</span></a></li>
+        <li><a href="#simulado"><strong>Simulado</strong><span>Desafios no estilo de teste real</span></a></li>
+        <li><a href="#pomodoro"><strong>Pomodoro</strong><span>Foco de 25 min e registro de horas</span></a></li>
+        <li><a href="#diario"><strong>Diário</strong><span>O que estudou e o que ficou difícil</span></a></li>
+        <li><a href="#recursos"><strong>Recursos</strong><span>138 links gratuitos</span></a></li>
+        <li><a href="#backup"><strong>Ajustes e backup</strong><span>Tema, metas, exportar e importar</span></a></li>
+      </ul>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="painel" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Painel</h2>
+      <p class="lead">A página inicial. Mostra onde você está no plano, o que fazer agora e onde está fraco.</p>
+      <p>Abaixo dos indicadores e da próxima tarefa, o Painel mostra o seu tempo e o seu desempenho:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Parte de baixo do Painel"><img src="img/painel-detalhes.webp" width="1024" height="723" loading="lazy" alt="Gráfico de tempo por dia, progresso por trilha, pontos fracos do quiz e cartão de backup, com marcações."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Tempo estudado por dia</strong> na semana atual (segunda a domingo). Passe o mouse ou o foco numa coluna para ver o valor.</span></li>
+        <li><span><strong>Ver como tabela</strong>: os mesmos números em forma de tabela, útil para leitores de tela.</span></li>
+        <li><span><strong>Progresso por trilha</strong> e do cronograma. Clique no nome para abrir a trilha.</span></li>
+        <li><span><strong>Pontos fracos</strong>: temas do quiz com menos de 80% de acerto nas respostas recentes. <strong>Treinar</strong> abre um quiz só daquele tema.</span></li>
+        <li><span><strong>Exportar backup agora</strong>. O cartão fica amarelo quando você ainda não exportou nenhum backup ou o último tem 7 dias ou mais.</span></li>
+      </ol>
+      <h3>Como fazer</h3>
+      <ul>
+        <li><strong>Concluir a próxima tarefa:</strong> clique em <strong>Concluir</strong>. A tarefa seguinte aparece.</li>
+        <li><strong>Estudar a tarefa com timer:</strong> clique em <strong>Focar com Pomodoro</strong>. O Pomodoro começa com o nome da tarefa.</li>
+        <li><strong>Definir a data da prova:</strong> em <a href="#backup">Ajustes</a>. O Painel passa a mostrar “Faltam N dias para a prova”.</li>
+      </ul>
+      <div class="nota">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"/></svg>
+        <p>Atrasou? O Painel avisa (“Pela data, você estaria no dia 11”) mas continua mostrando a tarefa seguinte na ordem. Siga a ordem: consistência vale mais que velocidade.</p>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="trilhas" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Trilhas</h2>
+      <p class="lead">Quatro trilhas: Núcleo Comum, Front-end, Back-end e Fullstack. Cada uma tem tópicos com descrição, prioridade, links, checklist e anotações.</p>
+      <p>Esta é a trilha Núcleo Comum, com o tópico Git aberto:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Trilha Núcleo Comum com o tópico Git aberto"><img src="img/trilhas.webp" width="1024" height="1214" loading="lazy" alt="Página Trilhas com abas, filtros e o tópico Git aberto mostrando checklist, links e anotações."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Abas das trilhas</strong>, com a porcentagem concluída de cada uma.</span></li>
+        <li><span><strong>Filtros</strong>: buscar, filtrar por prioridade, ocultar concluídos, expandir e recolher todos.</span></li>
+        <li><span><strong>Cabeçalho do tópico</strong>: prioridade e itens feitos. Clique para abrir ou fechar.</span></li>
+        <li><span><strong>Item do checklist</strong>: marque quando conseguir explicar e aplicar sem consultar.</span></li>
+        <li><span><strong>Onde estudar</strong>: links para documentação e cursos. Abrem em nova aba.</span></li>
+        <li><span><strong>Minhas anotações</strong>: explique o assunto com as suas palavras. Salva sozinho.</span></li>
+      </ol>
+      <h3>Como fazer</h3>
+      <ol class="passos">
+        <li>No topo, clique na aba da trilha (ex.: <strong>Back-end</strong>).</li>
+        <li>Clique no título do tópico para abri-lo.</li>
+        <li>Marque os itens do checklist que você já domina.<span class="resultado">A contagem do tópico, a porcentagem da aba e o progresso no Painel atualizam na hora.</span></li>
+        <li>Opcional: escreva em <strong>Minhas anotações</strong>.<span class="resultado">Aparece “Anotação salva.” embaixo do campo.</span></li>
+      </ol>
+      <p>A trilha <strong>Fullstack</strong> cobre só a integração (CORS, autenticação ponta a ponta, deploy, README). Para uma vaga fullstack, estude também Front e Back.</p>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="cronograma" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Cronograma</h2>
+      <p class="lead">O plano de 6 semanas, dia a dia:</p>
+      <ul>
+        <li><strong>Semanas 1 e 2</strong>: núcleo comum.</li>
+        <li><strong>Semana 3</strong>: projeto front em Vue.</li>
+        <li><strong>Semana 4</strong>: API REST em Spring Boot.</li>
+        <li><strong>Semanas 5 e 6</strong>: simulados.</li>
+      </ul>
+      <p>No topo da página ficam a data de início e a navegação entre as semanas:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Topo do Cronograma"><img src="img/cronograma-topo.webp" width="1024" height="367" loading="lazy" alt="Topo do Cronograma com a data de início, a opção Mostrar só pendentes e as abas das semanas."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Data de início (Dia 1)</strong>: mude aqui se precisar recomeçar o calendário.</span></li>
+        <li><span><strong>Mostrar só pendentes</strong>: esconde as tarefas já feitas.</span></li>
+        <li><span><strong>Semanas</strong>: a semana atual tem o selo “atual”, e cada aba mostra a porcentagem concluída.</span></li>
+      </ol>
+      <p>Cada dia é um cartão. O dia de hoje ganha borda azul e o selo <strong>Hoje</strong>:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Cartão do dia de hoje no Cronograma"><img src="img/cronograma-dia.webp" width="1024" height="688" loading="lazy" alt="Cartão do Dia 11 com três tarefas: algoritmo, estudo e revisão de flashcards."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Cabeçalho do dia</strong>: número do dia no plano, data e tarefas feitas.</span></li>
+        <li><span><strong>Caixa da tarefa</strong>: marque quando terminar. Mostra também o tipo (Algoritmo, Estudo, Projeto, Revisão, Simulado) e a duração.</span></li>
+        <li><span><strong>Botão de ação</strong>: leva à página certa (um quiz já configurado, um simulado, um tópico da trilha).</span></li>
+        <li><span><strong>Focar</strong>: inicia o Pomodoro com o nome da tarefa.</span></li>
+      </ol>
+      <div class="nota">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"/></svg>
+        <p>Os problemas de algoritmo trazem o enunciado resumido em português e o link do LeetCode, onde é preciso login para enviar a solução. Depois de resolver, escreva em duas frases por que funciona e qual a complexidade.</p>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="flashcards" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Flashcards</h2>
+      <p class="lead">São 241 cartões em 11 temas, com repetição espaçada (algoritmo SM-2). O app decide quando cada cartão volta, conforme a sua nota.</p>
+
+      <h3 id="revisar">Revisar a fila do dia</h3>
+      <p>A aba <strong>Revisar hoje</strong> mostra primeiro só a pergunta. Tente responder antes de revelar:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Flashcard mostrando só a pergunta"><img src="img/flashcards-pergunta.webp" width="1024" height="780" loading="lazy" alt="Página Flashcards com abas, filtro por tema, progresso da sessão e um cartão mostrando só a pergunta."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Revisar hoje</strong> ou <strong>Todos os cartões</strong>.</span></li>
+        <li><span><strong>Filtro por tema</strong>. O número é quantos cartões entram na fila se você filtrar por aquele tema.</span></li>
+        <li><span><strong>Progresso da sessão</strong>: cartão atual e quantos faltam.</span></li>
+        <li><span><strong>Tipo do cartão</strong>: <em>Novo</em>, <em>Revisão</em>, <em>Reforço</em> (errado hoje, voltou no fim) ou <em>Treino livre</em>.</span></li>
+        <li><span><strong>Mostrar resposta</strong>: também com <kbd>Espaço</kbd>.</span></li>
+        <li><span><strong>Novo cartão</strong>: crie os seus próprios cartões.</span></li>
+      </ol>
+      <p>Ao revelar a resposta, aparecem quatro botões de nota. Cada botão já mostra quando o cartão volta:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Resposta revelada com os botões de nota"><img src="img/flashcards-resposta.webp" width="1024" height="545" loading="lazy" alt="Cartão com a resposta revelada e os botões Errei, Difícil, Bom e Fácil, cada um com o próximo intervalo."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span>A <strong>resposta</strong>, com código formatado quando houver.</span></li>
+        <li><span><strong>Errei</strong> (<kbd>1</kbd>): o cartão recomeça (volta amanhã) e reaparece no fim da sessão de hoje.</span></li>
+        <li><span><strong>Difícil</strong> (<kbd>2</kbd>): lembrou com muito esforço. Também reaparece hoje como reforço.</span></li>
+        <li><span><strong>Bom</strong> (<kbd>3</kbd>): lembrou depois de pensar um pouco.</span></li>
+        <li><span><strong>Fácil</strong> (<kbd>4</kbd>): lembrou na hora. O intervalo cresce mais rápido.</span></li>
+      </ol>
+      <ol class="passos">
+        <li>No menu, clique em <strong>Flashcards</strong>.</li>
+        <li>Leia a pergunta e responda mentalmente ou em voz alta.</li>
+        <li>Aperte <kbd>Espaço</kbd> para ver a resposta.</li>
+        <li>Seja honesto na nota: aperte <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd> ou <kbd>4</kbd>.<span class="resultado">O próximo cartão aparece. No fim, a tela mostra o resumo da sessão e quantos cartões vencem amanhã.</span></li>
+      </ol>
+      <p>Terminou a fila e quer mais? Clique em <strong>Estudar mais 10 novos hoje</strong>. Para repassar sem mexer no agendamento, use <strong>Treino livre</strong>. Veja os <a href="#sm2">intervalos na tabela de referência</a>.</p>
+
+      <h3 id="todos-cartoes">Ver todos os cartões</h3>
+      <p>A aba <strong>Todos os cartões</strong> lista tudo, agrupado por tema:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Lista de todos os cartões"><img src="img/flashcards-lista.webp" width="1024" height="577" loading="lazy" alt="Lista de cartões com busca; um cartão aberto mostra resposta, dados do SM-2 e o botão Reiniciar progresso."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Buscar</strong> em perguntas e respostas.</span></li>
+        <li><span><strong>Situação</strong>: Novo, Aprendendo ou Maduro (intervalo de 21 dias ou mais).</span></li>
+        <li><span><strong>Dados do SM-2</strong>: revisões, erros, fator de facilidade e data da próxima revisão.</span></li>
+        <li><span><strong>Reiniciar progresso</strong>: o cartão volta a ser novo.</span></li>
+      </ol>
+
+      <h3 id="novo-cartao">Criar um cartão seu</h3>
+      <p>Criar o próprio cartão ajuda a memorizar. Para abrir o formulário, clique em <strong>Novo cartão</strong>:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Formulário de novo flashcard"><img src="img/flashcards-novo.webp" width="632" height="686" loading="lazy" alt="Diálogo Novo flashcard com os campos Tema, Pergunta e Resposta e o botão Criar cartão."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Tema</strong> do cartão.</span></li>
+        <li><span><strong>Pergunta</strong>. Prefira uma ideia por cartão.</span></li>
+        <li><span><strong>Resposta</strong>. Aceita <code>`código`</code>, <code>**negrito**</code> e listas com “- ”.</span></li>
+        <li><span><strong>Criar cartão</strong>: ele entra na fila como cartão novo.</span></li>
+      </ol>
+      <p>Os seus cartões aparecem com o selo <strong>Meu</strong>, podem ser editados ou excluídos na lista e vão junto no backup. Também dá para criar cartões direto de um erro no <a href="#quiz">Quiz</a> ou do que ficou difícil no <a href="#diario">Diário</a>.</p>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="quiz" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Quiz</h2>
+      <p class="lead">São 130 questões de múltipla escolha com explicação, em dois modos: <strong>Treino</strong> (correção na hora) e <strong>Prova cronometrada</strong> (correção só no final, como numa prova online).</p>
+
+      <h3 id="configurar-quiz">Configurar um quiz</h3>
+      <p>O formulário <strong>Novo quiz</strong> fica no topo da página:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Formulário Novo quiz"><img src="img/quiz-configurar.webp" width="1024" height="431" loading="lazy" alt="Formulário Novo quiz com tema, quantidade de questões, modo, opção de priorizar erros e botão Começar."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Tema</strong>: um tema ou <strong>Misto</strong>, que intercala todos (recomendado).</span></li>
+        <li><span><strong>Quantidade de questões</strong>: 5, 10, 15, 20, 30 ou todas.</span></li>
+        <li><span><strong>Modo</strong>: Treino ou Prova cronometrada (1,5 min por questão).</span></li>
+        <li><span><strong>Priorizar</strong> as questões que você errou ou nunca respondeu.</span></li>
+        <li><span><strong>Começar</strong>.</span></li>
+      </ol>
+
+      <h3 id="treino">Responder no modo treino</h3>
+      <ol class="passos">
+        <li>Escolha a alternativa com o mouse ou com as teclas <kbd>1</kbd> a <kbd>4</kbd>.</li>
+        <li>Clique em <strong>Responder</strong> (ou <kbd>Enter</kbd>).<span class="resultado">A correção aparece na hora.</span></li>
+      </ol>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Questão corrigida no modo treino"><img src="img/quiz-correcao.webp" width="1024" height="713" loading="lazy" alt="Questão respondida: alternativa escolhida em vermelho, correta em verde e explicação abaixo."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Resposta correta</strong>, em verde com o ícone de confirmação.</span></li>
+        <li><span><strong>Sua resposta</strong>, em vermelho quando está errada.</span></li>
+        <li><span><strong>Explicação</strong>: por que a correta está certa e por que as outras não estão.</span></li>
+        <li><span><strong>Transformar em flashcard</strong>: cria um cartão seu a partir do erro.</span></li>
+        <li><span><strong>Próxima</strong> questão (na última, <strong>Ver resultado</strong>).</span></li>
+      </ol>
+
+      <h3 id="prova">Fazer uma prova cronometrada</h3>
+      <p>No modo prova, a correção fica escondida até o fim, e o tempo corre:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Questão no modo prova"><img src="img/quiz-prova.webp" width="1024" height="652" loading="lazy" alt="Questão no modo prova, com cronômetro, navegador de questões numeradas e botão Finalizar prova."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Tempo restante</strong>. Quando zera, a prova termina sozinha.</span></li>
+        <li><span><strong>Navegador de questões</strong>: as respondidas ficam azuis. Clique para voltar a qualquer uma.</span></li>
+        <li><span><strong>Finalizar prova</strong>. As questões em branco contam como erro, e o app pede confirmação.</span></li>
+      </ol>
+      <p>No resultado você vê a nota, os acertos por tema e a revisão de cada questão:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Resultado do quiz"><img src="img/quiz-resultado.webp" width="1024" height="579" loading="lazy" alt="Resultado com a porcentagem de acertos, tabela por tema e botões para refazer erros e criar flashcards."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Porcentagem de acertos</strong>, tempo e questões em branco.</span></li>
+        <li><span><strong>Acertos por tema</strong> nesta tentativa.</span></li>
+        <li><span><strong>Refazer as que errei</strong>: um novo quiz, no modo treino, só com os erros.</span></li>
+        <li><span><strong>Criar flashcards dos erros</strong>: um cartão para cada questão errada, de uma vez.</span></li>
+      </ol>
+
+      <h3 id="desempenho">Acompanhar os pontos fracos</h3>
+      <p>Abaixo do formulário, a seção <strong>Desempenho por tema</strong> mostra a taxa de acerto das últimas 20 respostas de cada tema, do pior para o melhor:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Desempenho por tema"><img src="img/quiz-desempenho.webp" width="1024" height="654" loading="lazy" alt="Barras de acerto por tema com os selos Ponto fraco, Atenção e Bom, e o link Ver como tabela."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Barra do tema</strong> com a taxa de acerto recente. Clique no nome para treinar o tema.</span></li>
+        <li><span><strong>Situação</strong>: <em>Ponto fraco</em> (abaixo de 60%), <em>Atenção</em> (60–79%), <em>Bom</em> (80% ou mais). A partir de 5 respostas no tema.</span></li>
+        <li><span><strong>Ver como tabela</strong>: os números completos, com o total respondido e o acerto geral.</span></li>
+      </ol>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="simulado" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Simulado</h2>
+      <p class="lead">São 17 desafios no formato de testes técnicos reais (front, back, fullstack, SQL, live coding e code review), com cronômetro e autoavaliação pelos critérios.</p>
+
+      <h3 id="escolher-desafio">Escolher um desafio</h3>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Lista de desafios"><img src="img/simulado-lista.webp" width="1024" height="412" loading="lazy" alt="Lista de desafios com filtros por área e nível e cartões com área, formato, nível e tempo."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Filtrar por área</strong>: Front-end, Back-end, Fullstack ou Núcleo comum.</span></li>
+        <li><span><strong>Filtrar por nível</strong> (e, ao lado, por formato: desafio para casa, live coding, prova prática, code review).</span></li>
+        <li><span><strong>Selos</strong>: área, formato, nível e tempo sugerido.</span></li>
+        <li><span><strong>Ver desafio</strong>: abre o enunciado completo.</span></li>
+      </ol>
+      <p>O desafio mostra o contexto (de uma empresa fictícia), o enunciado, os requisitos, os diferenciais e <strong>como você será avaliado</strong>:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Enunciado de um desafio"><img src="img/simulado-desafio.webp" width="974" height="999" loading="lazy" alt="Enunciado do desafio Buscador de CEP com selos, texto de contexto da empresa e o fluxo esperado."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Selos</strong> do desafio.</span></li>
+        <li><span><strong>Contexto</strong>, como se fosse o texto da empresa.</span></li>
+        <li><span><strong>Enunciado</strong>: o que construir, com o fluxo esperado.</span></li>
+      </ol>
+
+      <h3 id="iniciar-simulado">Iniciar e fazer o simulado</h3>
+      <p>No fim do enunciado fica o painel <strong>Iniciar simulado</strong>:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Painel Iniciar simulado"><img src="img/simulado-iniciar.webp" width="1024" height="273" loading="lazy" alt="Painel Iniciar simulado com o campo Duração em minutos e o botão Começar agora."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Duração (minutos)</strong>: já vem com o tempo sugerido. Ajuste se precisar.</span></li>
+        <li><span><strong>Começar agora</strong>: o cronômetro começa e o Pomodoro, se estiver rodando, pausa sozinho.</span></li>
+      </ol>
+      <p>Durante o simulado, o cronômetro regressivo fica no topo. Ele continua contando se você trocar de página:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Simulado em andamento"><img src="img/simulado-rodando.webp" width="1280" height="960" loading="lazy" alt="Simulado em andamento com cronômetro grande, indicador no menu, botões Pausar e Terminei e o rascunho."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Indicador no menu</strong>: o tempo restante aparece em qualquer página. Clique para voltar ao simulado.</span></li>
+        <li><span><strong>Tempo restante</strong>.</span></li>
+        <li><span><strong>Pausar</strong>, para emergências. Numa prova real o tempo não para.</span></li>
+        <li><span><strong>Terminei — avaliar</strong>: encerra antes do tempo e vai para a autoavaliação.</span></li>
+        <li><span><strong>Rascunho</strong>: plano, decisões e o que ficou de fora. Salva sozinho e depois ajuda a escrever o README.</span></li>
+      </ol>
+
+      <h3 id="avaliar-simulado">Avaliar a sua entrega</h3>
+      <p>Quando o tempo acaba (ou você clica em <strong>Terminei — avaliar</strong>), aparece a autoavaliação:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Autoavaliação do simulado"><img src="img/simulado-avaliacao.webp" width="974" height="1171" loading="lazy" alt="Autoavaliação com checklist dos critérios, nota de 1 a 5, campos do que foi bem e do que melhorar e botão Salvar."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Critérios de avaliação</strong>: marque só o que um avaliador marcaria. Acima ficam os requisitos entregues.</span></li>
+        <li><span><strong>Nota geral</strong>, de 1 (não entreguei) a 5 (excelente).</span></li>
+        <li><span><strong>O que melhorar / estudar</strong>: por padrão, vai também para o diário de hoje.</span></li>
+        <li><span><strong>Salvar avaliação</strong>: registra no histórico e, se marcado, conta o tempo como horas estudadas.</span></li>
+      </ol>
+      <p>Alguns desafios (SQL, live coding, code review e dois de back-end) têm <strong>gabarito</strong>. Ele fica recolhido, então abra só depois de tentar. O histórico de simulados, com nota e critérios atendidos, fica no fim da lista de desafios. Para desistir sem registrar nada, clique em <strong>Desistir</strong>.</p>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="pomodoro" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Pomodoro</h2>
+      <p class="lead">São 25 minutos de foco e 5 de pausa. O tempo de foco vira horas estudadas no Painel. O timer continua rodando se você mudar de página.</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Pomodoro em andamento"><img src="img/pomodoro.webp" width="1024" height="664" loading="lazy" alt="Timer do Pomodoro em andamento com fases, anel de progresso, ciclos, botão Pausar e gráfico da semana."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Fases</strong>: Foco, Pausa curta e Pausa longa. Com o timer parado, dá para escolher a fase.</span></li>
+        <li><span><strong>Tempo restante</strong>. O tempo também aparece no título da aba e no menu.</span></li>
+        <li><span><strong>Ciclos</strong>: a cada 4 focos, uma pausa longa.</span></li>
+        <li><span><strong>Iniciar, Pausar ou Retomar</strong>. Ao lado ficam <strong>Pular</strong> (encerra a fase) e <strong>Zerar</strong>.</span></li>
+        <li><span><strong>No que você vai focar?</strong>: o nome que aparece no registro de horas. Sugere as próximas tarefas do cronograma.</span></li>
+        <li><span><strong>Seu tempo</strong>: hoje, sessões e semana, com o gráfico por dia.</span></li>
+      </ol>
+      <ol class="passos">
+        <li>Escreva no que vai focar (ou escolha uma sugestão).</li>
+        <li>Clique em <strong>Iniciar foco</strong>.<span class="resultado">No fim dos 25 minutos, um alarme toca, o tempo é registrado e a pausa começa sozinha.</span></li>
+        <li>Na pausa, levante e descanse. No fim, clique em <strong>Iniciar foco</strong> de novo.</li>
+      </ol>
+      <p>Mais abaixo ficam o registro manual e as configurações:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Registro manual e configurações do Pomodoro"><img src="img/pomodoro-registro.webp" width="1024" height="547" loading="lazy" alt="Formulário de registro manual de tempo e configurações do timer com durações e opções."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Minutos</strong> (e a data) para registrar um estudo feito sem o timer.</span></li>
+        <li><span><strong>Registrar tempo</strong>.</span></li>
+        <li><span><strong>Durações</strong> do foco, das pausas e quantos focos até a pausa longa.</span></li>
+        <li><span><strong>Iniciar a pausa automaticamente</strong>. Ao lado: alarme sonoro e notificação do navegador.</span></li>
+        <li><span><strong>Voltar ao 25/5 clássico</strong>.</span></li>
+      </ol>
+      <p>Pulou ou zerou no meio do foco? Os minutos já feitos são registrados (a partir de 1 minuto). Registros errados podem ser apagados na tabela <strong>Registros dos últimos 7 dias</strong>.</p>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="diario" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Diário</h2>
+      <p class="lead">Dois minutos por dia: o que estudou, o que ficou difícil e o próximo passo. O “difícil” vira o seu mapa de revisão.</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Diário de estudo"><img src="img/diario.webp" width="1024" height="1050" loading="lazy" alt="Formulário do diário com data e três campos, botões Salvar e Transformar em flashcard, busca e uma anotação anterior."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Dia</strong>: troque para editar um dia anterior. Ao lado aparece o tempo registrado naquele dia.</span></li>
+        <li><span><strong>O que ficou difícil</strong>: seja específico (“quando usar LEFT JOIN” é melhor que “SQL”).</span></li>
+        <li><span><strong>Salvar</strong> (<kbd>Ctrl</kbd>+<kbd>Enter</kbd>). O diário também salva sozinho enquanto você digita.</span></li>
+        <li><span><strong>Transformar o “difícil” em flashcard</strong>: abre o formulário já com a pergunta.</span></li>
+        <li><span><strong>Buscar no diário</strong> e, abaixo, as anotações anteriores com os botões <strong>Editar</strong> e excluir.</span></li>
+      </ol>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="recursos" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Recursos</h2>
+      <p class="lead">São 138 links gratuitos da pesquisa (documentação, cursos, prática, desafios reais e APIs públicas), organizados por categoria. Todos foram verificados em 23/09/2026.</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Página Recursos"><img src="img/recursos.webp" width="1024" height="458" loading="lazy" alt="Página Recursos com busca, filtro de idioma, atalhos de categoria e cartões de link."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Buscar</strong> (ex.: JPA, flexbox, CEP).</span></li>
+        <li><span><strong>Idioma</strong>: todos, em português ou em inglês.</span></li>
+        <li><span><strong>Categorias</strong>: pula direto para uma delas.</span></li>
+        <li><span><strong>Cartão do recurso</strong>, com idioma e site. Abre em nova aba.</span></li>
+      </ol>
+      <p>A pesquisa completa, com as fontes sobre provas técnicas e técnicas de estudo, está em <code>docs/pesquisa.md</code>. No VS Code, abra o arquivo e use <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> para ver formatado.</p>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="backup" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>Ajustes e backup</h2>
+      <p class="lead">Nesta página você escolhe o tema, ajusta as metas e cuida do seu progresso.</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Ajustes: tema, plano e backup"><img src="img/ajustes.webp" width="1024" height="785" loading="lazy" alt="Ajustes com as opções de tema, o formulário do plano e os botões Exportar e Importar backup."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Tema</strong>: igual ao sistema, claro ou escuro.</span></li>
+        <li><span><strong>Plano</strong>: início, data da prova, meta de horas por semana e flashcards novos por dia (recomendado: 10–20).</span></li>
+        <li><span><strong>Exportar backup (.json)</strong>.</span></li>
+        <li><span><strong>Importar backup</strong>: substitui o progresso atual pelo do arquivo, e o app pede confirmação.</span></li>
+      </ol>
+      <h3 id="fazer-backup">Fazer e restaurar um backup</h3>
+      <ol class="passos">
+        <li>Clique em <strong>Exportar</strong>, no rodapé do menu ou em Ajustes.<span class="resultado">O navegador baixa <code>rumo-ao-junior-backup-AAAA-MM-DD.json</code>.</span></li>
+        <li>Guarde o arquivo numa nuvem (Google Drive, OneDrive…).</li>
+        <li>Para restaurar, clique em <strong>Importar</strong> e escolha o arquivo.</li>
+        <li>Confirme em <strong>Substituir e importar</strong>.<span class="resultado">Aparece “Backup importado com sucesso.”. Um arquivo inválido é recusado sem alterar nada.</span></li>
+      </ol>
+      <p>Mais abaixo, a página mostra o que foi carregado dos arquivos de conteúdo e a zona de perigo:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Conteúdo carregado e zona de perigo"><img src="img/ajustes-dados.webp" width="1024" height="757" loading="lazy" alt="Tabela com a contagem de tópicos, tarefas, cartões e questões, e o botão Apagar todo o progresso."></button>
+      </figure>
+      <ol class="legenda" aria-label="Legenda da imagem">
+        <li><span><strong>Conteúdo carregado</strong>: quantos tópicos, tarefas, cartões, questões, desafios e links o app leu.</span></li>
+        <li><span><strong>Validação</strong>: se você editar um JSON e algo estiver errado, os avisos aparecem aqui.</span></li>
+        <li><span><strong>Apagar todo o progresso</strong>: não tem volta. Exporte um backup antes.</span></li>
+      </ol>
+      <p>O app também tem <strong>tema escuro</strong>. Ele segue o sistema ou a sua escolha e vale para todas as páginas:</p>
+      <figure class="tela">
+        <button class="ampliar" type="button" data-legenda="Flashcards no tema escuro"><img src="img/tema-escuro.webp" width="1280" height="800" loading="lazy" alt="Página Flashcards no tema escuro, com uma resposta revelada."></button>
+      </figure>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="celular" data-busca>
+      <p class="rotulo-secao">Guia</p>
+      <h2>No celular</h2>
+      <p>O app se adapta a telas pequenas e a janelas estreitas (por exemplo, o navegador dividindo a tela com o VS Code). O menu vira uma gaveta, aberta pelo botão com três linhas (<span style="color:var(--marca-texto);font-weight:700">1</span>), e os cronômetros ativos do Pomodoro e do simulado aparecem na barra do topo.</p>
+      <figure class="tela">
+        <div class="par-celular">
+          <button class="ampliar" type="button" data-legenda="Painel no celular"><img src="img/celular-painel.webp" width="390" height="844" loading="lazy" alt="Painel no celular com o botão de menu marcado."></button>
+          <button class="ampliar" type="button" data-legenda="Menu aberto no celular"><img src="img/celular-menu.webp" width="390" height="844" loading="lazy" alt="Menu em gaveta aberto no celular."></button>
+        </div>
+        <figcaption>À esquerda, o Painel. À direita, o menu aberto: ele fecha ao escolher uma página ou com <kbd>Esc</kbd>.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="atalhos" data-busca>
+      <p class="rotulo-secao">Referência</p>
+      <h2>Atalhos de teclado</h2>
+      <p>Tudo no app funciona pelo teclado. Use <kbd>Tab</kbd> para andar entre os elementos (o foco sempre fica visível) e estes atalhos:</p>
+      <div class="tabela-rolagem" role="region" tabindex="0" aria-label="Tabela: Atalhos de teclado">
+        <table>
+          <thead><tr><th scope="col">Onde</th><th scope="col">Tecla</th><th scope="col">O que faz</th></tr></thead>
+          <tbody>
+            <tr><td>Flashcards</td><td class="num"><kbd>Espaço</kbd> ou <kbd>Enter</kbd></td><td>Mostra a resposta</td></tr>
+            <tr><td>Flashcards</td><td class="num"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd></td><td>Errei, Difícil, Bom, Fácil</td></tr>
+            <tr><td>Quiz</td><td class="num"><kbd>1</kbd> a <kbd>4</kbd></td><td>Escolhe a alternativa</td></tr>
+            <tr><td>Quiz (treino)</td><td class="num"><kbd>Enter</kbd></td><td>Responde</td></tr>
+            <tr><td>Diário</td><td class="num"><kbd>Ctrl</kbd>+<kbd>Enter</kbd></td><td>Salva</td></tr>
+            <tr><td>Diálogos</td><td class="num"><kbd>Esc</kbd></td><td>Fecha sem salvar</td></tr>
+            <tr><td>Menu no celular</td><td class="num"><kbd>Esc</kbd></td><td>Fecha o menu</td></tr>
+            <tr><td>Qualquer página</td><td class="num"><kbd>Tab</kbd> no início</td><td>Mostra “Pular para o conteúdo”</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="sm2" data-busca>
+      <p class="rotulo-secao">Referência</p>
+      <h2>Notas e intervalos (SM-2)</h2>
+      <p>Cada botão corresponde a uma nota do algoritmo SM-2, de 0 a 5. O intervalo até a próxima revisão depende da nota e do histórico do cartão:</p>
+      <div class="tabela-rolagem" role="region" tabindex="0" aria-label="Tabela: Notas do SM-2">
+        <table>
+          <thead><tr><th scope="col">Botão</th><th scope="col">Nota SM-2</th><th scope="col">Quando usar</th><th scope="col">O que acontece</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Errei</strong></td><td class="num">1</td><td>Não lembrou ou lembrou errado</td><td>O cartão recomeça (volta em 1 dia) e reaparece no fim da sessão de hoje</td></tr>
+            <tr><td><strong>Difícil</strong></td><td class="num">3</td><td>Lembrou com muito esforço</td><td>Avança, mas o intervalo cresce menos. Reaparece hoje como reforço</td></tr>
+            <tr><td><strong>Bom</strong></td><td class="num">4</td><td>Lembrou depois de pensar</td><td>Avança normalmente</td></tr>
+            <tr><td><strong>Fácil</strong></td><td class="num">5</td><td>Lembrou na hora</td><td>Avança, e o intervalo cresce mais rápido</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>Primeiras revisões:</strong> as duas primeiras revisões certas têm intervalos fixos, <strong>1 dia</strong> e depois <strong>6 dias</strong>. A partir da terceira, o intervalo é o anterior multiplicado pelo fator de facilidade (começa em 2,5, mínimo 1,3).</li>
+        <li><strong>Reforço:</strong> a revisão de reforço no mesmo dia não muda o agendamento. O cartão sai da fila quando você der Bom ou Fácil.</li>
+        <li><strong>Maduro:</strong> um cartão vira “maduro” quando o intervalo chega a 21 dias.</li>
+      </ul>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="regras" data-busca>
+      <p class="rotulo-secao">Referência</p>
+      <h2>Regras do app</h2>
+      <div class="tabela-rolagem" role="region" tabindex="0" aria-label="Tabela: Regras do app">
+        <table>
+          <thead><tr><th scope="col">Assunto</th><th scope="col">Como funciona</th></tr></thead>
+          <tbody>
+            <tr><td>Sequência de dias</td><td>Conta os dias seguidos em que você fez qualquer ação de estudo: revisar um cartão, responder uma questão, marcar uma tarefa ou item, concluir um Pomodoro, escrever no diário ou fazer um simulado. Se ainda não estudou hoje, a sequência de ontem vale até o fim do dia.</td></tr>
+            <tr><td>Progresso geral</td><td>Itens de checklist das trilhas mais tarefas do cronograma que você marcou, sobre o total (349).</td></tr>
+            <tr><td>Horas da semana</td><td>A soma de Pomodoros, registros manuais e simulados, de segunda a domingo.</td></tr>
+            <tr><td>Cartões novos por dia</td><td>15 por padrão (ajuste em Ajustes). Vêm intercalando os temas.</td></tr>
+            <tr><td>Pontos fracos</td><td>As últimas 20 respostas de cada tema, a partir de 5. Abaixo de 60% é ponto fraco; de 60% a 79%, atenção.</td></tr>
+            <tr id="dados"><td>Onde ficam os dados</td><td>No <strong>localStorage</strong> do navegador, separado por endereço. <code>localhost:3000</code> (start.bat) e <code>127.0.0.1:5500</code> (Live Server) guardam progressos diferentes. Use sempre o mesmo endereço, ou exporte e importe o backup.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="start-bat" data-busca>
+      <p class="rotulo-secao">Referência</p>
+      <h2>Opções do start.bat</h2>
+      <p>No terminal do VS Code (PowerShell), escreva <code>.\</code> antes do nome do arquivo:</p>
+      <div class="tabela-rolagem" role="region" tabindex="0" aria-label="Tabela: Opções do start.bat">
+        <table>
+          <thead><tr><th scope="col">Comando</th><th scope="col">O que faz</th></tr></thead>
+          <tbody>
+            <tr><td class="num"><code>.\start.bat</code></td><td>Mostra o menu. Sem escolha, abre o app em 8 segundos</td></tr>
+            <tr><td class="num"><code>.\start.bat app</code></td><td>Abre o app direto. Se já estiver aberto, só abre o navegador</td></tr>
+            <tr><td class="num"><code>.\start.bat testes</code></td><td>Roda os testes automatizados (instala as dependências na primeira vez)</td></tr>
+            <tr><td class="num"><code>.\start.bat ui</code></td><td>Abre os testes no modo visual do Playwright</td></tr>
+            <tr><td class="num"><code>.\start.bat relatorio</code></td><td>Abre o relatório da última execução dos testes</td></tr>
+            <tr><td class="num"><code>.\start.bat manual</code></td><td>Abre este manual (não precisa de servidor nem de Node)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Para usar outra porta, rode no PowerShell <code>$env:PORTA=3001</code> (ou <code>set PORTA=3001</code> no cmd) antes do <code>start.bat</code>. Outra porta é outro endereço, e portanto outro progresso.</p>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="metodo" data-busca>
+      <p class="rotulo-secao">Explicação</p>
+      <h2>Por que funciona assim</h2>
+      <p>As regras do app vêm de técnicas de estudo com evidência científica. As fontes estão em <code>docs/pesquisa.md</code>.</p>
+      <ul>
+        <li><strong>Responder antes de ver a resposta</strong> (prática de recuperação). Lembrar fortalece a memória mais do que reler. Por isso os flashcards escondem a resposta e o quiz é sem consulta.</li>
+        <li><strong>Revisar espaçado</strong> (prática espaçada). Rever algumas vezes ao longo das semanas funciona melhor do que estudar tudo na véspera. É o que o SM-2 faz por você.</li>
+        <li><strong>Intercalar temas</strong> (interleaving). Misturar assuntos treina reconhecer qual conceito usar, como acontece na prova. Por isso existe o quiz Misto, e os novos cartões vêm alternando temas.</li>
+        <li><strong>Simular a prova real.</strong> O tempo corre, você não consulta soluções e se avalia pelos critérios que as empresas publicam. Depois, um dia do plano é só para corrigir o que ficou faltando.</li>
+        <li><strong>Pomodoro para dar ritmo.</strong> Ele ajuda a manter a constância e registra as horas; não é uma técnica de aprendizagem. Nos simulados, vale o tempo da prova.</li>
+      </ul>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="problemas" data-busca>
+      <p class="rotulo-secao">Resolva</p>
+      <h2>Problemas comuns</h2>
+      <div class="faq">
+        <details>
+          <summary>O app só mostra “Abra pelo servidor local” ou fica em “Carregando…”</summary>
+          <div class="resposta"><p>Você abriu o <code>index.html</code> direto do disco. Feche a aba e abra pelo <strong>start.bat</strong> (duplo clique). Ele abre o endereço certo, <code>http://localhost:3000</code>.</p></div>
+        </details>
+        <details>
+          <summary>Meu progresso sumiu</summary>
+          <div class="resposta"><p>O mais comum é ter aberto por outro endereço ou porta: cada endereço guarda um progresso separado. Volte ao endereço de sempre (<code>localhost:3000</code> pelo start.bat). Se você limpou os dados do navegador, importe o último backup em <strong>Ajustes e backup</strong>.</p></div>
+        </details>
+        <details>
+          <summary>Apareceu um aviso vermelho dizendo que um arquivo não pôde ser carregado</summary>
+          <div class="resposta">
+            <p>Um arquivo de <code>data/</code> tem erro de sintaxe, geralmente depois de uma edição à mão. O aviso diz o arquivo, a <strong>linha e a coluna</strong> do problema:</p>
+            <figure class="tela">
+              <button class="ampliar" type="button" data-legenda="Aviso de JSON inválido"><img src="img/erro-json.webp" width="1008" height="148" loading="lazy" alt="Aviso vermelho: JSON inválido em data/quiz.json, linha 4, coluna 3."></button>
+            </figure>
+            <p>Abra o arquivo no VS Code e vá até a linha indicada (<kbd>Ctrl</kbd>+<kbd>G</kbd>). As causas mais comuns são uma vírgula sobrando antes de <code>]</code> ou <code>}</code>, uma vírgula faltando entre itens e aspas simples no lugar de duplas. Salve e recarregue a página com <kbd>F5</kbd>. As outras páginas continuam funcionando enquanto isso.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Não aparecem cartões novos nos flashcards</summary>
+          <div class="resposta"><p>Você já usou o limite de novos de hoje (15 por padrão). No fim da fila, clique em <strong>Estudar mais 10 novos hoje</strong>, ou aumente o limite em <strong>Ajustes e backup → Flashcards novos por dia</strong>. Se você filtrou por tema, confira se ainda há cartões novos naquele tema.</p></div>
+        </details>
+        <details>
+          <summary>O alarme do Pomodoro não tocou</summary>
+          <div class="resposta"><p>O navegador só libera som depois de um clique na página. Clique em <strong>Iniciar foco</strong> pelo menos uma vez. Se recarregou a página com o timer rodando, clique em qualquer lugar de novo. Com a aba minimizada, ative a notificação em <strong>Pomodoro → Configurações do timer</strong>. O tempo registrado continua exato mesmo se o aviso atrasar.</p></div>
+        </details>
+        <details>
+          <summary>O start.bat diz que a porta 3000 está ocupada</summary>
+          <div class="resposta"><p>Outro programa está usando a porta 3000. Feche esse programa e rode o start.bat de novo. Se não puder fechar, use outra porta com <code>$env:PORTA=3001</code> no PowerShell. Lembre que outro endereço guarda outro progresso: exporte e importe o backup.</p></div>
+        </details>
+        <details>
+          <summary>O start.bat diz que o Node.js não foi encontrado</summary>
+          <div class="resposta"><p>Instale o Node.js LTS em <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>, feche e abra o VS Code e rode de novo. Sem o Node, dá para abrir o app com a extensão <strong>Live Server</strong> do VS Code.</p></div>
+        </details>
+        <details>
+          <summary>Escrevo <code>start.bat</code> no terminal e ele não é reconhecido</summary>
+          <div class="resposta"><p>No PowerShell, escreva com <code>.\</code> na frente: <code>.\start.bat</code>. Com duplo clique, isso não é necessário.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <section class="secao" id="avancado" data-busca>
+      <p class="rotulo-secao">Para ir além</p>
+      <h2>Editar o conteúdo e rodar os testes</h2>
+      <ul>
+        <li><strong>Adicionar ou corrigir cartões, questões e desafios:</strong> edite os arquivos em <code>data/</code> (<code>flashcards.json</code>, <code>quiz.json</code>, <code>desafios.json</code>…) e recarregue a página. O <code>README.md</code> tem exemplos prontos de cada formato. Não mude o <code>id</code> de itens que você já estudou.</li>
+        <li><strong>Testes automatizados:</strong> escolha a opção <strong>2</strong> do menu do start.bat. Os testes usam Playwright em três projetos (desktop, celular e tema escuro) e cobrem navegação, fluxos, acessibilidade e celular. Um teste reprova se aparecer qualquer erro no console. O número atualizado de testes, com a data da última execução, está no <code>README.md</code>.</li>
+        <li><strong>Atualizar os prints deste manual</strong> depois de mudar a interface: na pasta <code>testes</code>, rode <code>npm run manual:capturas</code>.</li>
+      </ul>
+    </section>
+
+    <footer class="rodape">
+      <p><strong>Sobre este manual.</strong> Organizado conforme o <a href="https://diataxis.fr/" target="_blank" rel="noopener noreferrer">Diátaxis</a> (primeiros passos, guias, referência e explicação). As instruções seguem os guias de estilo da <a href="https://learn.microsoft.com/en-us/style-guide/procedures-instructions/writing-step-by-step-instructions" target="_blank" rel="noopener noreferrer">Microsoft</a> e do <a href="https://developers.google.com/style/procedures" target="_blank" rel="noopener noreferrer">Google</a>: um passo por ação, nome do botão em negrito e resultado logo depois. Prints recortados, com marcações numeradas e texto alternativo, conforme o <a href="https://developers.google.com/style/images" target="_blank" rel="noopener noreferrer">Google</a> e o <a href="https://www.w3.org/WAI/tutorials/images/" target="_blank" rel="noopener noreferrer">W3C WAI</a>. Ajuda fácil de buscar e de escanear, conforme a <a href="https://www.nngroup.com/articles/help-and-documentation/" target="_blank" rel="noopener noreferrer">heurística 10 da NN/g</a>.</p>
+      <p>Prints gerados automaticamente com Playwright, com dados de exemplo.</p>
+    </footer>
+  </main>
+</div>
+
+<dialog class="zoom" id="zoom" aria-label="Imagem ampliada">
+  <button class="fechar-zoom" type="button" id="fechar-zoom">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    Fechar <kbd>Esc</kbd>
+  </button>
+  <img id="zoom-img" src="" alt="">
+</dialog>
+
+<script>
+  (function () {
+    // ---------- Rolagem suave depois do salto inicial para a #âncora ----------
+    window.addEventListener('load', function () {
+      setTimeout(function () { document.documentElement.classList.add('rolagem-suave'); }, 0);
+    });
+
+    // ---------- Ampliar imagens ----------
+    var zoom = document.getElementById('zoom');
+    var zoomImg = document.getElementById('zoom-img');
+    var ultimoBotao = null;
+    document.querySelectorAll('.ampliar').forEach(function (botao) {
+      var img = botao.querySelector('img');
+      botao.setAttribute('aria-label', 'Ampliar imagem: ' + (botao.dataset.legenda || img.alt));
+      botao.addEventListener('click', function () {
+        if (typeof zoom.showModal !== 'function') { window.open(img.src, '_blank'); return; }
+        ultimoBotao = botao;
+        zoomImg.src = img.src;
+        zoomImg.alt = img.alt;
+        zoom.showModal();
+      });
+    });
+    function fechar() { if (zoom.open) zoom.close(); }
+    document.getElementById('fechar-zoom').addEventListener('click', fechar);
+    zoom.addEventListener('click', function (e) { if (e.target === zoom) fechar(); });
+    zoom.addEventListener('close', function () { if (ultimoBotao) ultimoBotao.focus(); });
+
+    // ---------- Sumário: recolhido no celular, seção atual destacada ----------
+    var caixa = document.getElementById('caixa-sumario');
+    var estreita = window.matchMedia('(max-width: 960px)');
+    function ajustarCaixa() { caixa.open = !estreita.matches; }
+    ajustarCaixa();
+    estreita.addEventListener('change', ajustarCaixa);
+
+    var links = Array.prototype.slice.call(document.querySelectorAll('#nav-sumario a'));
+    var porId = {};
+    links.forEach(function (a) { porId[a.getAttribute('href').slice(1)] = a; });
+    if ('IntersectionObserver' in window) {
+      var observador = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (entrada) {
+          if (!entrada.isIntersecting) return;
+          var link = porId[entrada.target.id];
+          if (!link) return;
+          links.forEach(function (a) { a.removeAttribute('aria-current'); });
+          link.setAttribute('aria-current', 'true');
+        });
+      }, { rootMargin: '-15% 0px -70% 0px' });
+      document.querySelectorAll('.secao[id]').forEach(function (s) { observador.observe(s); });
+    }
+    links.forEach(function (a) {
+      a.addEventListener('click', function () { if (estreita.matches) caixa.open = false; });
+    });
+
+    // ---------- Busca no manual ----------
+    var campo = document.getElementById('campo-busca');
+    var lista = document.getElementById('resultados-busca');
+    function normalizar(t) { return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+    var indice = [];
+    document.querySelectorAll('.secao[data-busca]').forEach(function (secao) {
+      var titulo = secao.querySelector('h2').textContent;
+      indice.push({ id: secao.id, titulo: titulo, sub: '', texto: normalizar(secao.textContent) });
+      secao.querySelectorAll('h3[id]').forEach(function (h3) {
+        var trecho = '';
+        for (var el = h3.nextElementSibling; el && el.tagName !== 'H3'; el = el.nextElementSibling) trecho += ' ' + el.textContent;
+        indice.push({ id: h3.id, titulo: h3.textContent.replace(/^\d+\.\s*/, ''), sub: titulo, texto: normalizar(h3.textContent + trecho) });
+      });
+    });
+    function buscar() {
+      var termos = normalizar(campo.value).split(/\s+/).filter(Boolean);
+      lista.innerHTML = '';
+      if (!termos.length) { lista.hidden = true; return; }
+      var achados = indice.filter(function (item) { return termos.every(function (t) { return item.texto.indexOf(t) !== -1; }); }).slice(0, 8);
+      lista.hidden = false;
+      if (!achados.length) {
+        var vazio = document.createElement('li');
+        vazio.className = 'vazio';
+        vazio.textContent = 'Nada encontrado. Tente outra palavra.';
+        lista.appendChild(vazio);
+        return;
+      }
+      achados.forEach(function (item) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#' + item.id;
+        a.textContent = item.titulo;
+        if (item.sub) {
+          var small = document.createElement('small');
+          small.textContent = item.sub;
+          a.appendChild(small);
+        }
+        a.addEventListener('click', function () { if (estreita.matches) caixa.open = false; });
+        li.appendChild(a);
+        lista.appendChild(li);
+      });
+    }
+    campo.addEventListener('input', buscar);
+    campo.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { var primeiro = lista.querySelector('a'); if (primeiro) { e.preventDefault(); primeiro.click(); location.hash = primeiro.getAttribute('href'); } }
+      if (e.key === 'Escape') { campo.value = ''; buscar(); }
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+/* =========================================================
+   layout.css — estrutura geral: menu lateral, barra superior
+   (celular), área de conteúdo e cabeçalho de página.
+   ========================================================= */
+
+.pular {
+  position: absolute;
+  left: var(--esp-4);
+  top: -100px;
+  z-index: 100;
+  padding: var(--esp-2) var(--esp-4);
+  background: var(--accent-bg);
+  color: var(--on-accent);
+  border-radius: var(--raio-p);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pular:focus {
+  top: var(--esp-2);
+}
+
+.app {
+  display: grid;
+  grid-template-columns: var(--largura-lateral) minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+/* ---------- Menu lateral ---------- */
+.lateral {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-4);
+  padding: var(--esp-4) var(--esp-3);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 30;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-2) var(--esp-2) var(--esp-3);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.marca-logo {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  background: var(--accent-bg);
+  color: var(--on-accent);
+}
+
+.marca-nome {
+  display: grid;
+  line-height: 1.2;
+}
+
+.marca-nome strong {
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.marca-nome span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.nav-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  min-height: 2.5rem;
+  padding: var(--esp-2) var(--esp-3);
+  border-radius: var(--raio-p);
+  color: var(--text-2);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background var(--transicao), color var(--transicao);
+}
+
+.nav-link:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.nav-link[aria-current="page"] {
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+  font-weight: 650;
+}
+
+.nav-link .contador {
+  margin-left: auto;
+  min-width: 1.5rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: var(--accent-bg);
+  color: var(--on-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.35rem;
+  text-align: center;
+}
+
+.nav-secao {
+  padding: var(--esp-3) var(--esp-3) var(--esp-1);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lateral-rodape {
+  margin-top: auto;
+  display: grid;
+  gap: var(--esp-2);
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--border);
+}
+
+.lateral-rodape .linha {
+  gap: var(--esp-1);
+}
+
+/* Indicador dos cronômetros ativos (Pomodoro / Simulado) */
+.indicadores {
+  display: grid;
+  gap: var(--esp-2);
+}
+
+.indicador {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  padding: var(--esp-2) var(--esp-3);
+  border-radius: var(--raio-p);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.indicador:hover {
+  border-color: var(--border-strong);
+}
+
+.indicador .tempo {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.indicador .ponto {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--chart-1);
+}
+
+.indicador.pausado .ponto {
+  background: var(--muted);
+}
+
+.indicador.rodando .ponto {
+  animation: pulsar 1.6s ease-in-out infinite;
+}
+
+@keyframes pulsar {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* ---------- Barra superior (só no celular) ---------- */
+.topo {
+  display: none;
+}
+
+.sobreposicao {
+  display: none;
+}
+
+/* ---------- Conteúdo ---------- */
+.conteudo {
+  min-width: 0;
+  padding: var(--esp-6) var(--esp-6) var(--esp-7);
+}
+
+.conteudo:focus {
+  outline: none;
+}
+
+.pagina {
+  max-width: var(--largura-conteudo);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--esp-5);
+}
+
+.cabecalho-pagina {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--esp-4);
+}
+
+.cabecalho-pagina .titulos {
+  display: grid;
+  gap: var(--esp-1);
+  min-width: 0;
+}
+
+.subtitulo {
+  color: var(--text-2);
+  max-width: 70ch;
+}
+
+.rodape-app {
+  max-width: var(--largura-conteudo);
+  margin: var(--esp-7) auto 0;
+  padding-top: var(--esp-4);
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 899px) {
+  .app {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topo {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: var(--esp-2);
+    padding: var(--esp-2) var(--esp-4);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .topo .marca {
+    padding: 0;
+  }
+
+  .topo .marca-logo {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .topo .indicadores {
+    margin-left: auto;
+    display: flex;
+  }
+
+  .topo .indicador {
+    padding: 0.3rem 0.55rem;
+  }
+
+  .topo .indicador .rotulo {
+    display: none;
+  }
+
+  .lateral {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(84vw, 300px);
+    transform: translateX(-102%);
+    transition: transform 200ms ease;
+    box-shadow: var(--sombra-alta);
+    visibility: hidden;
+  }
+
+  .app.menu-aberto .lateral {
+    transform: none;
+    visibility: visible;
+  }
+
+  .app.menu-aberto .sobreposicao {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .lateral .indicadores {
+    display: none;
+  }
+
+  .conteudo {
+    padding: var(--esp-5) var(--esp-4) var(--esp-7);
+  }
+}
+
+@media (min-width: 900px) {
+  .botao-menu {
+    display: none;
+  }
+}

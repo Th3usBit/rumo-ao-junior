@@ -1,0 +1,242 @@
+{
+  "versao": 1,
+  "verificadoEm": "2026-09-23",
+  "categorias": [
+    {
+      "id": "roadmaps",
+      "nome": "Roadmaps e trilhas",
+      "descricao": "Mapas do que estudar e currículos completos e gratuitos.",
+      "links": [
+        { "titulo": "roadmap.sh — Frontend", "url": "https://roadmap.sh/frontend", "idioma": "en", "descricao": "Roadmap completo de desenvolvedor front-end." },
+        { "titulo": "roadmap.sh — Backend", "url": "https://roadmap.sh/backend", "idioma": "en", "descricao": "Roadmap de desenvolvedor back-end." },
+        { "titulo": "roadmap.sh — Full Stack", "url": "https://roadmap.sh/full-stack", "idioma": "en", "descricao": "Roadmap full stack." },
+        { "titulo": "roadmap.sh — Java", "url": "https://roadmap.sh/java", "idioma": "en", "descricao": "Roadmap da linguagem Java." },
+        { "titulo": "roadmap.sh — Spring Boot", "url": "https://roadmap.sh/spring-boot", "idioma": "en", "descricao": "Roadmap de Spring Boot." },
+        { "titulo": "roadmap.sh — Vue", "url": "https://roadmap.sh/vue", "idioma": "en", "descricao": "Roadmap de desenvolvedor Vue." },
+        { "titulo": "roadmap.sh — Estruturas de dados e algoritmos", "url": "https://roadmap.sh/datastructures-and-algorithms", "idioma": "en", "descricao": "Roadmap de estruturas de dados e algoritmos." },
+        { "titulo": "roadmap.sh — API Design", "url": "https://roadmap.sh/api-design", "idioma": "en", "descricao": "Design de APIs: REST, versionamento, autenticação." },
+        { "titulo": "roadmap.sh — QA", "url": "https://roadmap.sh/qa", "idioma": "en", "descricao": "Roadmap de QA e testes (aproveite sua experiência)." },
+        { "titulo": "roadmap.sh — Perguntas de entrevista (backend)", "url": "https://roadmap.sh/questions/backend", "idioma": "en", "descricao": "Perguntas e respostas de entrevista técnica. Há também /questions/frontend, /java, /sql, /spring-boot e /javascript." },
+        { "titulo": "roadmap.sh — Ideias de projetos backend", "url": "https://roadmap.sh/backend/projects", "idioma": "en", "descricao": "Projetos práticos por nível para o portfólio." },
+        { "titulo": "The Odin Project", "url": "https://www.theodinproject.com/paths", "idioma": "en", "descricao": "Currículo full stack gratuito e open source (Foundations, Full Stack JavaScript)." },
+        { "titulo": "freeCodeCamp em português", "url": "https://www.freecodecamp.org/portuguese/learn", "idioma": "pt-BR", "descricao": "Currículo interativo traduzido, com certificações gratuitas." },
+        { "titulo": "CC50 (CS50 de Harvard em português)", "url": "https://www.estudarfora.org.br/cc50-v2/", "idioma": "pt-BR", "descricao": "Introdução à ciência da computação legendada, pela Fundação Estudar." }
+      ]
+    },
+    {
+      "id": "algoritmos",
+      "nome": "Prática de algoritmos",
+      "descricao": "Onde treinar lógica e os problemas que caem em live coding e provas online.",
+      "links": [
+        { "titulo": "NeetCode — Roadmap", "url": "https://neetcode.io/roadmap", "idioma": "en", "descricao": "Problemas organizados por padrão (hash, two pointers, sliding window…) com vídeos gratuitos." },
+        { "titulo": "NeetCode 150", "url": "https://neetcode.io/practice/practice/neetcode150", "idioma": "en", "descricao": "Lista dos 150 problemas mais clássicos de entrevista." },
+        { "titulo": "LeetCode", "url": "https://leetcode.com/problems/two-sum/", "idioma": "en", "descricao": "Maior banco de problemas de entrevista. Os problemas do cronograma usam o formato leetcode.com/problems/<nome>/." },
+        { "titulo": "Exercism — Java", "url": "https://exercism.org/tracks/java", "idioma": "en", "descricao": "Exercícios com testes automáticos e mentoria humana gratuita." },
+        { "titulo": "Exercism — TypeScript", "url": "https://exercism.org/tracks/typescript", "idioma": "en", "descricao": "Trilha de TypeScript com cerca de 100 exercícios." },
+        { "titulo": "Exercism — JavaScript", "url": "https://exercism.org/tracks/javascript", "idioma": "en", "descricao": "Trilha de JavaScript com exercícios e conceitos." },
+        { "titulo": "Exercism — Mentoria", "url": "https://exercism.org/mentoring", "idioma": "en", "descricao": "Envie sua solução e receba feedback de um mentor voluntário." },
+        { "titulo": "beecrowd (antigo URI Online Judge)", "url": "https://judge.beecrowd.com/pt/", "idioma": "pt-BR", "descricao": "Juiz online brasileiro com mais de 1.000 problemas em português (exige login)." },
+        { "titulo": "HackerRank — Java", "url": "https://www.hackerrank.com/domains/java", "idioma": "en", "descricao": "Desafios de Java por tópico; plataforma usada em provas online." },
+        { "titulo": "Codewars", "url": "https://www.codewars.com/", "idioma": "en", "descricao": "Katas gamificadas em várias linguagens." }
+      ]
+    },
+    {
+      "id": "desafios",
+      "nome": "Desafios técnicos reais",
+      "descricao": "Repositórios com desafios de processos seletivos de empresas (muitas brasileiras).",
+      "links": [
+        { "titulo": "backend-br/desafios", "url": "https://github.com/backend-br/desafios", "idioma": "pt-BR", "descricao": "Criptografia, autenticação, empréstimos, senha segura, encurtador de URL e pontos de interesse." },
+        { "titulo": "CollabCodeTech/backend-challenges", "url": "https://github.com/CollabCodeTech/backend-challenges", "idioma": "en", "descricao": "Mais de 80 desafios reais de back-end, com empresa e stack." },
+        { "titulo": "felipefialho/frontend-challenges", "url": "https://github.com/felipefialho/frontend-challenges", "idioma": "en", "descricao": "Mais de 100 desafios reais de front-end (React, Vue, Angular…)." },
+        { "titulo": "Desafio Itaú — vaga júnior (Spring Boot)", "url": "https://github.com/rafaellins-itau/desafio-itau-vaga-99-junior", "idioma": "pt-BR", "descricao": "API de transações e estatísticas; ótimo exemplo de critérios de avaliação." },
+        { "titulo": "Desafio PicPay — back-end", "url": "https://github.com/PicPay/picpay-desafio-backend", "idioma": "pt-BR", "descricao": "API de transferências com competências avaliadas por nível." },
+        { "titulo": "Desafio Loggi — front-end", "url": "https://github.com/loggi/desafio-frontend", "idioma": "pt-BR", "descricao": "Critérios por senioridade: documentação, semântica, mobile first." },
+        { "titulo": "Desafio CustomerX — fullstack júnior", "url": "https://github.com/CustomerX-CX/desafio-fullstack-junior", "idioma": "pt-BR", "descricao": "CRUD de clientes e contatos (1:N) com relatório." },
+        { "titulo": "Desafio Concrete — front-end", "url": "https://github.com/concretesolutions/recrutamento-fe", "idioma": "pt-BR", "descricao": "Busca de usuários do GitHub com rotas, testes e CI." },
+        { "titulo": "Desafio FCamara — back-end Java", "url": "https://github.com/fcamarasantos/backend-test-java", "idioma": "pt-BR", "descricao": "API de estacionamento com perguntas teóricas no README." },
+        { "titulo": "Frontend Mentor", "url": "https://www.frontendmentor.io/challenges", "idioma": "en", "descricao": "Desafios com design pronto para praticar HTML/CSS/JS (muitos gratuitos)." }
+      ]
+    },
+    {
+      "id": "front",
+      "nome": "Front-end (HTML, CSS, JS, TS)",
+      "descricao": "Documentação e cursos de fundamentos da web.",
+      "links": [
+        { "titulo": "MDN — Aprendendo desenvolvimento web", "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development", "idioma": "pt-BR", "descricao": "Área de aprendizado estruturada da MDN." },
+        { "titulo": "MDN — HTML", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTML", "idioma": "pt-BR", "descricao": "Referência e guias de HTML." },
+        { "titulo": "MDN — CSS", "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS", "idioma": "pt-BR", "descricao": "Referência e guias de CSS." },
+        { "titulo": "MDN — Guia JavaScript", "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide", "idioma": "pt-BR", "descricao": "Guia completo da linguagem." },
+        { "titulo": "MDN — Fetch API", "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API", "idioma": "pt-BR", "descricao": "Requisições HTTP no navegador." },
+        { "titulo": "MDN — Acessibilidade", "url": "https://developer.mozilla.org/pt-BR/docs/Web/Accessibility", "idioma": "pt-BR", "descricao": "Guia de acessibilidade web." },
+        { "titulo": "javascript.info", "url": "https://javascript.info/", "idioma": "en", "descricao": "The Modern JavaScript Tutorial: do básico a closures, promises e event loop." },
+        { "titulo": "TypeScript Handbook", "url": "https://www.typescriptlang.org/docs/handbook/intro.html", "idioma": "en", "descricao": "Handbook oficial do TypeScript." },
+        { "titulo": "TypeScript em 5 minutos (pt)", "url": "https://www.typescriptlang.org/pt/docs/handbook/typescript-in-5-minutes.html", "idioma": "pt-BR", "descricao": "Introdução traduzida ao TypeScript." },
+        { "titulo": "web.dev — Aprenda CSS", "url": "https://web.dev/learn/css?hl=pt-br", "idioma": "pt-BR", "descricao": "Curso do Google traduzido: box model, flexbox, grid…" },
+        { "titulo": "web.dev — Learn Accessibility", "url": "https://web.dev/learn/accessibility", "idioma": "en", "descricao": "Curso gratuito de acessibilidade." },
+        { "titulo": "CSS-Tricks — Guia de Flexbox", "url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/", "idioma": "en", "descricao": "Guia visual completo de Flexbox." },
+        { "titulo": "CSS-Tricks — Guia de Grid", "url": "https://css-tricks.com/complete-guide-css-grid-layout/", "idioma": "en", "descricao": "Guia visual completo de CSS Grid." },
+        { "titulo": "Flexbox Froggy", "url": "https://flexboxfroggy.com/#pt-br", "idioma": "pt-BR", "descricao": "Jogo para aprender Flexbox." },
+        { "titulo": "Grid Garden", "url": "https://cssgridgarden.com/#pt-br", "idioma": "pt-BR", "descricao": "Jogo para aprender CSS Grid." },
+        { "titulo": "WCAG 2.2 em pt-BR (W3C Brasil)", "url": "https://www.w3c.br/traducoes/wcag/wcag22-pt-BR/", "idioma": "pt-BR", "descricao": "Tradução oficial das diretrizes de acessibilidade." },
+        { "titulo": "Guia WCAG", "url": "https://guia-wcag.com/", "idioma": "pt-BR", "descricao": "Consulta rápida da WCAG em português." }
+      ]
+    },
+    {
+      "id": "vue",
+      "nome": "Vue e ecossistema",
+      "descricao": "Documentação oficial. Não existe tradução oficial do Vue 3 em pt-BR (pt.vuejs.org é português europeu).",
+      "links": [
+        { "titulo": "Vue 3 — Guia oficial", "url": "https://vuejs.org/guide/introduction.html", "idioma": "en", "descricao": "Documentação oficial do Vue 3." },
+        { "titulo": "Vue 3 — Tutorial interativo", "url": "https://vuejs.org/tutorial/", "idioma": "en", "descricao": "Tutorial passo a passo no navegador." },
+        { "titulo": "Vue 3 — TypeScript", "url": "https://vuejs.org/guide/typescript/overview.html", "idioma": "en", "descricao": "Como usar Vue com TypeScript." },
+        { "titulo": "Vue 3 — Testes", "url": "https://vuejs.org/guide/scaling-up/testing.html", "idioma": "en", "descricao": "Guia oficial de testes unitários, de componente e E2E." },
+        { "titulo": "Vue 3 em português (pt-PT)", "url": "https://pt.vuejs.org/guide/introduction.html", "idioma": "pt-PT", "descricao": "Tradução oficial em português europeu." },
+        { "titulo": "Vue Router", "url": "https://router.vuejs.org/guide/", "idioma": "en", "descricao": "Roteador oficial." },
+        { "titulo": "Pinia", "url": "https://pinia.vuejs.org/introduction.html", "idioma": "en", "descricao": "Gerenciador de estado oficial." },
+        { "titulo": "Vite", "url": "https://vite.dev/guide/", "idioma": "en", "descricao": "Build tool e servidor de desenvolvimento." },
+        { "titulo": "Vitest", "url": "https://vitest.dev/guide/", "idioma": "en", "descricao": "Framework de testes do ecossistema Vite." },
+        { "titulo": "Vue Test Utils", "url": "https://test-utils.vuejs.org/guide/", "idioma": "en", "descricao": "Biblioteca oficial para testar componentes Vue 3." },
+        { "titulo": "roadmap.sh — Projetos Vue", "url": "https://roadmap.sh/vue/projects", "idioma": "en", "descricao": "Ideias de projetos para praticar Vue." }
+      ]
+    },
+    {
+      "id": "java",
+      "nome": "Java",
+      "descricao": "Tutoriais oficiais e artigos práticos.",
+      "links": [
+        { "titulo": "dev.java — Learn", "url": "https://dev.java/learn/", "idioma": "en", "descricao": "Tutoriais oficiais da Oracle." },
+        { "titulo": "dev.java — Programação orientada a objetos", "url": "https://dev.java/learn/oop/", "idioma": "en", "descricao": "Conceitos de POO em Java." },
+        { "titulo": "dev.java — Collections Framework", "url": "https://dev.java/learn/api/collections-framework/", "idioma": "en", "descricao": "List, Set, Map e suas implementações." },
+        { "titulo": "dev.java — Exceptions", "url": "https://dev.java/learn/exceptions/", "idioma": "en", "descricao": "Tratamento de exceções." },
+        { "titulo": "Baeldung", "url": "https://www.baeldung.com/", "idioma": "en", "descricao": "Artigos gratuitos e práticos de Java e Spring." },
+        { "titulo": "Curso em Vídeo — Java POO", "url": "https://www.cursoemvideo.com/curso/java-poo/", "idioma": "pt-BR", "descricao": "Curso gratuito de orientação a objetos com Java." }
+      ]
+    },
+    {
+      "id": "spring",
+      "nome": "Spring",
+      "descricao": "Guias oficiais curtos e referência. A documentação atual é do Spring Boot 4.x; confira a versão do seu projeto.",
+      "links": [
+        { "titulo": "Spring Guides", "url": "https://spring.io/guides/", "idioma": "en", "descricao": "Índice de guias oficiais curtos." },
+        { "titulo": "Building a RESTful Web Service", "url": "https://spring.io/guides/gs/rest-service/", "idioma": "en", "descricao": "Seu primeiro endpoint REST." },
+        { "titulo": "Accessing Data with JPA", "url": "https://spring.io/guides/gs/accessing-data-jpa/", "idioma": "en", "descricao": "Entidades e repositórios JPA." },
+        { "titulo": "Testing the Web Layer", "url": "https://spring.io/guides/gs/testing-web/", "idioma": "en", "descricao": "Testes com MockMvc e @WebMvcTest." },
+        { "titulo": "Validating Form Input", "url": "https://spring.io/guides/gs/validating-form-input/", "idioma": "en", "descricao": "Bean Validation (@Valid, @NotNull…)." },
+        { "titulo": "Building REST services with Spring", "url": "https://spring.io/guides/tutorials/rest/", "idioma": "en", "descricao": "Tutorial longo: REST, tratamento de erros, HATEOAS." },
+        { "titulo": "Spring Boot Reference", "url": "https://docs.spring.io/spring-boot/reference/index.html", "idioma": "en", "descricao": "Documentação de referência (versão atual)." },
+        { "titulo": "Spring Boot 3.5 docs", "url": "https://docs.spring.io/spring-boot/3.5/index.html", "idioma": "en", "descricao": "Documentação da linha 3.x." },
+        { "titulo": "Testes no Spring Boot", "url": "https://docs.spring.io/spring-boot/reference/testing/index.html", "idioma": "en", "descricao": "@SpringBootTest, slices de teste e afins." },
+        { "titulo": "Spring Data JPA — Referência", "url": "https://docs.spring.io/spring-data/jpa/reference/", "idioma": "en", "descricao": "Repositórios, derived queries, paginação." },
+        { "titulo": "Spring Initializr", "url": "https://start.spring.io/", "idioma": "en", "descricao": "Gerador de projetos Spring Boot." },
+        { "titulo": "Spring Academy — REST API com Spring Boot", "url": "https://spring.academy/courses/building-a-rest-api-with-spring-boot", "idioma": "en", "descricao": "Curso oficial gratuito com labs (exige cadastro com e-mail de trabalho ou educacional)." },
+        { "titulo": "springdoc-openapi", "url": "https://springdoc.org/", "idioma": "en", "descricao": "OpenAPI 3 e Swagger UI para Spring Boot." }
+      ]
+    },
+    {
+      "id": "sql",
+      "nome": "SQL e bancos de dados",
+      "descricao": "Exercícios interativos e referência.",
+      "links": [
+        { "titulo": "SQLBolt", "url": "https://sqlbolt.com/", "idioma": "en", "descricao": "Lições interativas curtas, ótimas para começar." },
+        { "titulo": "SQLZoo", "url": "https://sqlzoo.net/wiki/SQL_Tutorial", "idioma": "en", "descricao": "Tutorial interativo com exercícios." },
+        { "titulo": "PostgreSQL Exercises", "url": "https://pgexercises.com/", "idioma": "en", "descricao": "Exercícios de SQL sobre o schema de um clube." },
+        { "titulo": "PostgreSQL — Tutorial oficial", "url": "https://www.postgresql.org/docs/current/tutorial.html", "idioma": "en", "descricao": "Parte I da documentação oficial." },
+        { "titulo": "HackerRank — SQL", "url": "https://www.hackerrank.com/domains/sql", "idioma": "en", "descricao": "Desafios de SQL (select, agregação, joins)." },
+        { "titulo": "DB Fiddle", "url": "https://www.db-fiddle.com/", "idioma": "en", "descricao": "Playground de SQL no navegador (PostgreSQL, MySQL, SQLite)." },
+        { "titulo": "Curso em Vídeo — MySQL", "url": "https://www.cursoemvideo.com/curso/mysql/", "idioma": "pt-BR", "descricao": "Curso gratuito de banco de dados." }
+      ]
+    },
+    {
+      "id": "git",
+      "nome": "Git",
+      "descricao": "Do básico ao rebase, com prática visual.",
+      "links": [
+        { "titulo": "Learn Git Branching (pt-BR)", "url": "https://learngitbranching.js.org/?locale=pt_BR", "idioma": "pt-BR", "descricao": "Jogo visual de branches, merge e rebase." },
+        { "titulo": "Pro Git (livro oficial)", "url": "https://git-scm.com/book/pt-br/v2", "idioma": "pt-BR", "descricao": "Livro completo e gratuito, traduzido." },
+        { "titulo": "Folha de dicas de Git (GitHub)", "url": "https://training.github.com/downloads/pt_BR/github-git-cheat-sheet/", "idioma": "pt-BR", "descricao": "Cheat sheet oficial dos comandos principais." },
+        { "titulo": "Conventional Commits", "url": "https://www.conventionalcommits.org/pt-br/v1.0.0/", "idioma": "pt-BR", "descricao": "Padrão de mensagens de commit." },
+        { "titulo": "GitHub Docs — Sobre o Git", "url": "https://docs.github.com/pt/get-started/using-git/about-git", "idioma": "pt-BR", "descricao": "Documentação oficial traduzida." },
+        { "titulo": "Oh My Git!", "url": "https://ohmygit.org/", "idioma": "en", "descricao": "Jogo open source para aprender Git." },
+        { "titulo": "GitHub Skills", "url": "https://learn.github.com/skills", "idioma": "en", "descricao": "Cursos práticos dentro de repositórios do GitHub." }
+      ]
+    },
+    {
+      "id": "http",
+      "nome": "HTTP, REST e APIs públicas",
+      "descricao": "Fundamentos de HTTP e APIs gratuitas (sem chave) para seus projetos.",
+      "links": [
+        { "titulo": "MDN — Visão geral do HTTP", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Overview", "idioma": "pt-BR", "descricao": "Como o HTTP funciona." },
+        { "titulo": "MDN — Códigos de status", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status", "idioma": "pt-BR", "descricao": "Referência de todos os status HTTP." },
+        { "titulo": "MDN — Métodos HTTP", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods", "idioma": "pt-BR", "descricao": "GET, POST, PUT, PATCH, DELETE…" },
+        { "titulo": "MDN — CORS", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/CORS", "idioma": "pt-BR", "descricao": "Compartilhamento de recursos entre origens." },
+        { "titulo": "ViaCEP", "url": "https://viacep.com.br/", "idioma": "pt-BR", "descricao": "Consulta de CEP gratuita e sem chave." },
+        { "titulo": "BrasilAPI", "url": "https://brasilapi.com.br/docs", "idioma": "pt-BR", "descricao": "CEP, feriados, bancos, DDD, IBGE, CNPJ — sem autenticação." },
+        { "titulo": "IBGE — API de localidades", "url": "https://servicodados.ibge.gov.br/api/docs/localidades", "idioma": "pt-BR", "descricao": "Estados, municípios e regiões oficiais." },
+        { "titulo": "AwesomeAPI — Moedas", "url": "https://docs.awesomeapi.com.br/api-de-moedas", "idioma": "pt-BR", "descricao": "Cotações de moedas (chave opcional)." },
+        { "titulo": "PokeAPI", "url": "https://pokeapi.co/docs/v2", "idioma": "en", "descricao": "API clássica para praticar listagem, paginação e detalhes." },
+        { "titulo": "JSONPlaceholder", "url": "https://jsonplaceholder.typicode.com/", "idioma": "en", "descricao": "API REST fake para protótipos (escritas não persistem)." },
+        { "titulo": "Open-Meteo", "url": "https://open-meteo.com/en/docs", "idioma": "en", "descricao": "API de clima gratuita, sem chave." },
+        { "titulo": "GitHub REST API", "url": "https://docs.github.com/pt/rest", "idioma": "pt-BR", "descricao": "Documentação traduzida (60 req/h sem autenticação)." },
+        { "titulo": "public-apis", "url": "https://github.com/public-apis/public-apis", "idioma": "en", "descricao": "Lista colaborativa de APIs gratuitas." }
+      ]
+    },
+    {
+      "id": "testes",
+      "nome": "Testes",
+      "descricao": "Ferramentas de teste do front e do back — seu ponto forte vindo de QA.",
+      "links": [
+        { "titulo": "Martin Fowler — Test Pyramid", "url": "https://martinfowler.com/bliki/TestPyramid.html", "idioma": "en", "descricao": "O conceito de pirâmide de testes." },
+        { "titulo": "The Practical Test Pyramid", "url": "https://martinfowler.com/articles/practical-test-pyramid.html", "idioma": "en", "descricao": "Artigo longo e prático sobre a pirâmide." },
+        { "titulo": "Testing Library — Vue", "url": "https://testing-library.com/docs/vue-testing-library/intro/", "idioma": "en", "descricao": "Testes centrados no usuário para componentes Vue." },
+        { "titulo": "Testing Library — Prioridade de queries", "url": "https://testing-library.com/docs/queries/about/", "idioma": "en", "descricao": "Por que preferir getByRole." },
+        { "titulo": "Playwright", "url": "https://playwright.dev/docs/intro", "idioma": "en", "descricao": "Testes E2E multi-navegador." },
+        { "titulo": "Cypress", "url": "https://docs.cypress.io/", "idioma": "en", "descricao": "Testes E2E e de componentes." },
+        { "titulo": "MSW (Mock Service Worker)", "url": "https://mswjs.io/", "idioma": "en", "descricao": "Mock de APIs para testes de front." },
+        { "titulo": "JUnit 5 — User Guide", "url": "https://docs.junit.org/5.14.0/user-guide/", "idioma": "en", "descricao": "Guia do JUnit 5 (a URL 'current' já aponta para o JUnit 6)." },
+        { "titulo": "Mockito", "url": "https://site.mockito.org/", "idioma": "en", "descricao": "Mocks em Java." },
+        { "titulo": "AssertJ", "url": "https://assertj.github.io/doc/", "idioma": "en", "descricao": "Asserções fluentes em Java." },
+        { "titulo": "Testcontainers — Guias", "url": "https://testcontainers.com/guides/", "idioma": "en", "descricao": "Banco real em Docker durante os testes de integração." }
+      ]
+    },
+    {
+      "id": "arquitetura",
+      "nome": "Clean code e arquitetura",
+      "descricao": "Padrões de projeto, refatoração e boas práticas.",
+      "links": [
+        { "titulo": "Refactoring Guru — Padrões de Projeto", "url": "https://refactoring.guru/pt-br/design-patterns", "idioma": "pt-BR", "descricao": "Design patterns ilustrados com exemplos em Java e TS." },
+        { "titulo": "Refactoring Guru — Refatoração", "url": "https://refactoring.guru/pt-br/refactoring", "idioma": "en", "descricao": "Code smells e técnicas de refatoração (conteúdo em inglês)." },
+        { "titulo": "The Twelve-Factor App", "url": "https://12factor.net/pt_br/", "idioma": "pt-BR", "descricao": "12 princípios para aplicações modernas (config, logs, deploy)." },
+        { "titulo": "Martin Fowler — bliki", "url": "https://martinfowler.com/bliki/", "idioma": "en", "descricao": "Verbetes curtos sobre arquitetura, testes e refatoração." },
+        { "titulo": "roadmap.sh — Code Review Pyramid", "url": "https://roadmap.sh/code-review", "idioma": "en", "descricao": "O que observar (e em que ordem) numa revisão de código." }
+      ]
+    },
+    {
+      "id": "devops",
+      "nome": "Docker e DevOps básico",
+      "descricao": "O suficiente para rodar banco e API em containers.",
+      "links": [
+        { "titulo": "Docker — Get started", "url": "https://docs.docker.com/get-started/", "idioma": "en", "descricao": "Introdução oficial ao Docker." },
+        { "titulo": "Docker Compose", "url": "https://docs.docker.com/compose/", "idioma": "en", "descricao": "Vários serviços juntos (ex.: API + PostgreSQL)." },
+        { "titulo": "Docker — Guia para Java", "url": "https://docs.docker.com/guides/java/", "idioma": "en", "descricao": "Containerizar uma aplicação Java/Spring." },
+        { "titulo": "Docker — Guia para Vue.js", "url": "https://docs.docker.com/guides/vuejs/", "idioma": "en", "descricao": "Containerizar uma aplicação Vue." },
+        { "titulo": "roadmap.sh — Docker", "url": "https://roadmap.sh/docker", "idioma": "en", "descricao": "Roadmap de Docker." }
+      ]
+    },
+    {
+      "id": "comunidade",
+      "nome": "Carreira e comunidade BR",
+      "descricao": "Comunidades, vagas e cursos gratuitos brasileiros.",
+      "links": [
+        { "titulo": "Back-End Brasil", "url": "https://github.com/backend-br", "idioma": "pt-BR", "descricao": "Comunidade brasileira de back-end (vagas, desafios, fórum)." },
+        { "titulo": "backend-br/vagas", "url": "https://github.com/backend-br/vagas", "idioma": "pt-BR", "descricao": "Vagas de back-end publicadas como issues." },
+        { "titulo": "Front-end Brasil", "url": "https://github.com/frontendbr", "idioma": "pt-BR", "descricao": "Comunidade brasileira de front-end." },
+        { "titulo": "frontendbr/vagas", "url": "https://github.com/frontendbr/vagas", "idioma": "pt-BR", "descricao": "Vagas de front-end via issues." },
+        { "titulo": "frontendbr/forum", "url": "https://github.com/frontendbr/forum", "idioma": "pt-BR", "descricao": "Fórum da comunidade (GitHub Discussions)." },
+        { "titulo": "vuejs-br/vagas", "url": "https://github.com/vuejs-br/vagas", "idioma": "pt-BR", "descricao": "Vagas relacionadas a Vue.js." },
+        { "titulo": "Curso em Vídeo", "url": "https://www.cursoemvideo.com/cursos/", "idioma": "pt-BR", "descricao": "Cursos gratuitos de algoritmos, Java, JavaScript, Git, MySQL." },
+        { "titulo": "Rocketseat Discover", "url": "https://www.rocketseat.com.br/discover", "idioma": "pt-BR", "descricao": "Curso introdutório gratuito de desenvolvimento web." },
+        { "titulo": "DIO — Bootcamps", "url": "https://www.dio.me/bootcamp", "idioma": "pt-BR", "descricao": "Bootcamps gratuitos patrocinados por empresas." }
+      ]
+    }
+  ]
+}

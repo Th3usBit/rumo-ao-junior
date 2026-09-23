@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="268" viewBox="0 0 880 268" role="img" aria-labelledby="titulo desc">
+<title id="titulo">O projeto em números</title>
+<desc id="desc">10 páginas no app (tudo no navegador, sem build); 241 flashcards (11 temas, repetição SM-2); 130 questões de quiz (todas com explicação); 17 desafios de simulado (6 com gabarito); 42 dias de plano (6 semanas, 124 tarefas); 225 itens de checklist (4 trilhas, 32 tópicos); 138 links gratuitos (verificados em 23/09/2026); 159 testes automatizados (3 projetos Playwright).</desc>
+<style>
+svg{--bg:#1a1a19;--bg2:#222220;--borda:#2f2f2c;--tinta:#f4f4f1;--tinta2:#c3c2b7;--suave:#9c9a91;--grade:#2c2c2a;--base:#383835;--acento:#6da7ec;--acentoSuave:#16263d;--acentoTexto:#9ec5f4;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300;--o1:#86b6ef;--o2:#3987e5;--o3:#1c5cab;--neutro:#5a5954}
+text{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;fill:var(--tinta)}
+.cartao{fill:var(--bg);stroke:var(--borda)}
+.t2{fill:var(--tinta2)} .suave{fill:var(--suave)} .acento{fill:var(--acento)}
+.titulo{font-size:17px;font-weight:650} .sub{font-size:13px;fill:var(--tinta2)} .rot{font-size:13px}
+.val{font-size:12.5px;font-variant-numeric:tabular-nums;fill:var(--tinta2)} .mini{font-size:12px;fill:var(--suave)}
+.grade{stroke:var(--grade);stroke-width:1} .base{stroke:var(--base);stroke-width:1}
+.s1{fill:var(--s1)} .s2{fill:var(--s2)} .s3{fill:var(--s3)} .s4{fill:var(--s4)} .s5{fill:var(--s5)} .s6{fill:var(--s6)}
+.o1{fill:var(--o1)} .o2{fill:var(--o2)} .o3{fill:var(--o3)} .neutro{fill:var(--neutro)}
+.bom{fill:#0ca30c} .critico{fill:#d03b3b} .aviso{fill:#fab219}
+.cresce{transform-box:fill-box;transform-origin:left center;animation:cresce .9s cubic-bezier(.2,.7,.2,1) both}
+.surge{animation:surge .6s ease-out both}
+@keyframes cresce{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes surge{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tile{fill:var(--bg2)} .traco{fill:var(--acento)} .n{font-size:30px;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-0.01em}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+<rect class="cartao" x="0.5" y="0.5" width="879" height="267" rx="16"/>
+<g class="surge" style="animation-delay:0ms"><rect class="tile" x="24" y="24" width="199" height="104" rx="12"/><rect class="traco cresce" x="42" y="40" width="28" height="3" rx="1.5" style="animation-delay:200ms"/><text class="n" x="42" y="76">10</text><text class="rot" x="42" y="98" font-weight="600">páginas no app</text><text class="mini" x="42" y="116">tudo no navegador, sem build</text></g>
+<g class="surge" style="animation-delay:90ms"><rect class="tile" x="235" y="24" width="199" height="104" rx="12"/><rect class="traco cresce" x="253" y="40" width="28" height="3" rx="1.5" style="animation-delay:290ms"/><text class="n" x="253" y="76">241</text><text class="rot" x="253" y="98" font-weight="600">flashcards</text><text class="mini" x="253" y="116">11 temas, repetição SM-2</text></g>
+<g class="surge" style="animation-delay:180ms"><rect class="tile" x="446" y="24" width="199" height="104" rx="12"/><rect class="traco cresce" x="464" y="40" width="28" height="3" rx="1.5" style="animation-delay:380ms"/><text class="n" x="464" y="76">130</text><text class="rot" x="464" y="98" font-weight="600">questões de quiz</text><text class="mini" x="464" y="116">todas com explicação</text></g>
+<g class="surge" style="animation-delay:270ms"><rect class="tile" x="657" y="24" width="199" height="104" rx="12"/><rect class="traco cresce" x="675" y="40" width="28" height="3" rx="1.5" style="animation-delay:470ms"/><text class="n" x="675" y="76">17</text><text class="rot" x="675" y="98" font-weight="600">desafios de simulado</text><text class="mini" x="675" y="116">6 com gabarito</text></g>
+<g class="surge" style="animation-delay:360ms"><rect class="tile" x="24" y="140" width="199" height="104" rx="12"/><rect class="traco cresce" x="42" y="156" width="28" height="3" rx="1.5" style="animation-delay:560ms"/><text class="n" x="42" y="192">42</text><text class="rot" x="42" y="214" font-weight="600">dias de plano</text><text class="mini" x="42" y="232">6 semanas, 124 tarefas</text></g>
+<g class="surge" style="animation-delay:450ms"><rect class="tile" x="235" y="140" width="199" height="104" rx="12"/><rect class="traco cresce" x="253" y="156" width="28" height="3" rx="1.5" style="animation-delay:650ms"/><text class="n" x="253" y="192">225</text><text class="rot" x="253" y="214" font-weight="600">itens de checklist</text><text class="mini" x="253" y="232">4 trilhas, 32 tópicos</text></g>
+<g class="surge" style="animation-delay:540ms"><rect class="tile" x="446" y="140" width="199" height="104" rx="12"/><rect class="traco cresce" x="464" y="156" width="28" height="3" rx="1.5" style="animation-delay:740ms"/><text class="n" x="464" y="192">138</text><text class="rot" x="464" y="214" font-weight="600">links gratuitos</text><text class="mini" x="464" y="232">verificados em 23/09/2026</text></g>
+<g class="surge" style="animation-delay:630ms"><rect class="tile" x="657" y="140" width="199" height="104" rx="12"/><rect class="traco cresce" x="675" y="156" width="28" height="3" rx="1.5" style="animation-delay:830ms"/><text class="n" x="675" y="192">159</text><text class="rot" x="675" y="214" font-weight="600">testes automatizados</text><text class="mini" x="675" y="232">3 projetos Playwright</text></g>
+</svg>

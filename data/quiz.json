@@ -1,0 +1,1741 @@
+{
+  "versao": 1,
+  "temas": [
+    {
+      "id": "js-ts",
+      "nome": "JavaScript e TypeScript"
+    },
+    {
+      "id": "vue",
+      "nome": "Vue 3"
+    },
+    {
+      "id": "html-css",
+      "nome": "HTML e CSS"
+    },
+    {
+      "id": "java",
+      "nome": "Java"
+    },
+    {
+      "id": "spring",
+      "nome": "Spring Boot"
+    },
+    {
+      "id": "sql",
+      "nome": "SQL e Bancos de Dados"
+    },
+    {
+      "id": "git",
+      "nome": "Git"
+    },
+    {
+      "id": "http",
+      "nome": "HTTP e REST"
+    },
+    {
+      "id": "oop",
+      "nome": "POO, SOLID e Clean Code"
+    },
+    {
+      "id": "testes",
+      "nome": "Testes"
+    },
+    {
+      "id": "algoritmos",
+      "nome": "Algoritmos e Estruturas de Dados"
+    }
+  ],
+  "questoes": [
+    {
+      "id": "q-js-ts-001",
+      "tema": "js-ts",
+      "enunciado": "Qual é a saída do código abaixo no console?\n```js\nconsole.log('A');\nsetTimeout(() => console.log('B'), 0);\nPromise.resolve().then(() => console.log('C'));\nconsole.log('D');\n```",
+      "alternativas": [
+        "`A B C D`",
+        "`A D B C`",
+        "`A C D B`",
+        "`A D C B`"
+      ],
+      "correta": 3,
+      "explicacao": "O código síncrono roda primeiro (`A` e `D`). Depois, o event loop esvazia a fila de **microtasks** (callbacks de Promise → `C`) antes de executar a próxima **macrotask** (callback do `setTimeout` → `B`).\n`setTimeout(..., 0)` não executa \"imediatamente\": apenas agenda o callback para depois que a pilha de chamadas e as microtasks estiverem vazias."
+    },
+    {
+      "id": "q-js-ts-002",
+      "tema": "js-ts",
+      "enunciado": "Qual é a saída do código abaixo? E o que muda ao trocar `var` por `let`?\n```js\nfor (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}\n```",
+      "alternativas": [
+        "Imprime `0 1 2`; com `let` continuaria imprimindo `0 1 2`",
+        "Imprime `3 3 3`; com `let` continuaria imprimindo `3 3 3`",
+        "Imprime `0 1 2`; com `let` passaria a imprimir `3 3 3`",
+        "Imprime `3 3 3`; com `let` passaria a imprimir `0 1 2`"
+      ],
+      "correta": 3,
+      "explicacao": "`var` tem escopo de função: existe uma única variável `i` compartilhada, e quando os callbacks rodam o laço já terminou com `i = 3`.\n`let` tem escopo de bloco e, em laços `for`, cria um novo binding a cada iteração; assim, cada closure captura o próprio valor (`0`, `1`, `2`)."
+    },
+    {
+      "id": "q-js-ts-003",
+      "tema": "js-ts",
+      "enunciado": "Qual das expressões abaixo resulta em `true`?",
+      "alternativas": [
+        "`null === undefined`",
+        "`null == undefined`",
+        "`NaN === NaN`",
+        "`'0' === 0`"
+      ],
+      "correta": 1,
+      "explicacao": "O `==` faz coerção de tipos e, por regra da linguagem, `null` e `undefined` são iguais entre si com `==` — mas não a `0`, `''` ou `false`.\nJá o `===` compara valor **e** tipo, sem coerção: `null` e `undefined` têm tipos diferentes, assim como `'0'` (string) e `0` (number).\n`NaN` nunca é igual a nada, nem a si mesmo — para testar, use `Number.isNaN(x)`."
+    },
+    {
+      "id": "q-js-ts-004",
+      "tema": "js-ts",
+      "enunciado": "Qual é a saída do código abaixo?\n```js\nfunction criarContador() {\n  let count = 0;\n  return () => ++count;\n}\nconst c1 = criarContador();\nconst c2 = criarContador();\nc1();\nc1();\nconsole.log(c1(), c2());\n```",
+      "alternativas": [
+        "`3 3`",
+        "`1 1`",
+        "`3 1`",
+        "`2 1`"
+      ],
+      "correta": 2,
+      "explicacao": "Cada chamada de `criarContador()` cria um novo escopo com a própria variável `count`, que a arrow function retornada \"lembra\" (closure).\n`c1` é chamado três vezes (a terceira chamada retorna `3`), enquanto `c2` tem um contador independente, que retorna `1` na primeira chamada.\n`++count` é pré-incremento: incrementa e já retorna o novo valor."
+    },
+    {
+      "id": "q-js-ts-005",
+      "tema": "js-ts",
+      "enunciado": "Qual é a saída do código abaixo?\n```js\nconst usuario = { perfil: null };\nconsole.log(usuario.perfil?.nome ?? 'anônimo');\nconsole.log(0 || 10, 0 ?? 10);\n```",
+      "alternativas": [
+        "`anônimo` e, na linha seguinte, `10 0`",
+        "Lança `TypeError` ao tentar ler `nome` de `null`",
+        "`undefined` e, na linha seguinte, `10 10`",
+        "`anônimo` e, na linha seguinte, `10 10`"
+      ],
+      "correta": 0,
+      "explicacao": "`?.` (optional chaining) interrompe o acesso e retorna `undefined` quando o valor à esquerda é `null` ou `undefined`, então não há `TypeError`; em seguida o `??` troca esse `undefined` por `'anônimo'`.\nDiferença importante: `||` usa o lado direito para qualquer valor falsy (`0`, `''`, `false`...), enquanto `??` só o usa para `null` ou `undefined` — por isso `0 ?? 10` resulta em `0`."
+    },
+    {
+      "id": "q-js-ts-006",
+      "tema": "js-ts",
+      "enunciado": "Qual é o valor impresso?\n```js\nconst nums = [1, 2, 3, 4];\nconst r = nums\n  .filter(n => n % 2 === 0)\n  .map(n => n * 10)\n  .reduce((acc, n) => acc + n, 0);\nconsole.log(r);\n```",
+      "alternativas": [
+        "`100`",
+        "`60`",
+        "`[20, 40]`",
+        "`40`"
+      ],
+      "correta": 1,
+      "explicacao": "`filter` mantém os pares (`[2, 4]`), `map` multiplica cada um por 10 (`[20, 40]`) e `reduce` soma tudo a partir do valor inicial `0`, resultando em `60`.\n`100` seria multiplicar e somar todos os números sem filtrar; `[20, 40]` é o resultado antes do `reduce`, que reduz o array a um único valor."
+    },
+    {
+      "id": "q-js-ts-007",
+      "tema": "js-ts",
+      "enunciado": "Qual é a saída do código abaixo?\n```js\nconst original = { nome: 'Ana', endereco: { cidade: 'SP' } };\nconst copia = { ...original };\ncopia.nome = 'Bia';\ncopia.endereco.cidade = 'RJ';\nconsole.log(original.nome, original.endereco.cidade);\n```",
+      "alternativas": [
+        "`Ana SP`",
+        "`Ana RJ`",
+        "`Bia RJ`",
+        "`Bia SP`"
+      ],
+      "correta": 1,
+      "explicacao": "O spread faz uma cópia **rasa** (shallow copy): propriedades primitivas como `nome` são copiadas, mas `endereco` continua sendo uma referência para o mesmo objeto nas duas variáveis.\nPor isso, alterar `copia.endereco.cidade` afeta `original`, enquanto alterar `copia.nome` não. Para uma cópia profunda, use `structuredClone(original)`."
+    },
+    {
+      "id": "q-js-ts-008",
+      "tema": "js-ts",
+      "enunciado": "Qual é a saída do código abaixo?\n```js\nasync function f() {\n  console.log(1);\n  await null;\n  console.log(2);\n}\nf();\nconsole.log(3);\n```",
+      "alternativas": [
+        "`1 2 3`",
+        "`3 1 2`",
+        "`1 3 2`",
+        "`2 1 3`"
+      ],
+      "correta": 2,
+      "explicacao": "Uma função `async` executa de forma síncrona até o primeiro `await` (imprime `1`). O `await` suspende a função, agenda a continuação como microtask e devolve o controle a quem chamou, que imprime `3`.\nSó depois a função é retomada e imprime `2`. Ou seja, `async` não torna o início da função assíncrono."
+    },
+    {
+      "id": "q-js-ts-009",
+      "tema": "js-ts",
+      "enunciado": "Sobre o `this` em arrow functions, qual afirmação está correta?",
+      "alternativas": [
+        "Arrow functions não têm `this` próprio: usam o `this` do escopo em que foram definidas (escopo léxico)",
+        "Arrow functions usadas como método de um objeto têm `this` apontando para esse objeto",
+        "O `this` de uma arrow function pode ser trocado com `bind`, `call` ou `apply`",
+        "Arrow functions sempre têm `this` igual ao objeto global (`window` ou `globalThis`)"
+      ],
+      "correta": 0,
+      "explicacao": "Arrow functions capturam o `this` lexicalmente — por isso são úteis em callbacks dentro de métodos, como `this.itens.map(i => this.formatar(i))`.\nPelo mesmo motivo, não servem como métodos de objeto que dependem de `this`, e `bind`/`call`/`apply` não alteram o `this` delas. O valor vem do escopo externo, que nem sempre é o objeto global."
+    },
+    {
+      "id": "q-js-ts-010",
+      "tema": "js-ts",
+      "enunciado": "No TypeScript, qual é a diferença entre os tipos `unknown` e `any`?",
+      "alternativas": [
+        "São equivalentes na prática; `unknown` existe apenas para deixar a intenção do código mais legível",
+        "`unknown` exige checar o tipo (ex.: com `typeof`) antes de usar o valor; `any` desliga a checagem de tipos",
+        "`any` exige checar o tipo antes de usar o valor; `unknown` aceita qualquer operação sem erro de compilação",
+        "Uma variável `unknown` não pode receber valores de tipos primitivos, como `string` ou `number`"
+      ],
+      "correta": 1,
+      "explicacao": "Os dois aceitam receber qualquer valor, mas `unknown` é a opção segura: chamar `x.toUpperCase()` em um `unknown` é erro de compilação até você provar o tipo com `typeof`, `instanceof` ou um type guard.\nCom `any` o TypeScript aceita qualquer operação, inclusive métodos que não existem, e o erro só aparece em tempo de execução."
+    },
+    {
+      "id": "q-js-ts-011",
+      "tema": "js-ts",
+      "enunciado": "Dada a interface abaixo, qual tipo representa um usuário **sem** o campo `senha` (com `id`, `nome` e `email` obrigatórios)?\n```ts\ninterface Usuario {\n  id: number;\n  nome: string;\n  email: string;\n  senha: string;\n}\n```",
+      "alternativas": [
+        "`Exclude<Usuario, 'senha'>`",
+        "`Partial<Usuario>`",
+        "`Omit<Usuario, 'senha'>`",
+        "`Pick<Usuario, 'senha'>`"
+      ],
+      "correta": 2,
+      "explicacao": "`Omit<T, K>` cria um tipo com todas as propriedades de `T`, exceto as chaves `K`.\n`Exclude` atua sobre **uniões** de tipos (ex.: `Exclude<'a' | 'b', 'a'>` resulta em `'b'`), então `Exclude<Usuario, 'senha'>` resulta no próprio `Usuario`.\n`Partial` deixa tudo opcional (mantendo `senha`) e `Pick<Usuario, 'senha'>` mantém **somente** a senha."
+    },
+    {
+      "id": "q-js-ts-012",
+      "tema": "js-ts",
+      "enunciado": "Dentro do `if`, qual acesso o TypeScript permite sem erro de compilação?\n```ts\ntype Resultado =\n  | { status: 'ok'; dados: string[] }\n  | { status: 'erro'; mensagem: string };\n\nfunction tratar(r: Resultado) {\n  if (r.status === 'ok') {\n    // aqui\n  }\n}\n```",
+      "alternativas": [
+        "`r.mensagem`, pois todas as propriedades da união ficam disponíveis",
+        "Nenhum acesso a `dados` sem antes fazer um cast com `r as { dados: string[] }`",
+        "`r.dados.length`, pois `r` é estreitado para a variante com `status: 'ok'`",
+        "Tanto `r.dados` quanto `r.mensagem`, ambos com tipo `any`"
+      ],
+      "correta": 2,
+      "explicacao": "É uma **união discriminada**: a propriedade literal `status` identifica cada variante. Ao comparar `r.status === 'ok'`, o TypeScript faz narrowing e sabe que ali `r` é `{ status: 'ok'; dados: string[] }`.\nPor isso `r.dados` é permitido e `r.mensagem` gera erro. O cast com `as` é desnecessário e ainda pode esconder erros reais."
+    },
+    {
+      "id": "q-js-ts-013",
+      "tema": "js-ts",
+      "enunciado": "Com `strict` habilitado, qual é o tipo inferido para `x`?\n```ts\nfunction primeiro<T>(lista: T[]): T | undefined {\n  return lista[0];\n}\nconst x = primeiro(['a', 'b']);\n```",
+      "alternativas": [
+        "`any`",
+        "`string[]`",
+        "`unknown`",
+        "`string | undefined`"
+      ],
+      "correta": 3,
+      "explicacao": "O TypeScript infere `T = string` a partir do argumento (um `string[]`), e o retorno declarado é `T | undefined`; logo, `x` é `string | undefined`.\nGenerics preservam o tipo informado por quem chama, sem recorrer a `any`. `string[]` é o tipo do parâmetro, não do retorno."
+    },
+    {
+      "id": "q-js-ts-014",
+      "tema": "js-ts",
+      "enunciado": "A API responde `404` com o corpo JSON `{ \"mensagem\": \"não encontrado\" }`. O que o código abaixo imprime?\n```js\nasync function carregar() {\n  try {\n    const resp = await fetch('/api/produtos/999');\n    const dados = await resp.json();\n    console.log('ok', resp.status);\n  } catch (e) {\n    console.log('erro');\n  }\n}\ncarregar();\n```",
+      "alternativas": [
+        "`erro`, pois o `fetch` rejeita a Promise automaticamente para qualquer status 4xx ou 5xx",
+        "`ok 404`: o `fetch` só rejeita em falha de rede, então é preciso checar `resp.ok`",
+        "`erro`, pois `resp.json()` sempre lança exceção quando o status da resposta é 404",
+        "Nada é impresso, pois a Promise do `fetch` fica pendente para sempre em respostas de erro"
+      ],
+      "correta": 1,
+      "explicacao": "A Promise do `fetch` só é rejeitada quando a requisição nem se completa (falha de rede, DNS, CORS bloqueado etc.). Respostas 4xx e 5xx são respostas HTTP válidas: a Promise resolve normalmente, com `resp.ok === false` e `resp.status === 404`.\nPadrão comum: `if (!resp.ok) throw new Error('HTTP ' + resp.status)` antes de usar os dados. (O axios, por padrão, rejeita em status fora de 2xx — o `fetch` não.)"
+    },
+    {
+      "id": "q-vue-001",
+      "tema": "vue",
+      "enunciado": "Em um componente com `<script setup>` foi declarado `const contador = ref(0)`. Como incrementar o valor no script e exibi-lo no template?",
+      "alternativas": [
+        "No script `contador++`; no template `{{ contador.value }}`",
+        "Em ambos os lugares `contador.value`, pois o template não desempacota refs",
+        "Em ambos os lugares apenas `contador`, pois `ref` funciona via Proxy como `reactive`",
+        "No script `contador.value++`; no template `{{ contador }}`"
+      ],
+      "correta": 3,
+      "explicacao": "No JavaScript, um `ref` é um objeto e o valor fica em `.value`. No template, refs de nível superior são **desempacotados automaticamente**, então se usa `{{ contador }}` — escrever `{{ contador.value }}` ali tentaria ler `.value` de um número e não exibiria nada.\n`contador++` no script tentaria reatribuir a constante (erro) em vez de alterar o valor do ref."
+    },
+    {
+      "id": "q-vue-002",
+      "tema": "vue",
+      "enunciado": "Qual é o valor de `estado.total` ao final do código?\n```js\nimport { reactive } from 'vue'\n\nconst estado = reactive({ total: 0 })\nlet { total } = estado\ntotal++\n```",
+      "alternativas": [
+        "`1`, porque `reactive` também rastreia variáveis desestruturadas",
+        "`0`, porque a desestruturação copia o valor primitivo e perde a reatividade",
+        "`1`, mas o template só é atualizado após chamar `nextTick()`",
+        "Ocorre um erro, pois propriedades de um objeto `reactive` são somente leitura"
+      ],
+      "correta": 1,
+      "explicacao": "`reactive` funciona via Proxy: a reatividade está no acesso `estado.total`. Ao desestruturar, `total` vira uma variável local comum com o número `0`, e incrementá-la não afeta o objeto original.\nPara desestruturar mantendo a ligação, use `toRefs(estado)` (ou prefira `ref` para esses valores)."
+    },
+    {
+      "id": "q-vue-003",
+      "tema": "vue",
+      "enunciado": "Qual afirmação descreve corretamente `computed` e `watch` no Vue 3?",
+      "alternativas": [
+        "`computed` é o lugar ideal para chamadas assíncronas à API; `watch` serve para valores derivados exibidos no template",
+        "`computed` deriva um valor com cache; `watch` executa efeitos colaterais (ex.: chamar uma API) quando uma fonte muda",
+        "`computed` não tem cache e é recalculado a cada renderização do componente, exatamente como um método comum",
+        "`watch` retorna um ref somente leitura com o valor observado, que pode ser usado diretamente no template"
+      ],
+      "correta": 1,
+      "explicacao": "Use `computed` para valores derivados puros (ex.: `nomeCompleto` a partir de `nome` e `sobrenome`): ele é cacheado e só reavalia quando as dependências reativas mudam — essa é a diferença para um método.\n`watch` não produz valor para o template (retorna uma função para parar a observação) e é o lugar certo para efeitos colaterais, como requisições, logs ou gravar no `localStorage`."
+    },
+    {
+      "id": "q-vue-004",
+      "tema": "vue",
+      "enunciado": "Qual é a diferença entre `v-if` e `v-show`?",
+      "alternativas": [
+        "`v-if` apenas alterna `display: none`; `v-show` remove e recria o elemento no DOM",
+        "`v-show` pode ser combinado com `v-else` e `v-else-if`, da mesma forma que o `v-if`",
+        "Não há diferença de comportamento entre eles, apenas de sintaxe e de convenção",
+        "`v-show` só alterna o CSS `display`; `v-if` cria ou remove o elemento do DOM"
+      ],
+      "correta": 3,
+      "explicacao": "`v-if` é renderização condicional \"real\": o elemento (e os componentes filhos, com seus hooks) só existe enquanto a condição é verdadeira — alternar custa mais, mas nada é renderizado se começar falso.\n`v-show` renderiza uma vez e só troca o `display`, sendo melhor para alternâncias frequentes. `v-else` e `v-else-if` só funcionam depois de um `v-if`."
+    },
+    {
+      "id": "q-vue-005",
+      "tema": "vue",
+      "enunciado": "Por que usar `:key` com um identificador estável (ex.: `item.id`) em um `v-for`?",
+      "alternativas": [
+        "Para o Vue identificar cada item e reaproveitar ou mover os elementos certos quando a lista muda",
+        "Porque a `key` define a ordem em que os itens são exibidos, ordenando a lista pelo valor da chave",
+        "Para permitir aplicar estilos CSS específicos a cada item, usando a key como seletor",
+        "Por desempenho; `:key=\"Math.random()\"` seria ainda melhor, garantindo chaves sempre únicas"
+      ],
+      "correta": 0,
+      "explicacao": "A `key` é usada pelo algoritmo de diff do Virtual DOM para saber qual elemento corresponde a qual item. Usar o índice pode trocar o estado entre itens (ex.: inputs ou componentes com estado) ao inserir ou remover no meio da lista.\n`Math.random()` gera chaves novas a cada renderização, forçando o Vue a recriar todos os elementos. A key não ordena nada."
+    },
+    {
+      "id": "q-vue-006",
+      "tema": "vue",
+      "enunciado": "Um componente filho recebe a prop `titulo` e precisa alterá-la a partir de uma ação do usuário. Qual abordagem segue o fluxo recomendado pelo Vue?",
+      "alternativas": [
+        "Atribuir diretamente `props.titulo = novo`, já que props são reativas e sincronizam com o pai",
+        "Emitir um evento (ex.: `emit('update:titulo', novo)`) para o pai atualizar o valor",
+        "Envolver as props com `reactive(props)` para torná-las editáveis dentro do filho",
+        "Declarar a prop com `required: false`, o que a torna mutável dentro do componente filho"
+      ],
+      "correta": 1,
+      "explicacao": "O Vue usa **fluxo de dados unidirecional**: props descem do pai para o filho e são somente leitura no filho (o Vue emite um aviso se você tentar alterá-las).\nO filho comunica a mudança emitindo um evento, e o pai, dono do estado, atualiza o valor. Se o filho só precisa de um valor inicial editável localmente, pode copiá-lo para um `ref` próprio."
+    },
+    {
+      "id": "q-vue-007",
+      "tema": "vue",
+      "enunciado": "Considere os componentes abaixo (Vue 3.4+). O que acontece quando o usuário digita no `input`?\n```vue\n<!-- Filho.vue -->\n<script setup lang=\"ts\">\nconst modelo = defineModel<string>()\n</script>\n\n<template>\n  <input v-model=\"modelo\" />\n</template>\n\n<!-- No componente pai -->\n<Filho v-model=\"nome\" />\n```",
+      "alternativas": [
+        "Ocorre um erro, pois `v-model` em componentes exige declarar `defineProps` e `defineEmits` manualmente",
+        "Apenas uma cópia local no filho é alterada; o `nome` do pai não muda",
+        "O `nome` do pai é atualizado, pois `defineModel` declara a prop `modelValue` e o evento `update:modelValue` automaticamente",
+        "O pai só recebe o novo valor se também escutar o evento `@change` no `Filho`"
+      ],
+      "correta": 2,
+      "explicacao": "`defineModel()` é uma macro do compilador (Vue 3.4+) que retorna um ref ligado ao `v-model` do pai: ler o ref devolve a prop `modelValue`, e atribuir a ele emite `update:modelValue`.\nÉ um atalho para o padrão manual com `defineProps(['modelValue'])` + `defineEmits(['update:modelValue'])`, que continua válido."
+    },
+    {
+      "id": "q-vue-008",
+      "tema": "vue",
+      "enunciado": "Em qual momento é seguro acessar um elemento do DOM por meio de um template ref (ex.: `inputRef.value.focus()`)?",
+      "alternativas": [
+        "No hook `onBeforeMount`",
+        "No hook `onUnmounted`",
+        "No hook `onMounted`",
+        "Diretamente no corpo do `<script setup>`, fora de qualquer hook"
+      ],
+      "correta": 2,
+      "explicacao": "O template ref só é preenchido depois que o componente é montado no DOM, por isso `onMounted` é o lugar certo.\nNo corpo do `<script setup>` (que roda antes da montagem) e em `onBeforeMount`, o elemento ainda não existe (`inputRef.value` é `null`). `onUnmounted` roda quando o componente já foi removido."
+    },
+    {
+      "id": "q-vue-009",
+      "tema": "vue",
+      "enunciado": "Considere que `el` é um template ref do `<p>` que exibe `{{ msg }}` e que `msg` começa com o valor `'a'`. O que é impresso ao chamar `mudar()`?\n```js\nasync function mudar() {\n  msg.value = 'b'\n  console.log(el.value.textContent)\n  await nextTick()\n  console.log(el.value.textContent)\n}\n```",
+      "alternativas": [
+        "`b` e depois `b`",
+        "`a` e depois `a`",
+        "`a` e depois `b`",
+        "`undefined` e depois `b`"
+      ],
+      "correta": 2,
+      "explicacao": "O Vue não atualiza o DOM a cada mudança de estado: ele agrupa as alterações e aplica o re-render de forma assíncrona, no próximo \"tick\". Logo após `msg.value = 'b'`, o DOM ainda mostra `a`.\n`await nextTick()` espera essa atualização, e então o texto já é `b`. O estado (`msg.value`) muda na hora; o que é adiado é apenas o DOM."
+    },
+    {
+      "id": "q-vue-010",
+      "tema": "vue",
+      "enunciado": "Considerando a store Pinia abaixo, qual afirmação sobre o código do componente está correta?\n```js\n// store: state { contador: 0 }, action incrementar()\nconst store = useContadorStore()\nconst { contador } = store                  // (1)\nconst { contador: c2 } = storeToRefs(store) // (2)\nconst { incrementar } = store               // (3)\n```",
+      "alternativas": [
+        "(1) e (2) continuam reativos, pois a store já é um `reactive`; (3) funciona normalmente",
+        "(1) perde a reatividade; (2) continua reativo; (3) não funciona sem `storeToRefs`",
+        "(1) perde a reatividade; (2) continua reativo; (3) funciona normalmente",
+        "(1) perde a reatividade; (2) é uma cópia que não reflete mudanças; (3) funciona normalmente"
+      ],
+      "correta": 2,
+      "explicacao": "A store é um objeto `reactive`; desestruturá-la diretamente copia o valor atual do state (como acontece com qualquer `reactive`), perdendo a reatividade.\n`storeToRefs` cria refs para state e getters, mantendo a ligação com a store. Actions são funções já vinculadas à store, então podem ser desestruturadas diretamente — e o `storeToRefs` as ignora."
+    },
+    {
+      "id": "q-vue-011",
+      "tema": "vue",
+      "enunciado": "Com a rota definida como `/produtos/:id`, como ler o `id` dentro de um componente com `<script setup>`?",
+      "alternativas": [
+        "`const router = useRouter()` e depois `router.params.id`",
+        "`this.$route.params.id`, direto no `<script setup>`",
+        "`const route = useRoute()` e depois `route.params.id`",
+        "`const route = useRoute()` e depois `route.query.id`"
+      ],
+      "correta": 2,
+      "explicacao": "`useRoute()` retorna a rota atual (reativa), com `params` (segmentos dinâmicos como `:id`), `query` (parte após o `?`), entre outros.\n`useRouter()` retorna o roteador, usado para navegar (`router.push(...)`), e não tem `params`. Em `<script setup>` não existe `this`. E `route.query.id` leria `/produtos?id=10`, não `/produtos/10`."
+    },
+    {
+      "id": "q-html-css-001",
+      "tema": "html-css",
+      "enunciado": "Qual será a cor do texto do parágrafo abaixo?\n```html\n<p id=\"aviso\" class=\"texto\">Olá</p>\n```\n```css\n#aviso  { color: red; }\np.texto { color: blue; }\n.texto  { color: green; }\n```",
+      "alternativas": [
+        "Verde",
+        "Vermelho",
+        "Azul",
+        "Preto (a cor padrão)"
+      ],
+      "correta": 1,
+      "explicacao": "Vence o seletor de maior **especificidade**, não o último declarado. `#aviso` tem um ID (1,0,0); `p.texto` tem uma classe e um elemento (0,1,1); `.texto` tem só uma classe (0,1,0).\nA ordem no arquivo só desempata seletores com a mesma especificidade."
+    },
+    {
+      "id": "q-html-css-002",
+      "tema": "html-css",
+      "enunciado": "Qual é a largura total ocupada pela caixa na tela (desconsiderando `margin`)?\n```css\n.caixa {\n  box-sizing: content-box;\n  width: 200px;\n  padding: 20px;\n  border: 5px solid black;\n}\n```",
+      "alternativas": [
+        "`250px`",
+        "`200px`",
+        "`240px`",
+        "`225px`"
+      ],
+      "correta": 0,
+      "explicacao": "Com `content-box` (o valor padrão), `width` define só a área de conteúdo; padding e borda são somados: 200 + 20×2 + 5×2 = 250px.\nCom `box-sizing: border-box`, os 200px já incluiriam padding e borda (o conteúdo encolheria para 150px). Por isso muitos projetos aplicam `border-box` em todos os elementos."
+    },
+    {
+      "id": "q-html-css-003",
+      "tema": "html-css",
+      "enunciado": "Qual elemento é o mais adequado semanticamente para envolver os links do menu de navegação principal de um site?",
+      "alternativas": [
+        "`<aside>`",
+        "`<section>`",
+        "`<nav>`",
+        "`<div class=\"menu\">`"
+      ],
+      "correta": 2,
+      "explicacao": "`<nav>` indica um bloco de links de navegação importante e é exposto como landmark para tecnologias assistivas, permitindo que o usuário de leitor de tela pule direto até ele.\n`<aside>` é para conteúdo complementar, `<section>` agrupa um tema do documento (normalmente com título) e `<div>` não carrega significado semântico."
+    },
+    {
+      "id": "q-html-css-004",
+      "tema": "html-css",
+      "enunciado": "Um botão exibe apenas um ícone SVG de lixeira, sem texto visível. Qual é a melhor opção em termos de acessibilidade?",
+      "alternativas": [
+        "Usar `<button type=\"button\" aria-label=\"Excluir item\">` envolvendo o ícone",
+        "Usar `<div onclick=\"excluir()\">` com o ícone, já que o visual é o mesmo",
+        "Usar `<button tabindex=\"-1\">` com o ícone, para não atrapalhar a navegação por teclado",
+        "Usar `<span role=\"button\">` com o ícone, sem nenhum texto alternativo"
+      ],
+      "correta": 0,
+      "explicacao": "`<button>` já é focável, acionável por Enter/Espaço e anunciado como botão; o `aria-label` fornece o nome acessível que o leitor de tela vai ler, já que não há texto visível.\nUma `<div>` com `onclick` não recebe foco nem responde ao teclado; `tabindex=\"-1\"` tira o botão da ordem de tabulação; e `role=\"button\"` sem nome acessível nem tratamento de teclado continua inacessível."
+    },
+    {
+      "id": "q-html-css-005",
+      "tema": "html-css",
+      "enunciado": "Qual é o uso correto do atributo `alt` em imagens?",
+      "alternativas": [
+        "Omitir o atributo em imagens decorativas, pois `alt=\"\"` vazio é inválido em HTML",
+        "Repetir o nome do arquivo da imagem, como `alt=\"foto-123.jpg\"`, para identificá-la",
+        "Descrever o conteúdo da imagem; imagens decorativas devem usar `alt=\"\"` (vazio)",
+        "Usar `alt` apenas para SEO, já que leitores de tela ignoram esse atributo"
+      ],
+      "correta": 2,
+      "explicacao": "Leitores de tela leem o `alt` no lugar da imagem, então ele deve transmitir a informação relevante (ex.: `alt=\"Gráfico de vendas de 2024 em alta\"`).\nCom `alt=\"\"` a imagem decorativa é ignorada pela tecnologia assistiva; já sem o atributo, muitos leitores anunciam o nome do arquivo — por isso não se deve omiti-lo."
+    },
+    {
+      "id": "q-html-css-006",
+      "tema": "html-css",
+      "enunciado": "Em um container com `display: flex` e `flex-direction: row` (padrão), qual propriedade centraliza os itens **horizontalmente**?",
+      "alternativas": [
+        "`align-items: center`",
+        "`justify-content: center`",
+        "`text-align: center`",
+        "`vertical-align: middle`"
+      ],
+      "correta": 1,
+      "explicacao": "`justify-content` alinha os itens no **eixo principal**, que em `row` é horizontal. `align-items` alinha no **eixo transversal** (vertical, em `row`); com `flex-direction: column` os papéis se invertem.\n`text-align` age sobre conteúdo inline dentro de um bloco, e `vertical-align` vale para elementos inline e células de tabela, não para itens flex."
+    },
+    {
+      "id": "q-html-css-007",
+      "tema": "html-css",
+      "enunciado": "Um container com `display: grid` tem `600px` de largura, sem `gap`, e `grid-template-columns: 1fr 2fr`. Com conteúdo curto nas células, qual é a largura de cada coluna?",
+      "alternativas": [
+        "`200px` e `400px`",
+        "`300px` e `300px`",
+        "`1px` e `2px`",
+        "`100px` e `500px`"
+      ],
+      "correta": 0,
+      "explicacao": "`fr` representa uma fração do espaço livre. Há 3 frações no total (1 + 2), então cada fração vale 600 ÷ 3 = 200px: a primeira coluna recebe 1 fração (200px) e a segunda, 2 frações (400px).\nSe houvesse `gap`, ele seria descontado antes da divisão."
+    },
+    {
+      "id": "q-html-css-008",
+      "tema": "html-css",
+      "enunciado": "Um elemento com `position: absolute` é posicionado (via `top`, `left` etc.) em relação a quê?",
+      "alternativas": [
+        "Sempre à janela do navegador (viewport), mesmo quando a página é rolada",
+        "Sempre ao elemento pai direto, independentemente do `position` dele",
+        "Ao ancestral posicionado mais próximo, ou seja, com `position` diferente de `static`",
+        "À sua própria posição original, mantendo o espaço reservado no fluxo"
+      ],
+      "correta": 2,
+      "explicacao": "`absolute` tira o elemento do fluxo e o posiciona em relação ao ancestral posicionado mais próximo (`relative`, `absolute`, `fixed` ou `sticky`); se não houver nenhum, usa o bloco de contenção inicial. Por isso é comum colocar `position: relative` no pai.\nPosicionar em relação à viewport é o comportamento do `fixed`; deslocar a partir da posição original, mantendo o espaço no fluxo, é o `relative`."
+    },
+    {
+      "id": "q-html-css-009",
+      "tema": "html-css",
+      "enunciado": "Com `html { font-size: 16px; }`, um `div` tem `font-size: 20px` e um filho direto que não redefine `font-size`. Se esse filho usar `padding: 2rem` e `margin: 2em`, quais são os valores calculados?",
+      "alternativas": [
+        "`padding` de 32px e `margin` de 40px",
+        "`padding` de 32px e `margin` de 32px",
+        "`padding` de 40px e `margin` de 32px",
+        "`padding` de 40px e `margin` de 40px"
+      ],
+      "correta": 0,
+      "explicacao": "`rem` é relativo ao `font-size` do elemento raiz (`html`): 2 × 16 = 32px.\n`em` (em propriedades como `margin` e `padding`) é relativo ao `font-size` do **próprio elemento**, que o filho herdou do `div` (20px): 2 × 20 = 40px. Por ser mais previsível, `rem` é o mais usado para tipografia e espaçamentos."
+    },
+    {
+      "id": "q-html-css-010",
+      "tema": "html-css",
+      "enunciado": "Com o CSS abaixo, qual é a largura do `.card` em uma tela de 500px e em uma de 1024px de largura?\n```css\n.card { width: 100%; }\n\n@media (min-width: 768px) {\n  .card { width: 50%; }\n}\n\n@media (min-width: 1200px) {\n  .card { width: 33%; }\n}\n```",
+      "alternativas": [
+        "`100%` na tela de 500px e `50%` na de 1024px",
+        "`50%` na tela de 500px e `33%` na de 1024px",
+        "`100%` na tela de 500px e `33%` na de 1024px",
+        "`50%` nas duas telas"
+      ],
+      "correta": 0,
+      "explicacao": "É uma abordagem **mobile-first**: o estilo base vale para telas pequenas e cada `min-width` sobrescreve a partir daquela largura. Em 500px nenhuma media query se aplica (100%).\nEm 1024px apenas `min-width: 768px` é verdadeira (50%); a de 1200px ainda não. Se as duas se aplicassem, valeria a última declarada, pois têm a mesma especificidade."
+    },
+    {
+      "id": "q-java-001",
+      "tema": "java",
+      "enunciado": "Qual é a saída do código abaixo?\n```java\nString a = \"java\";\nString b = \"java\";\nString c = new String(\"java\");\nSystem.out.println(a == b);\nSystem.out.println(a == c);\nSystem.out.println(a.equals(c));\n```",
+      "alternativas": [
+        "`true`, `false`, `true`",
+        "`true`, `true`, `true`",
+        "`false`, `false`, `true`",
+        "`true`, `false`, `false`"
+      ],
+      "correta": 0,
+      "explicacao": "`==` compara **referências**. Literais iguais são reaproveitados do String pool, então `a` e `b` apontam para o mesmo objeto (`true`).\n`new String(...)` sempre cria um objeto novo no heap (`false`), e `equals` compara o **conteúdo** (`true`). Regra prática: compare Strings sempre com `equals`."
+    },
+    {
+      "id": "q-java-002",
+      "tema": "java",
+      "enunciado": "Sobre o contrato entre `equals` e `hashCode` em Java, qual afirmação está correta?",
+      "alternativas": [
+        "Se dois objetos têm o mesmo `hashCode`, eles obrigatoriamente são iguais por `equals`",
+        "Basta sobrescrever `equals`, pois `HashSet` e `HashMap` usam apenas `equals` para localizar elementos",
+        "`hashCode` deve retornar um valor único para cada instância, mesmo entre objetos iguais",
+        "Se `a.equals(b)` é `true`, então `a.hashCode()` deve ser igual a `b.hashCode()`; o inverso não é obrigatório"
+      ],
+      "correta": 3,
+      "explicacao": "Coleções baseadas em hash usam primeiro o `hashCode` para achar o \"bucket\" e só depois o `equals`. Se você sobrescreve `equals` sem `hashCode`, dois objetos \"iguais\" tendem a cair em buckets diferentes, e um `HashSet` pode guardar os dois como se fossem distintos.\nColisões (mesmo hash para objetos diferentes) são permitidas e esperadas."
+    },
+    {
+      "id": "q-java-003",
+      "tema": "java",
+      "enunciado": "Qual é a saída do código abaixo (Java 16+)?\n```java\nrecord Ponto(int x, int y) {}\n\nvar p1 = new Ponto(1, 2);\nvar p2 = new Ponto(1, 2);\nSystem.out.println(p1 == p2);\nSystem.out.println(p1.equals(p2));\nSystem.out.println(p1);\n```",
+      "alternativas": [
+        "`true`, `true` e `Ponto[x=1, y=2]`",
+        "`false`, `true` e `Ponto[x=1, y=2]`",
+        "`false`, `false` e `Ponto@1b6d3586`",
+        "`false`, `true` e `Ponto@1b6d3586`"
+      ],
+      "correta": 1,
+      "explicacao": "Records geram automaticamente construtor, acessores (`x()`, `y()`), `equals`, `hashCode` e `toString` baseados nos componentes. Por isso `equals` dá `true` e `toString` imprime `Ponto[x=1, y=2]`.\nMas `==` continua comparando referências: são dois objetos distintos, então dá `false`."
+    },
+    {
+      "id": "q-java-004",
+      "tema": "java",
+      "enunciado": "Você precisa armazenar e-mails **sem duplicatas** e percorrê-los **na ordem em que foram inseridos**. Qual implementação é a mais adequada?",
+      "alternativas": [
+        "`LinkedHashSet`",
+        "`HashSet`",
+        "`TreeSet`",
+        "`ArrayList`"
+      ],
+      "correta": 0,
+      "explicacao": "`LinkedHashSet` é um `Set` (rejeita duplicatas, com operações O(1) em média) que mantém uma lista encadeada interna preservando a ordem de inserção.\n`HashSet` não garante ordem alguma; `TreeSet` ordena pelos valores (ordem natural ou `Comparator`), não pela inserção; `ArrayList` mantém a ordem, mas aceita duplicatas."
+    },
+    {
+      "id": "q-java-005",
+      "tema": "java",
+      "enunciado": "Qual afirmação sobre exceções em Java está correta?",
+      "alternativas": [
+        "`NullPointerException` é checked e precisa ser declarada com `throws` em todos os métodos",
+        "Toda exceção precisa ser capturada com `try/catch`, senão o código não compila",
+        "`OutOfMemoryError` estende `Exception` e deve ser sempre capturada pela aplicação",
+        "`IOException` é checked e precisa ser tratada ou declarada; `NullPointerException` é unchecked"
+      ],
+      "correta": 3,
+      "explicacao": "Exceções **checked** (subclasses de `Exception` fora da hierarquia de `RuntimeException`, como `IOException` e `SQLException`) são verificadas pelo compilador: é preciso tratá-las ou declará-las com `throws`. As **unchecked** (`RuntimeException` e subclasses) não exigem isso.\n`Error` (como `OutOfMemoryError`) estende `Throwable`, não `Exception`, e indica problemas graves que normalmente não se tratam."
+    },
+    {
+      "id": "q-java-006",
+      "tema": "java",
+      "enunciado": "Qual é a saída ao executar `System.out.println(teste());`?\n```java\nstatic int teste() {\n    try {\n        return 1;\n    } finally {\n        System.out.println(\"finally\");\n    }\n}\n```",
+      "alternativas": [
+        "`1` e depois `finally`",
+        "Apenas `1`, pois o `return` impede a execução do `finally`",
+        "Erro de compilação, pois não pode haver `return` dentro de um `try` com `finally`",
+        "`finally` e depois `1`"
+      ],
+      "correta": 3,
+      "explicacao": "O bloco `finally` sempre executa ao sair do `try`, inclusive quando há `return` (só deixa de executar em casos extremos, como `System.exit()` ou a JVM ser encerrada).\nO valor `1` é calculado e guardado, o `finally` imprime `finally` e só então o método retorna para o `println` externo, que imprime `1`."
+    },
+    {
+      "id": "q-java-007",
+      "tema": "java",
+      "enunciado": "Qual é a saída do código abaixo?\n```java\nList<String> nomes = List.of(\"ana\", \"bruno\", \"carla\", \"davi\");\nList<String> r = nomes.stream()\n    .filter(n -> n.length() > 3)\n    .map(String::toUpperCase)\n    .sorted(Comparator.reverseOrder())\n    .toList();\nSystem.out.println(r);\n```",
+      "alternativas": [
+        "`[BRUNO, CARLA, DAVI]`",
+        "`[DAVI, CARLA, BRUNO]`",
+        "`[DAVI, CARLA, BRUNO, ANA]`",
+        "`[davi, carla, bruno]`"
+      ],
+      "correta": 1,
+      "explicacao": "`filter` mantém os nomes com mais de 3 letras (remove `ana`, que tem exatamente 3). `map` converte para maiúsculas e `sorted(Comparator.reverseOrder())` ordena em ordem alfabética **decrescente**.\n`toList()` (Java 16+) coleta o resultado em uma lista imutável. `[BRUNO, CARLA, DAVI]` seria a ordem crescente."
+    },
+    {
+      "id": "q-java-008",
+      "tema": "java",
+      "enunciado": "`repo.findById(id)` retorna `Optional<Usuario>`. Qual forma obtém o nome do usuário, ou `\"Anônimo\"` se ele não existir, **sem risco de exceção**?",
+      "alternativas": [
+        "`repo.findById(id).get().getNome()`",
+        "`repo.findById(id).orElse(null).getNome()`",
+        "`repo.findById(id) != null ? repo.findById(id).get().getNome() : \"Anônimo\"`",
+        "`repo.findById(id).map(Usuario::getNome).orElse(\"Anônimo\")`"
+      ],
+      "correta": 3,
+      "explicacao": "`map` transforma o valor só se ele estiver presente, e `orElse` fornece o valor padrão quando o Optional está vazio.\n`get()` em um Optional vazio lança `NoSuchElementException`; `orElse(null).getNome()` gera `NullPointerException`; e comparar o Optional com `null` não adianta, pois ele próprio não é nulo — vazio é `Optional.empty()`."
+    },
+    {
+      "id": "q-java-009",
+      "tema": "java",
+      "enunciado": "Qual é a saída do código abaixo?\n```java\nclass Animal {\n    String som() { return \"...\"; }\n}\nclass Cachorro extends Animal {\n    @Override\n    String som() { return \"Au\"; }\n}\n\nstatic String desc(Animal a)   { return \"animal:\" + a.som(); }\nstatic String desc(Cachorro c) { return \"cachorro:\" + c.som(); }\n\n// no main:\nAnimal a = new Cachorro();\nSystem.out.println(desc(a));\n```",
+      "alternativas": [
+        "`animal:Au`",
+        "`cachorro:Au`",
+        "`animal:...`",
+        "`cachorro:...`"
+      ],
+      "correta": 0,
+      "explicacao": "A **sobrecarga** (overload) é resolvida em tempo de **compilação**, pelo tipo declarado da variável: `a` foi declarada como `Animal`, então é chamado `desc(Animal)`.\nJá a **sobrescrita** (override) é resolvida em tempo de **execução**, pelo tipo real do objeto: `a.som()` executa a versão de `Cachorro` e retorna `Au`."
+    },
+    {
+      "id": "q-java-010",
+      "tema": "java",
+      "enunciado": "Qual é a saída do código abaixo?\n```java\nclass Contador {\n    static int total = 0;\n    int id;\n\n    Contador() {\n        total++;\n        id = total;\n    }\n}\n\n// no main:\nvar c1 = new Contador();\nvar c2 = new Contador();\nvar c3 = new Contador();\nSystem.out.println(c1.id + \" \" + Contador.total);\n```",
+      "alternativas": [
+        "`1 1`",
+        "`1 3`",
+        "`3 3`",
+        "`0 3`"
+      ],
+      "correta": 1,
+      "explicacao": "Um campo `static` pertence à **classe**, não a cada objeto: existe um único `total` compartilhado, que chega a 3 após as três construções.\nJá `id` é um campo de instância: cada objeto guarda o valor de `total` do momento em que foi criado, então `c1.id` vale 1."
+    },
+    {
+      "id": "q-java-011",
+      "tema": "java",
+      "enunciado": "Qual é a saída do código abaixo?\n```java\nstatic void alterar(StringBuilder sb, int n) {\n    sb.append(\"!\");\n    n = n + 1;\n    sb = new StringBuilder(\"novo\");\n}\n\n// no main:\nStringBuilder s = new StringBuilder(\"oi\");\nint x = 1;\nalterar(s, x);\nSystem.out.println(s + \" \" + x);\n```",
+      "alternativas": [
+        "`novo 2`",
+        "`oi 1`",
+        "`novo 1`",
+        "`oi! 1`"
+      ],
+      "correta": 3,
+      "explicacao": "Java é sempre **passagem por valor**. Para objetos, o valor copiado é a referência: `sb.append(\"!\")` altera o mesmo objeto apontado por `s`.\nMas reatribuir `sb = new StringBuilder(...)` só muda a cópia local da referência, sem afetar `s`. O `int` também é copiado, então `x` continua 1."
+    },
+    {
+      "id": "q-spring-001",
+      "tema": "spring",
+      "enunciado": "Qual é a forma de injeção de dependência geralmente recomendada em beans do Spring?",
+      "alternativas": [
+        "`@Autowired` em campos `private`, pois isso facilita os testes unitários sem o Spring",
+        "Instanciar as dependências com `new` dentro da classe, para não depender do container",
+        "Injeção por setter em todas as dependências obrigatórias, para garantir imutabilidade",
+        "Injeção pelo construtor, com campos `final`; havendo um único construtor, o `@Autowired` é opcional"
+      ],
+      "correta": 3,
+      "explicacao": "A injeção por construtor deixa as dependências explícitas, permite campos `final` (imutáveis), impede objetos em estado incompleto e facilita testes unitários: basta passar mocks no construtor.\nInjeção em campo esconde as dependências e exige reflexão ou o container nos testes. Usar `new` acopla a classe à implementação concreta e anula a inversão de controle."
+    },
+    {
+      "id": "q-spring-002",
+      "tema": "spring",
+      "enunciado": "Qual é a diferença entre `@Controller` e `@RestController`?",
+      "alternativas": [
+        "`@RestController` só aceita `GET` e `POST`; os demais métodos HTTP exigem `@Controller`",
+        "`@Controller` não é detectado pelo component scan, ao contrário de `@RestController`",
+        "`@RestController` equivale a `@Controller` + `@ResponseBody` em todos os métodos",
+        "`@RestController` é uma especialização de `@Service` voltada para regras de negócio"
+      ],
+      "correta": 2,
+      "explicacao": "Em um `@Controller` tradicional, uma String retornada costuma ser interpretada como o nome de uma view (ex.: template Thymeleaf), a menos que o método tenha `@ResponseBody`.\n`@RestController` aplica `@ResponseBody` a todos os métodos, o que é ideal para APIs REST. Ambos são estereótipos detectados pelo component scan e aceitam qualquer método HTTP."
+    },
+    {
+      "id": "q-spring-003",
+      "tema": "spring",
+      "enunciado": "Um controller chama `pedidoService.processar()`. Com a configuração padrão do Spring (proxies), o método `salvar()` roda dentro de uma transação?\n```java\n@Service\npublic class PedidoService {\n\n    public void processar() {\n        // ... validações\n        salvar(); // chamada interna\n    }\n\n    @Transactional\n    public void salvar() {\n        // grava pedido e itens\n    }\n}\n```",
+      "alternativas": [
+        "Não: a chamada interna (`this.salvar()`) não passa pelo proxy, então o `@Transactional` é ignorado",
+        "Sim: `@Transactional` é sempre aplicado, independentemente de onde o método é chamado",
+        "Sim, mas apenas se o método `salvar()` for declarado como `private` na mesma classe",
+        "Não, porque `@Transactional` só funciona em classes anotadas com `@Repository`"
+      ],
+      "correta": 0,
+      "explicacao": "O Spring implementa `@Transactional` com um **proxy** em volta do bean; a transação é aberta quando a chamada entra pelo proxy. Uma chamada interna usa `this` e não passa por ele (self-invocation).\nSoluções: anotar o método de entrada (`processar`) ou a classe, ou mover `salvar` para outro bean. Métodos `private` também não são interceptados pelo proxy."
+    },
+    {
+      "id": "q-spring-004",
+      "tema": "spring",
+      "enunciado": "Por padrão, em quais situações um método `@Transactional` do Spring faz **rollback**?",
+      "alternativas": [
+        "Em exceções unchecked (`RuntimeException`) e `Error`, mas não em exceções checked",
+        "Em qualquer exceção lançada pelo método, seja ela checked ou unchecked",
+        "Apenas em exceções checked, como `IOException`, pois as unchecked indicam bugs",
+        "Nunca: o rollback sempre precisa ser feito manualmente, chamando o `EntityManager`"
+      ],
+      "correta": 0,
+      "explicacao": "A regra padrão do Spring é fazer rollback em `RuntimeException` e `Error`, e commit em exceções checked. Para incluir as checked, use `@Transactional(rollbackFor = Exception.class)`.\nAtenção: se a exceção for capturada dentro do próprio método e não for relançada, a transação não percebe o erro e faz commit."
+    },
+    {
+      "id": "q-spring-005",
+      "tema": "spring",
+      "enunciado": "O projeto já tem `spring-boot-starter-validation`, mas uma requisição com `nome` vazio passa sem erro. O que falta?\n```java\npublic record CriarUsuarioRequest(\n    @NotBlank String nome,\n    @Email String email\n) {}\n\n@PostMapping(\"/usuarios\")\npublic ResponseEntity<UsuarioDTO> criar(@RequestBody CriarUsuarioRequest req) {\n    // ...\n}\n```",
+      "alternativas": [
+        "Trocar `@NotBlank` por `@NotNull`, que também rejeita strings vazias",
+        "Anotar o record com `@Entity` para que o Hibernate valide os campos",
+        "Adicionar `@Transactional` ao método, pois a validação ocorre no commit",
+        "Anotar o parâmetro com `@Valid`: `@Valid @RequestBody CriarUsuarioRequest req`"
+      ],
+      "correta": 3,
+      "explicacao": "As anotações do Bean Validation só são verificadas no controller quando o parâmetro é marcado com `@Valid` (ou `@Validated`). Com ele, dados inválidos geram `MethodArgumentNotValidException` e, por padrão, resposta `400`.\n`@NotNull` aceita `\"\"`; quem rejeita nulo, vazio e só espaços é o `@NotBlank`."
+    },
+    {
+      "id": "q-spring-006",
+      "tema": "spring",
+      "enunciado": "Qual é o efeito da classe abaixo em uma aplicação Spring Boot?\n```java\n@RestControllerAdvice\npublic class ErrosHandler {\n\n    @ExceptionHandler(RecursoNaoEncontradoException.class)\n    public ResponseEntity<ErroDTO> tratar(RecursoNaoEncontradoException e) {\n        return ResponseEntity.status(HttpStatus.NOT_FOUND)\n                .body(new ErroDTO(e.getMessage()));\n    }\n}\n```",
+      "alternativas": [
+        "Por padrão, só vale para controllers que estejam no mesmo pacote de `ErrosHandler`",
+        "A exceção é capturada, mas a resposta continua `500`, pois o erro não foi tratado no controller",
+        "Só funciona se cada controller também declarar um `@ExceptionHandler` para a mesma exceção",
+        "Quando qualquer controller lançar `RecursoNaoEncontradoException`, a resposta será `404` com o `ErroDTO` em JSON"
+      ],
+      "correta": 3,
+      "explicacao": "`@RestControllerAdvice` (`@ControllerAdvice` + `@ResponseBody`) centraliza o tratamento de exceções para todos os controllers da aplicação (é possível restringir com `basePackages`, mas não é o padrão).\nO método `@ExceptionHandler` intercepta a exceção indicada e monta a resposta, evitando `try/catch` repetido em cada endpoint e padronizando o formato de erro da API."
+    },
+    {
+      "id": "q-spring-007",
+      "tema": "spring",
+      "enunciado": "O endpoint `POST /produtos` criou um novo produto com sucesso. Qual retorno é o mais adequado?",
+      "alternativas": [
+        "`ResponseEntity.created(uri).body(dto)`: status `201` com o header `Location`",
+        "`ResponseEntity.noContent().build()`: status `204` com o produto criado no corpo",
+        "`ResponseEntity.accepted().body(dto)`: status `202`, que indica criação concluída",
+        "`ResponseEntity.status(302).body(dto)`: redireciona o cliente para o novo recurso"
+      ],
+      "correta": 0,
+      "explicacao": "`201 Created` é o status específico para criação, e o header `Location` (ex.: `/produtos/42`) informa a URI do novo recurso; `created(uri)` define os dois.\n`204 No Content` não tem corpo. `202 Accepted` significa que o pedido foi aceito para processamento posterior (assíncrono), não que já foi concluído. `302` é redirecionamento."
+    },
+    {
+      "id": "q-spring-008",
+      "tema": "spring",
+      "enunciado": "Dentro de uma transação, o código abaixo carrega 100 pedidos. Quantas consultas SQL são executadas e como resolver?\n```java\n@Entity\npublic class Pedido {\n    @OneToMany(mappedBy = \"pedido\") // LAZY por padrão\n    private List<Item> itens;\n}\n\nList<Pedido> pedidos = pedidoRepository.findAll();\nfor (Pedido p : pedidos) {\n    System.out.println(p.getItens().size());\n}\n```",
+      "alternativas": [
+        "Apenas 1 consulta, pois `@OneToMany` é `EAGER` por padrão e já traz os itens junto",
+        "1 consulta para os pedidos + 1 por pedido; resolve-se trocando para `FetchType.EAGER`, que sempre gera um único `JOIN`",
+        "1 consulta para os pedidos + 1 por pedido para os itens (problema N+1); resolve-se com `JOIN FETCH` na JPQL ou `@EntityGraph`",
+        "Apenas 2 consultas, pois o Hibernate sempre agrupa automaticamente os itens de todos os pedidos"
+      ],
+      "correta": 2,
+      "explicacao": "Coleções `@OneToMany` são `LAZY` por padrão: cada `getItens().size()` dispara uma nova consulta, totalizando 1 + N (101). A solução é buscar tudo de uma vez, ex.: `@Query(\"select distinct p from Pedido p left join fetch p.itens\")` ou `@EntityGraph(attributePaths = \"itens\")`.\nTrocar para `EAGER` não resolve de forma confiável (com `findAll` o Hibernate ainda pode fazer uma consulta por pedido) e passa a carregar os itens sempre. Carregamento em lote só ocorre se configurado (ex.: `@BatchSize`)."
+    },
+    {
+      "id": "q-spring-009",
+      "tema": "spring",
+      "enunciado": "Qual anotação sobe **apenas a camada web** (controllers, `@ControllerAdvice`, filtros, conversores JSON) para testar um controller com `MockMvc`, com o service substituído por um mock?",
+      "alternativas": [
+        "`@SpringBootTest`",
+        "`@DataJpaTest`",
+        "`@WebMvcTest(ProdutoController.class)`",
+        "`@ExtendWith(MockitoExtension.class)`"
+      ],
+      "correta": 2,
+      "explicacao": "`@WebMvcTest` é um test slice: carrega só a infraestrutura do Spring MVC e configura o `MockMvc`; services e repositories não são criados e precisam ser mockados (com `@MockitoBean` no Spring Boot 3.4+; antes, `@MockBean`).\n`@SpringBootTest` sobe o contexto inteiro (mais lento), `@DataJpaTest` é o slice de JPA e `MockitoExtension` roda sem contexto Spring nenhum."
+    },
+    {
+      "id": "q-spring-010",
+      "tema": "spring",
+      "enunciado": "O que a anotação `@DataJpaTest` faz por padrão?",
+      "alternativas": [
+        "Sobe o contexto completo da aplicação e usa o mesmo PostgreSQL configurado para produção",
+        "Sobe só a camada JPA, usa banco embutido se disponível e faz rollback ao fim de cada teste",
+        "Carrega os controllers e configura o `MockMvc` para testar os endpoints da API",
+        "Sobe só a camada JPA, mas sem transações, e os dados persistem de um teste para o outro"
+      ],
+      "correta": 1,
+      "explicacao": "`@DataJpaTest` é o slice de JPA: configura Hibernate, Spring Data e o `DataSource`, substituindo-o por um banco em memória (ex.: H2) quando há um disponível. Cada teste roda em uma transação com rollback ao final, isolando os testes.\nPara testar contra um PostgreSQL real (ex.: com Testcontainers), pode-se usar `@AutoConfigureTestDatabase(replace = Replace.NONE)`."
+    },
+    {
+      "id": "q-spring-011",
+      "tema": "spring",
+      "enunciado": "Para a requisição `GET /produtos/10?categoria=livros`, qual método de controller captura corretamente os valores `10` e `livros`?",
+      "alternativas": [
+        "`@GetMapping(\"/produtos/{id}\")` com `buscar(@RequestParam Long id, @PathVariable String categoria)`",
+        "`@GetMapping(\"/produtos\")` com `buscar(@RequestBody Long id, @RequestParam String categoria)`",
+        "`@GetMapping(\"/produtos/{id}\")` com `buscar(@PathVariable Long id, @RequestParam String categoria)`",
+        "`@GetMapping(\"/produtos/{id}\")` com `buscar(@RequestHeader Long id, @RequestBody String categoria)`"
+      ],
+      "correta": 2,
+      "explicacao": "`@PathVariable` lê segmentos da URI definidos no mapeamento (`{id}` → `10`); `@RequestParam` lê parâmetros da query string (`?categoria=livros`).\n`@RequestBody` lê o corpo da requisição (normalmente JSON), que não se usa em GET, e `@RequestHeader` lê cabeçalhos HTTP."
+    },
+    {
+      "id": "q-spring-012",
+      "tema": "spring",
+      "enunciado": "O projeto usa Flyway para versionar o schema e `spring.jpa.hibernate.ddl-auto=validate`. Um dev adicionou o campo `telefone` na entidade `Cliente`, mas não criou nenhuma migration. O que acontece ao subir a aplicação?",
+      "alternativas": [
+        "O Hibernate cria a coluna automaticamente na inicialização, pois `validate` se comporta como `update`",
+        "A aplicação sobe normalmente, e a coluna `telefone` é criada no primeiro `INSERT` de cliente",
+        "A inicialização falha, pois o Hibernate não encontra a coluna `telefone`; é preciso criar uma migration",
+        "O Flyway detecta a mudança na entidade e gera sozinho a migration correspondente ao subir"
+      ],
+      "correta": 2,
+      "explicacao": "Com `validate`, o Hibernate apenas **compara** as entidades com o schema existente e aborta se algo não bate (ex.: coluna ausente); ele nunca altera o banco. A correção é uma nova migration, como `V5__adiciona_telefone_cliente.sql`. `update` alteraria o schema automaticamente, sem versionamento nem revisão — arriscado em produção.\nO Flyway executa scripts SQL versionados (`V1__...`, `V2__...`) em ordem e registra o que já rodou em `flyway_schema_history`; ele não lê entidades. Nunca edite uma migration já aplicada (o checksum muda e a validação falha)."
+    },
+    {
+      "id": "q-spring-013",
+      "tema": "spring",
+      "enunciado": "Por que é comum usar um `record` como DTO de resposta, em vez de retornar a entidade JPA diretamente no controller?",
+      "alternativas": [
+        "Porque o Jackson não consegue serializar em JSON classes anotadas com `@Entity`",
+        "Porque os campos de um record podem ser alterados após a criação, facilitando o mapeamento",
+        "Porque records podem ser anotados com `@Entity`, dispensando a classe de entidade separada",
+        "Expõe só os campos escolhidos, evitando vazar dados internos e problemas de lazy loading no JSON"
+      ],
+      "correta": 3,
+      "explicacao": "Devolver a entidade acopla o contrato da API ao modelo do banco: qualquer campo novo (inclusive sensível) vaza na resposta, relacionamentos `LAZY` podem estourar `LazyInitializationException` na serialização e relações bidirecionais geram recursão infinita.\nUm DTO imutável como `record UsuarioResponse(Long id, String nome, String email) {}` define exatamente o contrato. O Jackson serializa entidades normalmente, e records não podem ser entidades JPA (são `final` e sem construtor sem argumentos)."
+    },
+    {
+      "id": "q-spring-014",
+      "tema": "spring",
+      "enunciado": "Uma API Spring Boot é OAuth2 Resource Server (JWT), com `@EnableMethodSecurity` ativo. O endpoint abaixo recebe três requisições: **(1)** sem o header `Authorization`; **(2)** com um token expirado; **(3)** com um token válido, mas sem o scope `admin`. Quais status são retornados?\n```java\n@PreAuthorize(\"hasAuthority('SCOPE_admin')\")\n@DeleteMapping(\"/produtos/{id}\")\npublic ResponseEntity<Void> excluir(@PathVariable Long id) { ... }\n```",
+      "alternativas": [
+        "(1) `401`, (2) `401` e (3) `403`",
+        "(1) `401`, (2) `403` e (3) `403`",
+        "(1) `403`, (2) `401` e (3) `401`",
+        "(1) `400`, (2) `401` e (3) `403`"
+      ],
+      "correta": 0,
+      "explicacao": "`401 Unauthorized` significa **não autenticado**: não há token (1) ou ele falhou na validação de assinatura, expiração, emissor etc. (2). O Resource Server responde `401` com o header `WWW-Authenticate: Bearer ...`.\n`403 Forbidden` significa **autenticado, mas sem permissão** (3). Por padrão, os scopes do JWT (claim `scope`/`scp`) viram authorities com prefixo `SCOPE_`, por isso `hasAuthority('SCOPE_admin')`."
+    },
+    {
+      "id": "q-sql-001",
+      "tema": "sql",
+      "enunciado": "Considere os dados abaixo. Quantas linhas retornam, respectivamente, `clientes c INNER JOIN pedidos p ON p.cliente_id = c.id` e `clientes c LEFT JOIN pedidos p ON p.cliente_id = c.id`?\n- `clientes`: Ana (id 1), Bruno (id 2) e Carla (id 3)\n- `pedidos`: dois pedidos da Ana e um do Bruno; Carla não tem pedidos",
+      "alternativas": [
+        "INNER JOIN: 3 linhas; LEFT JOIN: 3 linhas",
+        "INNER JOIN: 2 linhas; LEFT JOIN: 3 linhas",
+        "INNER JOIN: 3 linhas; LEFT JOIN: 4 linhas",
+        "INNER JOIN: 4 linhas; LEFT JOIN: 3 linhas"
+      ],
+      "correta": 2,
+      "explicacao": "O `INNER JOIN` retorna só as combinações com correspondência: 2 linhas da Ana + 1 do Bruno = 3.\nO `LEFT JOIN` mantém todas as linhas da tabela da esquerda: as mesmas 3 e mais 1 linha para a Carla, com as colunas de `pedidos` em `NULL` = 4. O JOIN gera uma linha por par correspondente, não uma por cliente."
+    },
+    {
+      "id": "q-sql-002",
+      "tema": "sql",
+      "enunciado": "Com as tabelas `clientes(id, nome)` e `pedidos(id, cliente_id, valor)`, qual consulta lista **todos** os clientes com a quantidade de pedidos, mostrando `0` para quem não tem nenhum?",
+      "alternativas": [
+        "`SELECT c.nome, COUNT(p.id) FROM clientes c LEFT JOIN pedidos p ON p.cliente_id = c.id GROUP BY c.id, c.nome`",
+        "`SELECT c.nome, COUNT(*) FROM clientes c LEFT JOIN pedidos p ON p.cliente_id = c.id GROUP BY c.id, c.nome`",
+        "`SELECT c.nome, COUNT(p.id) FROM clientes c INNER JOIN pedidos p ON p.cliente_id = c.id GROUP BY c.id, c.nome`",
+        "`SELECT cliente_id, COUNT(*) FROM pedidos GROUP BY cliente_id`"
+      ],
+      "correta": 0,
+      "explicacao": "O `LEFT JOIN` garante que clientes sem pedidos apareçam (com `p.id` nulo), e `COUNT(p.id)` conta apenas valores não nulos, resultando em `0` para eles.\n`COUNT(*)` conta linhas, e a linha \"vazia\" gerada pelo LEFT JOIN conta como 1. Com `INNER JOIN`, ou consultando só `pedidos`, quem não tem pedido nem aparece."
+    },
+    {
+      "id": "q-sql-003",
+      "tema": "sql",
+      "enunciado": "Com as tabelas `clientes(id, nome)` e `pedidos(id, cliente_id, valor)`, qual consulta retorna os clientes que **nunca** fizeram pedido?",
+      "alternativas": [
+        "`SELECT c.nome FROM clientes c INNER JOIN pedidos p ON p.cliente_id = c.id WHERE p.id IS NULL`",
+        "`SELECT c.nome FROM clientes c LEFT JOIN pedidos p ON p.cliente_id = c.id WHERE p.id = NULL`",
+        "`SELECT c.nome FROM clientes c LEFT JOIN pedidos p ON p.cliente_id = c.id WHERE p.id IS NULL`",
+        "`SELECT c.nome FROM clientes c WHERE c.id NOT IN (SELECT p.id FROM pedidos p)`"
+      ],
+      "correta": 2,
+      "explicacao": "O `LEFT JOIN` traz todos os clientes, e os que não têm pedido ficam com as colunas de `pedidos` nulas; `WHERE p.id IS NULL` filtra exatamente esses. Com `INNER JOIN` eles nem aparecem.\n`= NULL` nunca é verdadeiro (o resultado é \"desconhecido\"), então não retorna nada. A subconsulta compara `c.id` com o id do **pedido**, e não com `cliente_id`. Outra forma correta: `WHERE NOT EXISTS (SELECT 1 FROM pedidos p WHERE p.cliente_id = c.id)`."
+    },
+    {
+      "id": "q-sql-004",
+      "tema": "sql",
+      "enunciado": "A tabela `funcionarios` tem 5 linhas, e a coluna `bonus` contém os valores `100`, `NULL`, `200`, `NULL` e `300`. Qual é o resultado de `SELECT COUNT(*), COUNT(bonus), AVG(bonus) FROM funcionarios`?",
+      "alternativas": [
+        "`5`, `5` e `120`",
+        "`3`, `3` e `200`",
+        "`5`, `3` e `120`",
+        "`5`, `3` e `200`"
+      ],
+      "correta": 3,
+      "explicacao": "`COUNT(*)` conta linhas (5). `COUNT(coluna)` e as demais funções de agregação ignoram `NULL`: `COUNT(bonus)` = 3 e `AVG(bonus)` = (100 + 200 + 300) / 3 = 200.\n`120` seria dividir por 5, tratando `NULL` como zero — para isso seria preciso `AVG(COALESCE(bonus, 0))`."
+    },
+    {
+      "id": "q-sql-005",
+      "tema": "sql",
+      "enunciado": "Qual consulta retorna os `cliente_id` com **mais de 2 pedidos** na tabela `pedidos`?",
+      "alternativas": [
+        "`SELECT cliente_id, COUNT(*) FROM pedidos WHERE COUNT(*) > 2 GROUP BY cliente_id`",
+        "`SELECT cliente_id, COUNT(*) FROM pedidos GROUP BY cliente_id HAVING COUNT(*) > 2`",
+        "`SELECT cliente_id, COUNT(*) FROM pedidos GROUP BY cliente_id WHERE COUNT(*) > 2`",
+        "`SELECT cliente_id, COUNT(*) FROM pedidos HAVING COUNT(*) > 2`"
+      ],
+      "correta": 1,
+      "explicacao": "`WHERE` filtra linhas **antes** do agrupamento e não aceita funções de agregação; `HAVING` filtra os **grupos** depois do `GROUP BY` e pode usar `COUNT`, `SUM` etc. A ordem das cláusulas é `WHERE` → `GROUP BY` → `HAVING`.\nSem `GROUP BY`, a última consulta trata a tabela toda como um único grupo e, no PostgreSQL, dá erro por `cliente_id` não estar agrupado."
+    },
+    {
+      "id": "q-sql-006",
+      "tema": "sql",
+      "enunciado": "Qual afirmação sobre índices em bancos de dados relacionais está correta?",
+      "alternativas": [
+        "Devem ser criados em todas as colunas, já que não têm custo de espaço nem de escrita para o banco",
+        "Aceleram buscas e JOINs nas colunas indexadas, mas ocupam espaço e deixam as escritas mais lentas",
+        "Um índice B-tree comum acelera qualquer filtro, inclusive `LIKE '%termo%'` com curinga no início",
+        "Garantem que as linhas sejam retornadas na ordem do índice, dispensando o `ORDER BY`"
+      ],
+      "correta": 1,
+      "explicacao": "O índice é uma estrutura extra (normalmente B-tree) que precisa ser atualizada a cada escrita — daí o custo de espaço e de escrita.\nUm B-tree ajuda em igualdade, intervalos e prefixos (`LIKE 'termo%'`), mas não com curinga no início. E, sem `ORDER BY`, o banco não garante ordem nenhuma, com ou sem índice."
+    },
+    {
+      "id": "q-sql-007",
+      "tema": "sql",
+      "enunciado": "A tabela `clientes(id, nome, telefones)` guarda na coluna `telefones` valores como `'11 99999-0000, 11 98888-0000'`. Qual forma normal é violada e qual é a correção?",
+      "alternativas": [
+        "A 1FN, por ter valores não atômicos; a correção é criar uma tabela `telefones(id, cliente_id, numero)`",
+        "A 2FN, por ter chave primária simples; a correção é usar a chave composta `(id, nome)`",
+        "A 3FN, porque `nome` depende de `telefones`; a correção é mover `nome` para outra tabela",
+        "Nenhuma; basta criar um índice na coluna `telefones` para buscas eficientes"
+      ],
+      "correta": 0,
+      "explicacao": "A **1ª Forma Normal** exige valores atômicos (um valor por célula) e ausência de grupos repetitivos. Guardar vários telefones em uma string dificulta buscar, validar e atualizar um número específico; o correto é uma tabela relacionada (1:N), com uma linha por telefone.\nA 2FN trata de dependências parciais de chaves **compostas**, e a 3FN, de dependências transitivas entre colunas não chave."
+    },
+    {
+      "id": "q-sql-008",
+      "tema": "sql",
+      "enunciado": "Em uma transferência bancária (debitar a conta A e creditar a conta B), qual propriedade ACID garante que **ou as duas operações acontecem, ou nenhuma**?",
+      "alternativas": [
+        "Consistência",
+        "Isolamento",
+        "Durabilidade",
+        "Atomicidade"
+      ],
+      "correta": 3,
+      "explicacao": "**Atomicidade**: a transação é \"tudo ou nada\"; se o crédito falhar, o débito é desfeito (rollback). **Consistência**: a transação leva o banco de um estado válido a outro, respeitando as regras e constraints.\n**Isolamento**: controla como transações concorrentes enxergam os dados umas das outras. **Durabilidade**: após o commit, os dados não se perdem, mesmo com falha do sistema."
+    },
+    {
+      "id": "q-sql-009",
+      "tema": "sql",
+      "enunciado": "A tabela `a` tem a coluna `x` com os valores `1`, `2`, `2`, e a tabela `b` tem `x` com `2`, `3`. Quantas linhas retornam `SELECT x FROM a UNION SELECT x FROM b` e `SELECT x FROM a UNION ALL SELECT x FROM b`?",
+      "alternativas": [
+        "`UNION`: 5 linhas; `UNION ALL`: 3 linhas",
+        "`UNION`: 3 linhas; `UNION ALL`: 5 linhas",
+        "`UNION`: 4 linhas; `UNION ALL`: 5 linhas",
+        "`UNION`: 1 linha; `UNION ALL`: 5 linhas"
+      ],
+      "correta": 1,
+      "explicacao": "`UNION` junta os resultados e remove **todas** as duplicatas, inclusive as que já existiam dentro de uma mesma tabela: sobram `1`, `2`, `3`.\n`UNION ALL` mantém tudo (`1, 2, 2, 2, 3`) e é mais rápido, por não precisar eliminar duplicatas. Retornar apenas o valor em comum (`2`) seria o comportamento do `INTERSECT`."
+    },
+    {
+      "id": "q-sql-010",
+      "tema": "sql",
+      "enunciado": "Qual afirmação sobre `DELETE`, `TRUNCATE` e `DROP TABLE` está correta?",
+      "alternativas": [
+        "`TRUNCATE` aceita `WHERE`; `DELETE` esvazia a tabela; `DROP TABLE` apaga só os dados",
+        "`DELETE` aceita `WHERE`; `TRUNCATE` remove a tabela inteira; `DROP TABLE` apaga só os dados",
+        "`DELETE` aceita `WHERE`; `TRUNCATE` esvazia a tabela; `DROP TABLE` remove a tabela inteira",
+        "`DELETE` sem `WHERE` remove a estrutura; `TRUNCATE` aceita `WHERE`; `DROP TABLE` remove a tabela"
+      ],
+      "correta": 2,
+      "explicacao": "`DELETE` é DML: remove linha a linha (disparando triggers) e pode ser filtrado com `WHERE` — sem ele, apaga todas as linhas, mas a tabela continua existindo.\n`TRUNCATE` esvazia a tabela inteira de uma vez, geralmente mais rápido, e não aceita `WHERE`. `DROP TABLE` elimina a estrutura, os dados, os índices e as constraints da tabela."
+    },
+    {
+      "id": "q-sql-011",
+      "tema": "sql",
+      "enunciado": "Qual é a forma correta de evitar SQL injection no código abaixo?\n```java\nString sql = \"SELECT * FROM usuarios WHERE email = '\" + email + \"'\";\n```",
+      "alternativas": [
+        "Aplicar `email.trim()` antes de concatenar o valor na consulta",
+        "Usar consulta parametrizada, como `PreparedStatement` com `?` ou parâmetros nomeados no JPA",
+        "Adicionar `LIMIT 1` ao final da consulta para retornar no máximo um usuário",
+        "Validar o formato do e-mail apenas no front-end, antes de enviar a requisição"
+      ],
+      "correta": 1,
+      "explicacao": "Concatenando, uma entrada como `' OR '1'='1` altera a lógica da consulta. Na consulta parametrizada, o valor é enviado separado do comando SQL e tratado sempre como dado, nunca como código.\n`trim()` e `LIMIT` não impedem a injeção, e a validação no front pode ser contornada por qualquer cliente HTTP (Postman, curl)."
+    },
+    {
+      "id": "q-sql-012",
+      "tema": "sql",
+      "enunciado": "Em `pedidos.cliente_id REFERENCES clientes(id)`, o que a chave estrangeira (FOREIGN KEY) garante?",
+      "alternativas": [
+        "Que cada valor de `cliente_id` seja único na tabela `pedidos`",
+        "Que `cliente_id` nunca receba `NULL`, mesmo sem a restrição `NOT NULL`",
+        "Que o PostgreSQL crie automaticamente um índice na coluna `pedidos.cliente_id`",
+        "Integridade referencial: `cliente_id` não pode apontar para um cliente que não existe em `clientes`"
+      ],
+      "correta": 3,
+      "explicacao": "A FK impede inserir ou atualizar um `cliente_id` inexistente e, conforme a regra definida (`ON DELETE RESTRICT`, `CASCADE`, `SET NULL`...), controla o que acontece ao excluir um cliente referenciado.\nEla não impõe unicidade (um cliente pode ter vários pedidos) nem proíbe `NULL`. O PostgreSQL cria índice para PK e UNIQUE, mas **não** para a coluna da FK — costuma valer a pena criá-lo manualmente para acelerar JOINs."
+    },
+    {
+      "id": "q-git-001",
+      "tema": "git",
+      "enunciado": "Qual é a diferença entre `git merge` e `git rebase` ao integrar a `main` na sua branch de feature?",
+      "alternativas": [
+        "`rebase` mantém os hashes originais dos commits, por isso é seguro em branches compartilhadas",
+        "`merge` reescreve os commits da feature com novos hashes para deixar o histórico linear",
+        "`rebase` integra as branches criando um commit de merge e apaga a branch de origem",
+        "`merge` preserva os commits existentes; `rebase` recria seus commits sobre a nova base, com novos hashes"
+      ],
+      "correta": 3,
+      "explicacao": "`merge` junta as histórias sem alterar commits existentes (com um commit de merge, ou por fast-forward quando possível). `rebase` \"move\" sua branch para a ponta da outra, recriando cada commit — por isso os hashes mudam e o histórico fica linear.\nRegra de ouro: não faça rebase de commits que outras pessoas já baixaram, pois isso reescreve o histórico público."
+    },
+    {
+      "id": "q-git-002",
+      "tema": "git",
+      "enunciado": "Um commit com bug já foi enviado (`push`) para a `main`, que é compartilhada com o time. Qual é a forma mais segura de desfazê-lo?",
+      "alternativas": [
+        "`git revert <hash>`, que cria um novo commit desfazendo as alterações",
+        "`git reset --hard HEAD~1` seguido de `git push --force`",
+        "`git commit --amend` para editar o commit que já foi enviado",
+        "`git checkout <hash>` para voltar a branch ao estado anterior"
+      ],
+      "correta": 0,
+      "explicacao": "`git revert` não reescreve o histórico: adiciona um commit que aplica o inverso das mudanças, então quem já baixou a `main` não tem problemas.\n`reset --hard` + `push --force` reescreve o histórico remoto e pode quebrar o trabalho dos colegas; `--amend` também reescreve (gera outro hash). `checkout <hash>` só move o `HEAD` (detached), sem alterar a branch."
+    },
+    {
+      "id": "q-git-003",
+      "tema": "git",
+      "enunciado": "Qual é a diferença entre `git fetch` e `git pull`?",
+      "alternativas": [
+        "`fetch` envia os seus commits locais para o remoto; `pull` baixa os commits do remoto",
+        "`pull` só baixa as novidades do remoto; `fetch` baixa e já integra na branch atual",
+        "`fetch` só baixa as novidades do remoto; `pull` baixa e já integra na branch atual",
+        "São equivalentes; `pull` é só um alias mais curto para `fetch`, sem diferença prática"
+      ],
+      "correta": 2,
+      "explicacao": "`git fetch` atualiza as referências remotas (ex.: `origin/main`) sem mexer na sua branch, então é seguro a qualquer momento: você pode inspecionar as mudanças (ex.: `git log main..origin/main`) antes de integrar.\n`git pull` = `fetch` + `merge` (ou `rebase`, com `--rebase` ou configuração), e por isso pode gerar conflitos. Quem envia commits para o remoto é o `git push`."
+    },
+    {
+      "id": "q-git-004",
+      "tema": "git",
+      "enunciado": "Você tem alterações não commitadas e precisa trocar de branch com urgência para corrigir um bug, sem commitar o trabalho pela metade e sem perdê-lo. Qual sequência atende?",
+      "alternativas": [
+        "`git reset --hard`, trocar de branch e depois recuperar tudo com `git reflog`",
+        "`git stash`, trocar de branch, corrigir o bug e depois voltar e usar `git stash pop`",
+        "`git checkout -- .` para guardar as alterações e então trocar de branch",
+        "`git revert HEAD`, trocar de branch e depois rodar `git revert` novamente"
+      ],
+      "correta": 1,
+      "explicacao": "`git stash` guarda as alterações dos arquivos rastreados (staged ou não) em uma pilha e limpa o working directory (use `-u` para incluir arquivos não rastreados); `git stash pop` reaplica e remove da pilha.\n`reset --hard` e `checkout -- .` **descartam** mudanças não commitadas, e o `reflog` só registra movimentações de commits/refs, não alterações que nunca foram commitadas. `revert` atua sobre commits."
+    },
+    {
+      "id": "q-git-005",
+      "tema": "git",
+      "enunciado": "Você quer trazer **apenas um commit específico** (`a1b2c3d`) de outra branch para a branch atual. Qual comando usar?",
+      "alternativas": [
+        "`git cherry-pick a1b2c3d`",
+        "`git merge a1b2c3d`",
+        "`git rebase a1b2c3d`",
+        "`git revert a1b2c3d`"
+      ],
+      "correta": 0,
+      "explicacao": "`cherry-pick` aplica as mudanças daquele commit na branch atual, criando um novo commit (com outro hash).\n`git merge a1b2c3d` traria também todo o histórico anterior a ele que ainda não está na branch; `rebase` reposicionaria sua branch sobre aquele ponto; e `revert` criaria um commit **desfazendo** as mudanças dele."
+    },
+    {
+      "id": "q-git-006",
+      "tema": "git",
+      "enunciado": "Estando na `main`, você rodou `git merge feature/nova-taxa` e o arquivo ficou assim. O que é cada parte e como concluir o merge?\n```text\n<<<<<<< HEAD\nconst taxa = 0.1;\n=======\nconst taxa = 0.15;\n>>>>>>> feature/nova-taxa\n```",
+      "alternativas": [
+        "Acima de `=======` está a versão de `feature/nova-taxa`; basta rodar `git commit` sem editar o arquivo",
+        "Acima de `=======` está a versão da `main` (HEAD); edite, remova os marcadores, faça `git add` e `git commit`",
+        "Os marcadores são comentários ignorados pelo JavaScript; dá para commitar o arquivo como está",
+        "Conflitos não podem ser resolvidos manualmente; é preciso usar `git merge --abort` e refazer a feature"
+      ],
+      "correta": 1,
+      "explicacao": "Entre `<<<<<<< HEAD` e `=======` fica a versão da branch atual; entre `=======` e `>>>>>>>`, a da branch que está sendo mesclada.\nVocê escolhe (ou combina) o conteúdo certo, apaga os marcadores, marca o arquivo como resolvido com `git add` e finaliza com `git commit` (ou `git merge --continue`). `git merge --abort` existe, mas só cancela o merge."
+    },
+    {
+      "id": "q-git-007",
+      "tema": "git",
+      "enunciado": "O que é o `HEAD` no Git e o que significa estar em \"detached HEAD\"?",
+      "alternativas": [
+        "`HEAD` aponta para onde você está (em geral, uma branch); detached HEAD é apontar direto para um commit",
+        "`HEAD` é sempre o último commit da `main` no remoto; detached HEAD indica falta de conexão com o remoto",
+        "`HEAD` aponta para a branch atual; detached HEAD indica que o repositório está corrompido",
+        "`HEAD` é o primeiro commit do repositório; detached HEAD ocorre quando esse commit é apagado"
+      ],
+      "correta": 0,
+      "explicacao": "Normalmente o `HEAD` aponta para uma branch (ex.: `refs/heads/main`), que por sua vez aponta para um commit. Ao fazer `git checkout <hash>` (ou de uma tag), o `HEAD` passa a apontar direto para o commit.\nDá para explorar e até commitar nesse estado, mas esses commits não pertencem a nenhuma branch e podem se perder ao trocar de branch — crie uma com `git switch -c nome-da-branch` para mantê-los."
+    },
+    {
+      "id": "q-git-008",
+      "tema": "git",
+      "enunciado": "O que faz o comando `git reset --soft HEAD~1`?",
+      "alternativas": [
+        "Desfaz o último commit e mantém as alterações dele na staging area, prontas para um novo commit",
+        "Desfaz o último commit e descarta todas as alterações dele",
+        "Desfaz o último commit e deixa as alterações só no working directory, fora da staging area",
+        "Cria um novo commit que reverte as alterações do último commit"
+      ],
+      "correta": 0,
+      "explicacao": "`reset` move a branch atual para outro commit; o modo define o que acontece com as mudanças. `--soft`: mantém tudo staged. `--mixed` (o padrão): mantém no working directory, mas tira do stage. `--hard`: descarta as mudanças.\nCriar um commit inverso é papel do `git revert`. O `--soft` é útil para juntar commits ou refazer a mensagem de commits ainda não enviados."
+    },
+    {
+      "id": "q-git-009",
+      "tema": "git",
+      "enunciado": "O arquivo `.env` foi commitado por engano. Você adicionou `.env` ao `.gitignore`, mas o Git continua mostrando as modificações dele. Por quê, e o que fazer?",
+      "alternativas": [
+        "O `.gitignore` só passa a valer após um `git push`; basta enviar as alterações ao remoto",
+        "É necessário rodar `git init` novamente para o Git reler o `.gitignore`",
+        "Basta rodar `git add .gitignore`, que o Git remove o `.env` de todo o histórico automaticamente",
+        "O `.gitignore` não afeta arquivos já rastreados; é preciso rodar `git rm --cached .env` e commitar"
+      ],
+      "correta": 3,
+      "explicacao": "Arquivos já rastreados continuam rastreados mesmo que passem a casar com um padrão do `.gitignore`. `git rm --cached` remove o arquivo do índice (sem apagá-lo do disco), e a partir do próximo commit ele deixa de ser rastreado.\nO arquivo continua nos commits antigos: se ele continha senhas ou chaves, considere-as vazadas e troque-as."
+    },
+    {
+      "id": "q-git-010",
+      "tema": "git",
+      "enunciado": "Qual comando mostra as diferenças entre o que está na **staging area** e o último commit?",
+      "alternativas": [
+        "`git diff`",
+        "`git log --oneline`",
+        "`git diff --staged`",
+        "`git show HEAD`"
+      ],
+      "correta": 2,
+      "explicacao": "`git diff --staged` (sinônimo de `--cached`) mostra o que vai entrar no próximo commit. `git diff` sem argumentos compara o working directory com a staging area, ou seja, mostra as mudanças ainda não adicionadas.\n`git log --oneline` lista os commits de forma resumida, e `git show HEAD` exibe as alterações do último commit já feito."
+    },
+    {
+      "id": "q-git-011",
+      "tema": "git",
+      "enunciado": "Seguindo o padrão **Conventional Commits**, qual mensagem é a adequada para um commit que corrige um bug de arredondamento no cálculo do frete?",
+      "alternativas": [
+        "`fix(frete): corrige arredondamento no cálculo do valor`",
+        "`feat(frete): corrige arredondamento no cálculo do valor`",
+        "`refactor(frete): corrige arredondamento no cálculo do valor`",
+        "`Corrigido o bug de arredondamento do frete`"
+      ],
+      "correta": 0,
+      "explicacao": "O formato é `tipo(escopo opcional): descrição`. `fix` é para correção de bug (equivale a um PATCH no versionamento semântico) e `feat` para nova funcionalidade (MINOR); uma quebra de compatibilidade é indicada com `!` após o tipo ou com o rodapé `BREAKING CHANGE:` (MAJOR).\n`refactor` é para mudanças de código que **não** alteram o comportamento — e corrigir um bug altera. Uma mensagem sem tipo não segue o padrão. Outros tipos comuns: `docs`, `test`, `chore`, `style`, `perf`, `ci` e `build`."
+    },
+    {
+      "id": "q-git-012",
+      "tema": "git",
+      "enunciado": "No **GitHub Flow**, qual é o fluxo de trabalho para entregar uma nova funcionalidade?",
+      "alternativas": [
+        "Criar a branch a partir de `develop`, integrá-la em uma branch `release` e só no fim fazer merge na `main` e na `develop`",
+        "Commitar direto na `main` e abrir o Pull Request depois do deploy, apenas para registro",
+        "Manter uma branch de feature aberta durante meses e integrá-la só no fim do projeto",
+        "Criar uma branch curta a partir da `main`, commitar, abrir um Pull Request para revisão e CI, e fazer o merge na `main` após a aprovação"
+      ],
+      "correta": 3,
+      "explicacao": "O GitHub Flow é simples: a `main` está sempre pronta para deploy, cada mudança nasce em uma branch de vida curta, passa por Pull Request (code review + CI) e volta para a `main`, de onde é implantada.\nAs branches `develop`, `release/*` e `hotfix/*` são do **Git Flow**, um modelo mais pesado. Branches longas acumulam divergência e geram conflitos grandes no merge."
+    },
+    {
+      "id": "q-http-001",
+      "tema": "http",
+      "enunciado": "Qual conjunto contém **apenas** métodos HTTP idempotentes, segundo a especificação?",
+      "alternativas": [
+        "`GET`, `PUT` e `DELETE`",
+        "`GET`, `POST` e `DELETE`",
+        "`PUT`, `PATCH` e `POST`",
+        "`GET`, `PUT` e `PATCH`"
+      ],
+      "correta": 0,
+      "explicacao": "Idempotente = repetir a mesma requisição N vezes deixa o servidor no mesmo estado que uma única vez. `GET` (assim como `HEAD` e `OPTIONS`) não altera estado; `PUT` substitui pelo mesmo conteúdo; `DELETE` repetido mantém o recurso removido (mesmo que a resposta mude para `404`).\n`POST` repetido pode criar vários recursos, e `PATCH` não é garantidamente idempotente (ex.: \"incrementar o saldo em 10\")."
+    },
+    {
+      "id": "q-http-002",
+      "tema": "http",
+      "enunciado": "Qual é a diferença entre `PUT` e `PATCH` em uma API REST?",
+      "alternativas": [
+        "`PUT` cria recursos e `PATCH` apaga campos",
+        "`PATCH` é idempotente por definição e `PUT` não",
+        "`PUT` só pode ser usado em coleções (`/produtos`) e `PATCH` em itens (`/produtos/1`)",
+        "`PUT` substitui a representação completa do recurso; `PATCH` aplica uma modificação parcial"
+      ],
+      "correta": 3,
+      "explicacao": "Com `PUT /produtos/1` o cliente envia o recurso inteiro, e campos omitidos podem ser apagados ou zerados. Com `PATCH /produtos/1` envia apenas o que muda (ex.: `{ \"preco\": 10 }`).\nA especificação define `PUT` como idempotente; `PATCH` não tem essa garantia."
+    },
+    {
+      "id": "q-http-003",
+      "tema": "http",
+      "enunciado": "Um usuário autenticado, com token válido, tenta acessar uma rota exclusiva de administradores sem ter essa permissão. Qual status HTTP é o mais adequado?",
+      "alternativas": [
+        "`401 Unauthorized`",
+        "`404 Not Found`",
+        "`403 Forbidden`",
+        "`400 Bad Request`"
+      ],
+      "correta": 2,
+      "explicacao": "`403` significa \"sei quem você é, mas você não tem permissão para isso\". `401`, apesar do nome, significa **não autenticado**: falta a credencial ou ela é inválida/expirada, e o cliente precisa se autenticar.\n`400` é para requisição malformada. Algumas APIs retornam `404` para esconder a existência do recurso, mas o status semanticamente adequado aqui é `403`."
+    },
+    {
+      "id": "q-http-004",
+      "tema": "http",
+      "enunciado": "Um `POST /usuarios` chega com um JSON bem formado, mas o campo `email` não contém um e-mail válido. Entre as opções, qual status é o mais adequado?",
+      "alternativas": [
+        "`500 Internal Server Error`",
+        "`400 Bad Request`",
+        "`201 Created`",
+        "`401 Unauthorized`"
+      ],
+      "correta": 1,
+      "explicacao": "Erros **4xx** indicam problema na requisição do cliente; dados inválidos normalmente resultam em `400` (algumas APIs usam `422 Unprocessable Content` para erros de validação).\n`500` indicaria uma falha inesperada no servidor e esconderia do cliente que ele precisa corrigir os dados. `401` é para falta de autenticação."
+    },
+    {
+      "id": "q-http-005",
+      "tema": "http",
+      "enunciado": "Um front em `http://localhost:5173` chama uma API em `http://localhost:8080`, e o navegador bloqueia a resposta com erro de CORS. Qual afirmação está correta?",
+      "alternativas": [
+        "As origens são diferentes (a porta conta); a API precisa liberar a origem com `Access-Control-Allow-Origin`",
+        "Resolve-se no front, enviando o header `Access-Control-Allow-Origin` na própria requisição",
+        "Como os dois estão em `localhost`, a origem é a mesma, e o erro é um bug do navegador",
+        "É um bloqueio do servidor, que também recusaria a mesma chamada feita pelo Postman ou `curl`"
+      ],
+      "correta": 0,
+      "explicacao": "Origem = esquema + host + porta; mudar só a porta já torna a requisição cross-origin. O CORS é uma proteção aplicada **pelo navegador**, e quem autoriza é o **servidor**, via cabeçalhos de resposta (no Spring: `@CrossOrigin` ou configuração global).\nEm requisições não simples (ex.: com `Content-Type: application/json`), o navegador envia antes um preflight `OPTIONS`. Postman e curl não aplicam CORS."
+    },
+    {
+      "id": "q-http-006",
+      "tema": "http",
+      "enunciado": "O cliente tem uma resposta em cache com `ETag: \"abc123\"` e envia a requisição com `If-None-Match: \"abc123\"`. O recurso não mudou. O que o servidor deve responder?",
+      "alternativas": [
+        "`200 OK` com o corpo completo, pois o cache HTTP só vale para imagens",
+        "`204 No Content`, indicando que o recurso foi apagado",
+        "`412 Precondition Failed`, pois a ETag enviada é igual à atual",
+        "`304 Not Modified`, sem corpo, indicando que a cópia em cache pode ser reutilizada"
+      ],
+      "correta": 3,
+      "explicacao": "É uma **requisição condicional**: se a ETag do cliente ainda corresponde à versão atual, o servidor responde `304` sem corpo e o cliente usa a cópia em cache, economizando banda. Se o recurso tivesse mudado, viria `200` com o conteúdo e a ETag novos.\n`412` é usado com `If-Match` (ex.: controle de concorrência em um `PUT`) quando a condição falha."
+    },
+    {
+      "id": "q-http-007",
+      "tema": "http",
+      "enunciado": "Em uma requisição `POST` que envia JSON no corpo, qual header informa ao servidor o formato **do corpo enviado**?",
+      "alternativas": [
+        "`Accept: application/json`",
+        "`Content-Type: application/json`",
+        "`Content-Encoding: application/json`",
+        "`Accept-Encoding: application/json`"
+      ],
+      "correta": 1,
+      "explicacao": "`Content-Type` descreve o formato do corpo da mensagem em que aparece (na requisição, o que o cliente envia; na resposta, o que o servidor devolve). `Accept` diz qual formato o cliente **quer receber**.\n`Content-Encoding` e `Accept-Encoding` tratam de compressão (`gzip`, `br`), não do formato. Sem o `Content-Type` correto, o Spring pode responder `415 Unsupported Media Type` a um `@RequestBody`."
+    },
+    {
+      "id": "q-http-008",
+      "tema": "http",
+      "enunciado": "Sobre um JWT assinado (o formato mais comum, `header.payload.signature`), qual afirmação está correta?",
+      "alternativas": [
+        "O payload é apenas codificado em Base64URL, sem criptografia: qualquer pessoa com o token consegue lê-lo",
+        "O payload é criptografado pela assinatura, então é seguro guardar a senha do usuário nele",
+        "O cliente pode alterar o payload, e o token continua válido desde que não tenha expirado",
+        "O servidor precisa consultar o banco de dados para conseguir decodificar o payload"
+      ],
+      "correta": 0,
+      "explicacao": "A assinatura garante **integridade e autenticidade** — qualquer alteração no header ou no payload invalida a verificação —, mas não sigilo. Por isso não se coloca dado sensível (senha, documentos) no payload.\nA decodificação é local (Base64URL) e a validação usa a chave/segredo, sem precisar consultar o banco."
+    },
+    {
+      "id": "q-http-009",
+      "tema": "http",
+      "enunciado": "Qual requisição segue melhor as convenções REST para **listar os pedidos do cliente 42**?",
+      "alternativas": [
+        "`GET /clientes/42/pedidos`",
+        "`POST /getPedidosDoCliente?id=42`",
+        "`GET /clientes/42/listarPedidos`",
+        "`POST /clientes/42/pedidos`"
+      ],
+      "correta": 0,
+      "explicacao": "Em REST, a URI identifica **recursos** (substantivos, geralmente no plural) e o **método HTTP** expressa a ação: `GET /clientes/42/pedidos` lê a coleção de pedidos do cliente 42 (`GET /pedidos?clienteId=42` também seria aceitável).\nVerbos na URI (`getPedidos`, `listarPedidos`) duplicam o papel do método, e um `POST` nessa coleção significaria **criar** um novo pedido."
+    },
+    {
+      "id": "q-http-010",
+      "tema": "http",
+      "enunciado": "O que significa dizer que uma API REST é **stateless**?",
+      "alternativas": [
+        "O servidor não pode usar banco de dados nem persistir nenhuma informação entre requisições",
+        "As respostas não podem ser armazenadas em cache pelo cliente nem por proxies",
+        "O cliente não pode guardar nenhum dado localmente, como tokens ou preferências",
+        "Cada requisição traz tudo o que é necessário (ex.: o token), sem sessão guardada no servidor"
+      ],
+      "correta": 3,
+      "explicacao": "\"Sem estado\" se refere ao estado da **sessão**: o servidor não depende de lembrar requisições anteriores daquele cliente, o que facilita escalar horizontalmente (qualquer instância atende qualquer requisição).\nO estado dos **recursos** continua no banco normalmente, e o uso de cache é inclusive uma das restrições do estilo REST."
+    },
+    {
+      "id": "q-oop-001",
+      "tema": "oop",
+      "enunciado": "Qual pilar da POO está sendo aplicado principalmente na classe abaixo?\n```java\npublic class Conta {\n    private double saldo;\n\n    public void depositar(double valor) {\n        if (valor <= 0) throw new IllegalArgumentException(\"Valor inválido\");\n        saldo += valor;\n    }\n\n    public double getSaldo() { return saldo; }\n}\n```",
+      "alternativas": [
+        "Herança",
+        "Polimorfismo",
+        "Abstração",
+        "Encapsulamento"
+      ],
+      "correta": 3,
+      "explicacao": "**Encapsulamento** é esconder o estado interno (`private saldo`) e expor apenas operações controladas que garantem as regras (não aceitar depósito negativo). Ninguém consegue fazer `conta.saldo = -1000` de fora da classe.\nToda classe envolve algum grau de abstração, mas o que se destaca aqui é a proteção do estado. Não há hierarquia de classes (herança) nem várias implementações de um mesmo método (polimorfismo)."
+    },
+    {
+      "id": "q-oop-002",
+      "tema": "oop",
+      "enunciado": "A classe `Relatorio` tem os métodos `calcularTotais()`, `gerarPdf()` e `enviarPorEmail()`. Qual princípio SOLID ela viola mais diretamente?",
+      "alternativas": [
+        "Substituição de Liskov (LSP)",
+        "Segregação de Interfaces (ISP)",
+        "Inversão de Dependência (DIP)",
+        "Responsabilidade Única (SRP)"
+      ],
+      "correta": 3,
+      "explicacao": "O **SRP** diz que uma classe deve ter um único motivo para mudar. Aqui há três: regras de cálculo, formato do PDF e envio de e-mail — mudar o layout do PDF obriga a mexer na mesma classe do cálculo.\nO ideal é separar em classes como `CalculadoraRelatorio`, `GeradorPdf` e `EnviadorEmail`."
+    },
+    {
+      "id": "q-oop-003",
+      "tema": "oop",
+      "enunciado": "Sempre que surge um novo tipo de cliente, o método abaixo precisa ser alterado. Qual princípio SOLID é violado e qual refatoração o atende?\n```java\ndouble calcularDesconto(Cliente c) {\n    switch (c.getTipo()) {\n        case COMUM:   return 0.0;\n        case VIP:     return 0.10;\n        case PREMIUM: return 0.20;\n        default: throw new IllegalArgumentException();\n    }\n}\n```",
+      "alternativas": [
+        "Liskov (LSP): basta tornar o método `static` para que ele possa ser reutilizado",
+        "Aberto/Fechado (OCP): criar uma implementação por tipo de uma interface `PoliticaDesconto`",
+        "Segregação de Interfaces (ISP): dividir o método em três métodos públicos na mesma classe",
+        "Nenhum: um `switch` sobre o tipo é sempre preferível ao polimorfismo, por ser mais simples"
+      ],
+      "correta": 1,
+      "explicacao": "O **OCP** pede código aberto para extensão e fechado para modificação. Com polimorfismo (padrão Strategy), cada regra de desconto vive em sua própria classe; um tipo novo vira uma nova implementação, sem tocar nas existentes e sem risco de quebrar o que já funciona.\nTornar o método `static` ou criar mais métodos na mesma classe não elimina a necessidade de editá-la a cada tipo novo."
+    },
+    {
+      "id": "q-oop-004",
+      "tema": "oop",
+      "enunciado": "`Quadrado extends Retangulo`, e o `setLargura` do quadrado também altera a altura. Um método que recebe um `Retangulo` faz `r.setLargura(5); r.setAltura(4);` e espera área 20, mas com um `Quadrado` obtém 16. Qual princípio é violado?",
+      "alternativas": [
+        "Substituição de Liskov (LSP)",
+        "Responsabilidade Única (SRP)",
+        "Aberto/Fechado (OCP)",
+        "Segregação de Interfaces (ISP)"
+      ],
+      "correta": 0,
+      "explicacao": "O **LSP** diz que objetos de uma subclasse devem poder substituir os da superclasse sem quebrar o comportamento esperado por quem os usa. `Quadrado` muda o contrato de `Retangulo` (largura e altura independentes), então um código que funcionava com `Retangulo` passa a falhar.\n\"Ser um\" no mundo real (todo quadrado é um retângulo) não garante uma boa herança no código."
+    },
+    {
+      "id": "q-oop-005",
+      "tema": "oop",
+      "enunciado": "Qual mudança aplica o Princípio da Inversão de Dependência (DIP) na classe abaixo?\n```java\npublic class PedidoService {\n    private final MySqlPedidoRepository repo = new MySqlPedidoRepository();\n    // ...\n}\n```",
+      "alternativas": [
+        "Fazer `PedidoService` depender de uma interface `PedidoRepository`, recebida pelo construtor",
+        "Transformar `MySqlPedidoRepository` em um singleton acessado por método estático",
+        "Fazer `PedidoService` estender `MySqlPedidoRepository` para reaproveitar os métodos",
+        "Mover todas as consultas SQL para dentro do próprio `PedidoService`"
+      ],
+      "correta": 0,
+      "explicacao": "O **DIP** diz que módulos de alto nível (regras de negócio) não devem depender de detalhes concretos (MySQL), e sim de abstrações. Com uma interface injetada, é possível trocar o banco ou usar um mock nos testes sem alterar o service.\nSingleton estático, herança ou mover o SQL para o service mantêm (ou pioram) o acoplamento à implementação concreta."
+    },
+    {
+      "id": "q-oop-006",
+      "tema": "oop",
+      "enunciado": "Em qual situação a **composição** é preferível à herança?",
+      "alternativas": [
+        "Sempre que duas classes compartilham algum método, pois herança é a única forma de reuso",
+        "Quando a relação é do tipo \"tem um\" (ex.: `Carro` tem um `Motor`), e não \"é um\"",
+        "Nunca: composição só é usada em linguagens que não oferecem herança",
+        "Quando se quer aumentar o acoplamento entre as classes para garantir consistência"
+      ],
+      "correta": 1,
+      "explicacao": "\"Prefira composição à herança\" é um princípio clássico: herança cria acoplamento forte (mudanças na classe base afetam todas as filhas) e só faz sentido em uma relação \"é um\" legítima.\nCom composição, a classe usa outro objeto como parte dela (muitas vezes via interface), podendo trocá-lo e testá-lo de forma isolada."
+    },
+    {
+      "id": "q-oop-007",
+      "tema": "oop",
+      "enunciado": "Qual combinação é considerada desejável no design de classes e módulos?",
+      "alternativas": [
+        "Baixa coesão e alto acoplamento",
+        "Alta coesão e alto acoplamento",
+        "Alta coesão e baixo acoplamento",
+        "Baixa coesão e baixo acoplamento"
+      ],
+      "correta": 2,
+      "explicacao": "**Coesão** mede o quanto as responsabilidades de um módulo estão relacionadas entre si (alta = foco em um único propósito). **Acoplamento** mede o quanto um módulo depende de outros (baixo = mudanças em um afetam pouco os demais).\nAlta coesão com baixo acoplamento torna o código mais fácil de entender, testar e alterar."
+    },
+    {
+      "id": "q-oop-008",
+      "tema": "oop",
+      "enunciado": "Um e-commerce precisa calcular o frete de formas diferentes (Correios, transportadora, retirada na loja), escolhidas em tempo de execução, com cada algoritmo em uma classe que implementa a mesma interface. Qual padrão de projeto descreve essa solução?",
+      "alternativas": [
+        "Strategy",
+        "Singleton",
+        "Observer",
+        "Builder"
+      ],
+      "correta": 0,
+      "explicacao": "O **Strategy** encapsula algoritmos intercambiáveis atrás de uma interface comum (ex.: `CalculadoraFrete`), e o cliente escolhe a implementação em tempo de execução.\nO **Singleton** garante uma única instância, o **Observer** notifica inscritos sobre mudanças de estado e o **Builder** facilita construir objetos complexos passo a passo."
+    },
+    {
+      "id": "q-oop-009",
+      "tema": "oop",
+      "enunciado": "A classe `Pedido` tem um construtor com 9 parâmetros, vários opcionais, e chamadas como `new Pedido(1L, null, null, true, false, null, 0, null, \"PIX\")` são difíceis de ler. Qual padrão de projeto resolve melhor esse problema?",
+      "alternativas": [
+        "Adapter",
+        "Observer",
+        "Builder",
+        "Singleton"
+      ],
+      "correta": 2,
+      "explicacao": "O **Builder** permite montar o objeto com chamadas nomeadas e encadeadas (ex.: `Pedido.builder().id(1L).pago(true).formaPagamento(\"PIX\").build()`), deixando claro o que cada valor significa e evitando vários construtores sobrecarregados.\nO **Adapter** converte uma interface em outra, o **Observer** trata notificação de eventos e o **Singleton** controla a quantidade de instâncias."
+    },
+    {
+      "id": "q-oop-010",
+      "tema": "oop",
+      "enunciado": "Qual melhoria de Clean Code é a mais relevante para o método abaixo?\n```java\npublic double calc(double a, double b, int t) {\n    if (t == 1) return a * 0.9;\n    if (t == 2) return a * 0.8 + b;\n    return a;\n}\n```",
+      "alternativas": [
+        "Encurtar ainda mais os nomes, para o método ocupar menos espaço e ser lido mais rápido",
+        "Manter os nomes e adicionar um comentário em cada linha explicando o que o cálculo faz",
+        "Transformar o método em `static`, o que por si só deixa o código mais legível",
+        "Usar nomes que revelem a intenção e trocar números mágicos (`0.9`, `0.8`...) por constantes ou enums"
+      ],
+      "correta": 3,
+      "explicacao": "Não dá para saber o que são `a`, `b` e `t`, nem o que significam `1` ou `0.9`. Nomes como `calcularPrecoFinal(double preco, double frete, TipoCliente tipo)` e constantes como `DESCONTO_VIP` tornam o código autoexplicativo.\nComentários ajudam pouco se o código continuar obscuro e tendem a ficar desatualizados; `static` não muda a legibilidade."
+    },
+    {
+      "id": "q-oop-011",
+      "tema": "oop",
+      "enunciado": "Sobre classes abstratas e interfaces em Java (8+), qual afirmação está correta?",
+      "alternativas": [
+        "Interfaces não podem ter nenhum método com implementação, nem mesmo `default`",
+        "Uma classe pode implementar várias interfaces, mas só pode estender uma classe",
+        "Uma classe abstrata pode ser instanciada com `new` se tiver um construtor público",
+        "Interfaces podem declarar atributos de instância mutáveis, como classes comuns"
+      ],
+      "correta": 1,
+      "explicacao": "Java não tem herança múltipla de classes, mas permite implementar várias interfaces. Desde o Java 8, interfaces podem ter métodos `default` e `static` com implementação (e `private` desde o Java 9); atributos em interfaces são implicitamente `public static final`.\nClasses abstratas podem ter estado e construtores (chamados pelas subclasses via `super(...)`), mas não podem ser instanciadas diretamente."
+    },
+    {
+      "id": "q-testes-001",
+      "tema": "testes",
+      "enunciado": "Segundo a pirâmide de testes, qual distribuição é a recomendada?",
+      "alternativas": [
+        "Muitos testes end-to-end, alguns de integração e poucos testes unitários",
+        "Muitos testes unitários, menos testes de integração e poucos testes end-to-end",
+        "A mesma quantidade de testes em cada nível, para equilibrar a cobertura",
+        "Apenas testes end-to-end, pois são os únicos que simulam o usuário real"
+      ],
+      "correta": 1,
+      "explicacao": "Na base ficam os testes **unitários**: rápidos, baratos e precisos ao apontar onde está a falha. Subindo a pirâmide, os testes ficam mais lentos, caros e frágeis (integração, depois E2E), então devem existir em menor número, cobrindo os fluxos críticos.\nA pirâmide invertida (\"casquinha de sorvete\") deixa a suíte lenta e instável."
+    },
+    {
+      "id": "q-testes-002",
+      "tema": "testes",
+      "enunciado": "Qual é a diferença entre um **stub** e um **mock**?",
+      "alternativas": [
+        "O stub verifica as chamadas recebidas; o mock apenas fornece respostas prontas",
+        "O stub é o objeto real sob teste; o mock é o dublê usado no lugar das dependências",
+        "Ambos só podem ser usados em testes de integração, nunca em testes unitários",
+        "O stub só fornece respostas prontas; o mock também permite verificar as chamadas recebidas"
+      ],
+      "correta": 3,
+      "explicacao": "Os dois são **dublês de teste**. O stub foca no **estado**: \"quando chamarem `buscar(1)`, retorne este objeto\". O mock foca no **comportamento**: além de simular, permite verificar se um método foi chamado, quantas vezes e com quais argumentos (ex.: \"`enviarEmail` foi chamado uma vez\").\nNo Mockito, `when(...).thenReturn(...)` faz o papel de stub e `verify(...)`, de mock. Existem ainda fakes (ex.: repositório em memória) e spies."
+    },
+    {
+      "id": "q-testes-003",
+      "tema": "testes",
+      "enunciado": "Qual é o ciclo do TDD (Test-Driven Development)?",
+      "alternativas": [
+        "Green → Red → Refactor: implementar, quebrar de propósito e depois corrigir",
+        "Implementar toda a funcionalidade e, no final, escrever testes até atingir 100% de cobertura",
+        "Red → Green → Refactor: teste falhando, código mínimo para passar, refatoração",
+        "Refactor → Red → Green: refatorar o código existente antes de escrever qualquer teste"
+      ],
+      "correta": 2,
+      "explicacao": "No TDD o teste vem **antes** do código: o teste falhando (red) prova que ele testa algo ainda não implementado; o código mínimo (green) evita implementação especulativa; e a refatoração melhora o design com a rede de segurança dos testes.\nEscrever os testes só no final é \"test-after\", não TDD."
+    },
+    {
+      "id": "q-testes-004",
+      "tema": "testes",
+      "enunciado": "No teste abaixo, as linhas marcadas com (1), (2) e (3) correspondem a quais etapas do padrão AAA?\n```java\n@Test\nvoid deveAplicarDescontoDe10PorCento() {\n    var calculadora = new CalculadoraDesconto();         // (1)\n    double resultado = calculadora.aplicar(100.0, 0.10); // (2)\n    assertEquals(90.0, resultado, 0.001);                // (3)\n}\n```",
+      "alternativas": [
+        "(1) Act, (2) Arrange, (3) Assert",
+        "(1) Arrange, (2) Assert, (3) Act",
+        "(1) Arrange, (2) Act, (3) Assert",
+        "(1) Assert, (2) Act, (3) Arrange"
+      ],
+      "correta": 2,
+      "explicacao": "**Arrange** (preparar): cria objetos, dados e dublês. **Act** (agir): executa a ação sob teste, idealmente uma só. **Assert** (verificar): confere o resultado.\nSeparar as três etapas deixa o teste legível; o equivalente em BDD é Given/When/Then. O terceiro argumento do `assertEquals` (`0.001`) é a tolerância para comparar valores `double`."
+    },
+    {
+      "id": "q-testes-005",
+      "tema": "testes",
+      "enunciado": "Um projeto atingiu 100% de cobertura de linhas. O que isso garante?",
+      "alternativas": [
+        "Que todas as linhas foram executadas, mas não que o comportamento foi verificado",
+        "Que o sistema não tem bugs, já que todas as linhas do código foram testadas",
+        "Que todas as combinações de condições e caminhos possíveis foram testadas",
+        "Que todos os testes possuem asserções relevantes sobre os resultados"
+      ],
+      "correta": 0,
+      "explicacao": "Cobertura mede **o que foi executado**, não **o que foi verificado**: um teste sem nenhuma asserção também gera cobertura. E cobertura de linhas não garante cobertura de branches (ex.: o lado falso de um `if` escrito na mesma linha) nem de combinações de condições.\nEla é útil para encontrar código **não** testado, mas não é prova de qualidade."
+    },
+    {
+      "id": "q-testes-006",
+      "tema": "testes",
+      "enunciado": "Um campo \"idade\" aceita valores de **18 a 60** (inclusive). Usando análise de valor limite (dois valores por fronteira), quais valores devem ser testados?",
+      "alternativas": [
+        "17, 18, 60 e 61",
+        "18 e 60",
+        "0, 30 e 100",
+        "19 e 59"
+      ],
+      "correta": 0,
+      "explicacao": "Bugs costumam aparecer nas fronteiras (ex.: usar `>` no lugar de `>=`). Na abordagem de dois valores, testa-se cada limite e o vizinho imediato do lado inválido: 17 (inválido), 18 (válido), 60 (válido) e 61 (inválido).\nTestar só 18 e 60 não detectaria uma validação que aceitasse 17 ou 61 por engano. Valores como 30 representam partições, não limites."
+    },
+    {
+      "id": "q-testes-007",
+      "tema": "testes",
+      "enunciado": "Para o mesmo campo \"idade\" (válido de 18 a 60), qual conjunto de valores cobre todas as **partições de equivalência**, com um valor representativo de cada?",
+      "alternativas": [
+        "18, 19 e 20",
+        "35 e 36",
+        "10, 35 e 70",
+        "17 e 61"
+      ],
+      "correta": 2,
+      "explicacao": "Há três partições: inválida abaixo (menor que 18), válida (18 a 60) e inválida acima (maior que 60). Valores da mesma partição tendem a se comportar da mesma forma, então basta um representativo de cada: 10, 35 e 70.\n`18, 19, 20` e `35, 36` estão todos na partição válida; `17 e 61` cobrem apenas as inválidas."
+    },
+    {
+      "id": "q-testes-008",
+      "tema": "testes",
+      "enunciado": "No teste abaixo, qual é o papel de `@InjectMocks` e de `verify`?\n```java\n@ExtendWith(MockitoExtension.class)\nclass PedidoServiceTest {\n\n    @Mock\n    PedidoRepository repo;\n\n    @InjectMocks\n    PedidoService service;\n\n    @Test\n    void deveBuscarPedidoPorId() {\n        when(repo.findById(1L)).thenReturn(Optional.of(new Pedido(1L)));\n\n        Pedido p = service.buscar(1L);\n\n        assertEquals(1L, p.getId());\n        verify(repo).findById(1L);\n    }\n}\n```",
+      "alternativas": [
+        "`@InjectMocks` cria um mock de `PedidoService`; `verify` confere o valor retornado por `buscar`",
+        "`@InjectMocks` cria um `PedidoService` real com os mocks injetados; `verify` confere que `findById(1L)` foi chamado (uma vez, por padrão)",
+        "`@InjectMocks` sobe o contexto do Spring; `verify` faz o teste falhar se `findById` for chamado",
+        "`@InjectMocks` cria um `PedidoService` real; `verify` redefine o retorno de `findById` para as próximas chamadas"
+      ],
+      "correta": 1,
+      "explicacao": "`@Mock` cria o dublê de `PedidoRepository`, e `@InjectMocks` instancia a classe **sob teste** (real), injetando os mocks por construtor, setter ou campo. `when(...).thenReturn(...)` configura a resposta (stub), e `verify(repo).findById(1L)` verifica a interação — equivale a `verify(repo, times(1))`.\nNada disso sobe o Spring: é um teste unitário puro."
+    },
+    {
+      "id": "q-testes-009",
+      "tema": "testes",
+      "enunciado": "No Mockito, qual é a diferença entre `@Mock` e `@Spy`?",
+      "alternativas": [
+        "`@Mock` é um objeto falso (métodos retornam valores padrão); `@Spy` executa os métodos reais",
+        "`@Mock` executa os métodos reais; `@Spy` é um objeto falso que retorna `null` em tudo",
+        "Ambos executam os métodos reais; a diferença é que `@Spy` não pode ser usado com `verify`",
+        "`@Mock` só funciona com interfaces; `@Spy` só funciona com classes `final`"
+      ],
+      "correta": 0,
+      "explicacao": "Métodos não configurados de um mock retornam valores \"vazios\": `null`, `0`, `false`, coleções vazias e `Optional.empty()`. O spy envolve um objeto real (mock parcial): chama o código real, exceto nos métodos que você configurar (de preferência com `doReturn(...).when(spy).metodo()`).\nAmbos aceitam `verify`. O Mockito consegue mockar classes concretas (e, nas versões atuais, até classes `final`)."
+    },
+    {
+      "id": "q-testes-010",
+      "tema": "testes",
+      "enunciado": "Como verificar, no JUnit 5, que `conta.sacar(-10)` lança `IllegalArgumentException`?",
+      "alternativas": [
+        "Anotar o método de teste com `@Test(expected = IllegalArgumentException.class)`",
+        "`assertThrows(conta.sacar(-10), IllegalArgumentException.class);`",
+        "`assertThrows(IllegalArgumentException.class, () -> conta.sacar(-10));`",
+        "`assertEquals(IllegalArgumentException.class, conta.sacar(-10));`"
+      ],
+      "correta": 2,
+      "explicacao": "`assertThrows` recebe o tipo esperado e um `Executable` (lambda), que é executado dentro da asserção; ele ainda retorna a exceção, permitindo checar a mensagem.\n`@Test(expected = ...)` é do **JUnit 4** — no JUnit 5, `@Test` não tem esse atributo. Passar `conta.sacar(-10)` diretamente como argumento lança a exceção antes mesmo de a asserção rodar."
+    },
+    {
+      "id": "q-testes-011",
+      "tema": "testes",
+      "enunciado": "Com **AssertJ**, qual asserção verifica corretamente que a lista `nomes` tem 3 elementos e contém `\"Ana\"`?",
+      "alternativas": [
+        "`assertThat(nomes).hasSize(3).contains(\"Ana\");`",
+        "`assertThat(nomes.size() == 3 && nomes.contains(\"Ana\"));`",
+        "`assertThat(nomes).isEqualTo(3).contains(\"Ana\");`",
+        "`assertThat(3, nomes).contains(\"Ana\");`"
+      ],
+      "correta": 0,
+      "explicacao": "O AssertJ usa uma API fluente: `assertThat(valor)` devolve um objeto de asserção específico para o tipo (aqui, para listas), com métodos encadeáveis como `hasSize`, `contains`, `containsExactly` e `isEmpty`.\n`assertThat(boolean)` sozinho **não verifica nada** — faltaria o `.isTrue()`, e o teste passaria sempre. `isEqualTo(3)` compararia a lista com o número 3, e `assertThat(3, nomes)` não existe no AssertJ."
+    },
+    {
+      "id": "q-testes-012",
+      "tema": "testes",
+      "enunciado": "Qual é a principal vantagem de usar **Testcontainers** com PostgreSQL nos testes de repositório, em vez de um banco em memória como o H2?",
+      "alternativas": [
+        "Os testes deixam de precisar do Docker, pois o banco passa a rodar dentro da JVM",
+        "Os dados persistem entre execuções, o que permite reaproveitar o estado de testes anteriores",
+        "Dispensa as migrations do Flyway, pois o container já vem com o schema da aplicação",
+        "Os testes rodam contra um PostgreSQL real, pegando diferenças que o H2 não reproduz"
+      ],
+      "correta": 3,
+      "explicacao": "O H2 tem dialeto e comportamento diferentes do PostgreSQL (tipos como `jsonb`, funções, constraints, locks), então um teste pode passar no H2 e falhar em produção. O Testcontainers sobe um container real para os testes e o descarta ao final.\nEle **exige** Docker disponível. O schema continua vindo das migrations do Flyway, executadas no container ao subir o contexto. No Spring Boot 3.1+, `@ServiceConnection` configura a conexão com o container automaticamente."
+    },
+    {
+      "id": "q-testes-013",
+      "tema": "testes",
+      "enunciado": "Por que se usa `await` antes de `trigger` no teste abaixo (Vitest + Vue Test Utils)?\n```ts\nimport { mount } from '@vue/test-utils'\nimport Contador from './Contador.vue'\n\nit('incrementa ao clicar', async () => {\n  const wrapper = mount(Contador)\n  await wrapper.find('button').trigger('click')\n  expect(wrapper.text()).toContain('1')\n})\n```",
+      "alternativas": [
+        "Porque, sem o `await`, o evento de clique não chega a ser disparado no botão",
+        "Porque `find` faz uma busca assíncrona no DOM, que precisa terminar antes do clique",
+        "Porque o Vue atualiza o DOM de forma assíncrona, e `trigger` retorna uma Promise",
+        "Porque todo `expect` do Vitest precisa ser precedido de um `await` para funcionar"
+      ],
+      "correta": 2,
+      "explicacao": "O handler do clique roda na hora e o estado muda, mas o Vue agrupa a atualização do DOM para o próximo tick. `trigger` (assim como `setValue`) retorna o `nextTick()`, que só resolve após o re-render; sem o `await`, o `expect` leria o DOM antigo e o teste falharia.\nAsserções síncronas comuns não precisam de `await`."
+    },
+    {
+      "id": "q-testes-014",
+      "tema": "testes",
+      "enunciado": "No Vitest, como criar uma função dublê (espiã) e verificar que ela foi chamada com o argumento `42`?",
+      "alternativas": [
+        "`const fn = vi.fn()` e depois `expect(fn).toBe(42)`",
+        "`const fn = vi.fn()` e depois `expect(fn).toHaveBeenCalledWith(42)`",
+        "`const fn = vi.fn()` e depois `expect(fn(42)).toHaveBeenCalled()`",
+        "`const fn = vi.mock()` e depois `expect(fn.calls).toEqual(42)`"
+      ],
+      "correta": 1,
+      "explicacao": "`vi.fn()` cria uma função mock que registra as chamadas; `toHaveBeenCalledWith(42)` verifica se alguma chamada recebeu esse argumento (há também `toHaveBeenCalled()` e `toHaveBeenCalledTimes(n)`).\n`toBe(42)` compararia a própria função com 42; `expect(fn(42))` passa o **retorno** da chamada, não a função; e `vi.mock` serve para mockar **módulos** inteiros."
+    },
+    {
+      "id": "q-algoritmos-001",
+      "tema": "algoritmos",
+      "enunciado": "Qual é a complexidade de tempo do trecho abaixo, em notação Big-O (o limite mais justo), em função de `n`?\n```js\nfor (let i = 0; i < n; i++) {\n  for (let j = i; j < n; j++) {\n    soma += i * j;\n  }\n}\n```",
+      "alternativas": [
+        "O(n)",
+        "O(n log n)",
+        "O(2ⁿ)",
+        "O(n²)"
+      ],
+      "correta": 3,
+      "explicacao": "O laço interno roda n, n−1, n−2, ..., 1 vezes: no total, n(n+1)/2 iterações. Em Big-O descartamos constantes e termos menores, então n²/2 + n/2 é O(n²).\nComeçar `j` em `i` reduz o trabalho pela metade, mas não muda a ordem de crescimento."
+    },
+    {
+      "id": "q-algoritmos-002",
+      "tema": "algoritmos",
+      "enunciado": "Qual é a complexidade de tempo do trecho abaixo, em notação Big-O (o limite mais justo)?\n```js\nlet i = n;\nwhile (i > 1) {\n  i = Math.floor(i / 2);\n}\n```",
+      "alternativas": [
+        "O(n)",
+        "O(1)",
+        "O(log n)",
+        "O(√n)"
+      ],
+      "correta": 2,
+      "explicacao": "A cada iteração o valor de `i` cai pela metade, então o número de passos é quantas vezes dá para dividir n por 2 até chegar a 1: cerca de log₂ n. Para n = 1.000.000, são só uns 20 passos.\nÉ o mesmo raciocínio da busca binária, que descarta metade do espaço de busca a cada passo. Não é O(1), pois o número de passos cresce (devagar) com n."
+    },
+    {
+      "id": "q-algoritmos-003",
+      "tema": "algoritmos",
+      "enunciado": "Qual é a complexidade de pior caso da função abaixo, e como melhorá-la?\n```js\nfunction temDuplicado(arr) {\n  for (let i = 0; i < arr.length; i++) {\n    if (arr.indexOf(arr[i]) !== i) return true;\n  }\n  return false;\n}\n```",
+      "alternativas": [
+        "O(n), pois há apenas um laço `for` percorrendo o array uma única vez",
+        "O(log n), pois `indexOf` usa busca binária internamente",
+        "O(n²); usando um `Set` para guardar os valores já vistos, cai para O(n) em média",
+        "O(n²); ordenar o array antes da busca deixaria a função O(1)"
+      ],
+      "correta": 2,
+      "explicacao": "`indexOf` percorre o array do início até achar o valor, custando O(n) — dentro de um laço de n iterações, dá O(n²) no pior caso (quando não há duplicatas). Com um `Set`, cada verificação e inserção custa O(1) em média, totalizando O(n).\n`indexOf` é busca linear, e ordenar custa O(n log n), nunca O(1). Atenção a laços \"escondidos\" em métodos como `indexOf`, `includes` e `find`."
+    },
+    {
+      "id": "q-algoritmos-004",
+      "tema": "algoritmos",
+      "enunciado": "Um array **ordenado** tem 1.000.000 de elementos. No pior caso, quantas comparações a busca binária faz, aproximadamente?",
+      "alternativas": [
+        "Cerca de 1.000",
+        "Cerca de 500.000",
+        "Cerca de 1.000.000",
+        "Cerca de 20"
+      ],
+      "correta": 3,
+      "explicacao": "A busca binária compara com o elemento do meio e descarta metade do intervalo a cada passo: O(log n). Como 2²⁰ = 1.048.576, bastam cerca de 20 passos para 1 milhão de elementos.\nUma busca linear faria até 1.000.000 de comparações (cerca de 500.000 em média). Pré-requisito da busca binária: os dados precisam estar ordenados."
+    },
+    {
+      "id": "q-algoritmos-005",
+      "tema": "algoritmos",
+      "enunciado": "Qual estrutura de dados é a mais adequada para implementar o \"desfazer\" (Ctrl+Z) de um editor de texto?",
+      "alternativas": [
+        "Fila (FIFO)",
+        "Árvore binária de busca",
+        "Tabela hash",
+        "Pilha (LIFO)"
+      ],
+      "correta": 3,
+      "explicacao": "O \"desfazer\" deve reverter primeiro a **última** ação realizada: o último a entrar é o primeiro a sair (LIFO), exatamente o comportamento de uma pilha (`push` ao executar uma ação, `pop` ao desfazer).\nUma fila atende na ordem de chegada (FIFO), útil para processar tarefas em ordem, como uma fila de impressão. Para o \"refazer\", usa-se uma segunda pilha."
+    },
+    {
+      "id": "q-algoritmos-006",
+      "tema": "algoritmos",
+      "enunciado": "Sobre a busca em largura (BFS) em um grafo **não ponderado**, qual afirmação está correta?",
+      "alternativas": [
+        "Usa uma pilha e encontra o caminho com o menor número de arestas",
+        "Usa uma fila e encontra o caminho com o menor número de arestas a partir da origem",
+        "Usa uma fila e explora primeiro os vértices mais profundos, antes dos vizinhos",
+        "Usa uma pilha e garante visitar os vértices em ordem alfabética"
+      ],
+      "correta": 1,
+      "explicacao": "A BFS visita os vértices em \"camadas\": primeiro os vizinhos da origem (distância 1), depois os vizinhos deles (distância 2), e assim por diante — a fila garante essa ordem. Por isso, em grafos não ponderados, ela encontra o menor caminho em número de arestas.\nIr fundo primeiro é a DFS, que usa pilha (ou recursão). Em grafos com pesos, usa-se Dijkstra."
+    },
+    {
+      "id": "q-algoritmos-007",
+      "tema": "algoritmos",
+      "enunciado": "Você precisa contar quantas vezes cada palavra aparece em um texto com milhões de palavras. Qual estrutura é a mais adequada?",
+      "alternativas": [
+        "Uma lista encadeada de pares (palavra, contagem), pois inserir no início é O(1)",
+        "Um mapa hash (ex.: `Map` ou `HashMap`), com a palavra como chave e a contagem como valor",
+        "Uma pilha, empilhando cada palavra e contando todas no final",
+        "Um array ordenado de pares, pois inserir mantendo a ordem custa O(1)"
+      ],
+      "correta": 1,
+      "explicacao": "Com um mapa hash, buscar e atualizar a contagem de uma palavra é O(1) em média, e o total fica O(n).\nNa lista encadeada, inserir é barato, mas **achar** a palavra para incrementar exige percorrer a lista a cada vez (O(n) no pior caso). Inserir mantendo um array ordenado exige deslocar elementos: O(n) por inserção, não O(1)."
+    },
+    {
+      "id": "q-algoritmos-008",
+      "tema": "algoritmos",
+      "enunciado": "Qual é a saída do código abaixo, e o que aconteceria se a linha do caso base (`if (n === 0) return 0;`) fosse removida?\n```js\nfunction soma(n) {\n  if (n === 0) return 0;\n  return n + soma(n - 1);\n}\nconsole.log(soma(4));\n```",
+      "alternativas": [
+        "Imprime `10`; sem o caso base, a função simplesmente retornaria `undefined`",
+        "Imprime `4`; sem o caso base, entraria em loop infinito sem gerar erro",
+        "Imprime `24`; sem o caso base, a função retornaria `0`",
+        "Imprime `10`; sem o caso base, ocorreria estouro de pilha (`RangeError`)"
+      ],
+      "correta": 3,
+      "explicacao": "`soma(4)` = 4 + 3 + 2 + 1 + `soma(0)` = 10. O **caso base** encerra a recursão; sem ele, a função chama `soma(-1)`, `soma(-2)`... indefinidamente, e cada chamada ocupa espaço na pilha de chamadas até estourar (em JS, `RangeError: Maximum call stack size exceeded`; em Java, `StackOverflowError`).\n`24` seria o fatorial de 4."
+    },
+    {
+      "id": "q-algoritmos-009",
+      "tema": "algoritmos",
+      "enunciado": "Qual é a complexidade de tempo da função abaixo, e qual técnica a torna linear?\n```js\nfunction fib(n) {\n  if (n <= 1) return n;\n  return fib(n - 1) + fib(n - 2);\n}\n```",
+      "alternativas": [
+        "O(n), pois cada chamada faz apenas uma soma; memoização não altera a complexidade",
+        "Exponencial (cerca de O(2ⁿ)); com memoização (guardar os resultados já calculados) cai para O(n)",
+        "O(n²); com memoização cai para O(log n)",
+        "O(log n), pois o problema diminui a cada chamada; memoização deixaria O(1)"
+      ],
+      "correta": 1,
+      "explicacao": "Cada chamada gera outras duas, e os mesmos valores são recalculados muitas vezes (`fib(n-2)` é calculado dentro de `fib(n-1)` e de novo diretamente). O número de chamadas cresce exponencialmente (o limite justo é cerca de 1,6ⁿ, normalmente expresso como O(2ⁿ)).\nGuardando cada resultado (memoização) ou calculando de baixo para cima com um laço, cada `fib(k)` é calculado uma única vez: O(n)."
+    },
+    {
+      "id": "q-algoritmos-010",
+      "tema": "algoritmos",
+      "enunciado": "Qual afirmação sobre algoritmos de ordenação está correta?",
+      "alternativas": [
+        "Bubble sort é O(n log n) no pior caso, por isso é o padrão das linguagens",
+        "Merge sort é O(n log n) no pior caso; quicksort pode chegar a O(n²) no pior caso",
+        "Quicksort é O(n log n) em todos os casos, inclusive no pior; merge sort é O(n²)",
+        "Algoritmos baseados em comparação conseguem ordenar em O(n) no pior caso"
+      ],
+      "correta": 1,
+      "explicacao": "O merge sort sempre divide ao meio e intercala, garantindo O(n log n) (com O(n) de memória extra). O quicksort é O(n log n) em média, mas depende da escolha do pivô: escolhas ruins (ex.: array já ordenado com pivô sempre no extremo) levam a O(n²).\nBubble sort é O(n²), e O(n log n) é o limite inferior para ordenação por comparação no pior caso. O Java usa TimSort para objetos e Dual-Pivot Quicksort para tipos primitivos."
+    },
+    {
+      "id": "q-algoritmos-011",
+      "tema": "algoritmos",
+      "enunciado": "Comparando um array (ou `ArrayList`) com uma lista encadeada, qual afirmação está correta?",
+      "alternativas": [
+        "Array: índice O(n) e inserção no início O(1); lista encadeada: índice O(1) e inserção no início O(n)",
+        "Array: índice O(1) e inserção no início O(n); lista encadeada: índice O(n) e inserção no início O(1)",
+        "Ambos acessam por índice em O(1), pois os elementos ficam contíguos na memória",
+        "Ambos inserem no início em O(1), pois só é preciso atualizar uma referência"
+      ],
+      "correta": 1,
+      "explicacao": "No array, os elementos ficam contíguos: o endereço de `arr[i]` é calculado diretamente (O(1)), mas inserir no início exige deslocar todos os elementos (O(n)).\nNa lista encadeada, cada nó aponta para o próximo: inserir no início só troca referências (O(1)), mas chegar ao i-ésimo elemento exige percorrer os nós (O(n))."
+    }
+  ]
+}

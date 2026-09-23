@@ -1,0 +1,1100 @@
+{
+  "versao": 1,
+  "desafios": [
+    {
+      "id": "front-cep",
+      "titulo": "Buscador de CEP com histórico",
+      "area": "front",
+      "formato": "take-home",
+      "nivel": "básico",
+      "tempoSugeridoMin": 90,
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite",
+        "Vitest"
+      ],
+      "resumo": "Consulte endereços pelo CEP com máscara, validação, estados de carregamento e erro, e um histórico salvo no navegador.",
+      "contexto": "A Caramelo Entregas está criando uma ferramenta interna para que as atendentes confirmem o endereço de clientes durante a ligação. Queremos ver como você estrutura um projeto Vue pequeno, trata os estados da interface e se preocupa com quem usa teclado e leitor de tela. Esperamos uma solução simples e bem-acabada, não um produto completo.",
+      "enunciado": "Construa uma SPA em **Vue 3 + TypeScript** (Vite) com uma tela de consulta de CEP.\n\n**Fluxo esperado**\n- O campo aplica a máscara `00000-000` e aceita apenas dígitos.\n- Ao enviar (botão ou Enter), a aplicação consulta a API e exibe logradouro, bairro, cidade e UF.\n- Durante a consulta, mostre um indicador de carregamento e impeça envios duplicados.\n- Mostre mensagens distintas para: formato inválido (sem chamar a API), CEP inexistente e falha de rede.\n- Cada consulta bem-sucedida entra no topo de um **histórico** (máximo 10 itens, sem repetidos), salvo em `localStorage`. Clicar em um item exibe o endereço de novo.\n- Botão para limpar o histórico.\n\n**API (escolha uma)**\n- ViaCEP: `GET https://viacep.com.br/ws/{cep}/json/`\n- BrasilAPI: `GET https://brasilapi.com.br/api/cep/v2/{cep}`\n\n**Atenção aos contratos**\n- ViaCEP: CEP inexistente responde **200** com o corpo `{\"erro\": \"true\"}` (já foi o booleano `true`; trate qualquer valor verdadeiro). CEP com formato inválido (ex.: 7 dígitos) responde **400**.\n- BrasilAPI: CEP inexistente responde **404**; formato inválido responde **400**.\n\nExemplo de resposta da ViaCEP (resumido):\n```json\n{\n  \"cep\": \"01001-000\",\n  \"logradouro\": \"Praça da Sé\",\n  \"bairro\": \"Sé\",\n  \"localidade\": \"São Paulo\",\n  \"uf\": \"SP\"\n}\n```",
+      "requisitos": [
+        "Projeto Vue 3 + TypeScript criado com Vite, rodando com `npm install` e `npm run dev`.",
+        "Campo de CEP com máscara `00000-000`, aceitando só dígitos, e validação de 8 dígitos antes de chamar a API.",
+        "Consulta à ViaCEP ou à BrasilAPI exibindo logradouro, bairro, cidade e UF.",
+        "Estados de carregamento, sucesso, CEP inexistente e erro de rede visíveis e com mensagens diferentes.",
+        "Histórico das últimas 10 consultas (sem repetidos, mais recente primeiro), persistido em `localStorage` e restaurado ao recarregar.",
+        "Botão para limpar o histórico.",
+        "Formulário acessível: `label` associado ao campo, envio por Enter, foco visível e mensagens anunciadas (`aria-live` ou `role=\"alert\"`).",
+        "Lógica de requisição e de histórico fora dos componentes de tela (ex.: composable `useCep` e módulo `historico.ts`).",
+        "Testes com Vitest para máscara/validação e para a regra do histórico."
+      ],
+      "diferenciais": [
+        "Testes de componente com Vue Test Utils e `fetch` mockado (sucesso, CEP inexistente e falha de rede).",
+        "Cancelar a requisição anterior com `AbortController` quando uma nova busca começa.",
+        "Layout mobile first, funcional a partir de 320px de largura.",
+        "Botão para copiar o endereço formatado.",
+        "Deploy público (GitHub Pages, Netlify ou Vercel) com o link no README."
+      ],
+      "criterios": [
+        "Buscar 01001-000 exibe Praça da Sé, Sé, São Paulo/SP.",
+        "CEP com menos de 8 dígitos mostra erro de validação e nenhuma requisição aparece na aba Network.",
+        "CEP inexistente (ex.: 00000-000) mostra mensagem específica, diferente da mensagem de falha de rede.",
+        "Com a rede desligada (DevTools > Network > Offline), aparece erro amigável e a tela não quebra.",
+        "O histórico sobrevive a um F5, não repete CEPs e respeita o limite de 10 itens.",
+        "Tudo funciona só com teclado; o campo tem `label` e o erro é anunciado (`aria-live`/`role=\"alert\"`).",
+        "Chamadas HTTP e acesso ao `localStorage` estão fora do template e do componente de tela.",
+        "Há tipo/interface para o endereço e não há `any` desnecessário.",
+        "Testes passam com `npm run test` e cobrem ao menos um caso de erro (CEP inválido ou inexistente).",
+        "O README explica como instalar, rodar e testar sem ajuda externa.",
+        "O histórico de commits tem vários commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público no GitHub com README contendo: como instalar e rodar, como executar os testes, qual API você escolheu e por quê, e o que faria com mais tempo. Faça commits pequenos ao longo do desenvolvimento (ex.: `feat: adiciona máscara de CEP`). Se fizer deploy, coloque o link no README.",
+      "dicas": [
+        "Ordem sugerida: busca funcionando → estados de loading/erro → histórico → acessibilidade → testes → estilo. Se o tempo acabar, entregue o núcleo funcionando + README antes dos diferenciais.",
+        "Na ViaCEP, `response.ok` é verdadeiro mesmo para CEP inexistente: confira `data.erro` depois do `response.json()`.",
+        "Funções puras (`formatarCep`, `validarCep`, `adicionarAoHistorico`) são as mais fáceis de testar; comece por elas.",
+        "Envolva o `JSON.parse` do `localStorage` em try/catch: o valor salvo pode estar corrompido ou ausente.",
+        "Um parágrafo com `role=\"alert\"` que recebe a mensagem de erro já é anunciado por leitores de tela.",
+        "Para algo deste tamanho não é preciso Pinia; um composable com `ref` resolve (se usar Pinia, explique o motivo).",
+        "Documentação: https://viacep.com.br/ e https://brasilapi.com.br/docs"
+      ],
+      "inspiracao": [
+        {
+          "titulo": "Loggi — desafio front-end (documentação, HTML semântico, mobile first e commits)",
+          "url": "https://github.com/loggi/desafio-frontend"
+        },
+        {
+          "titulo": "1STi — desafio front-end de estágio (consumo de API pública, HTML semântico e BEM)",
+          "url": "https://github.com/1STi/desafio-frontend"
+        }
+      ]
+    },
+    {
+      "id": "front-catalogo",
+      "titulo": "Catálogo de Pokémon com busca, filtro e paginação",
+      "area": "front",
+      "formato": "take-home",
+      "nivel": "intermediário",
+      "tempoSugeridoMin": 180,
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite",
+        "Vue Router",
+        "Pinia",
+        "Vitest"
+      ],
+      "resumo": "Liste Pokémon da PokeAPI com paginação, busca, filtro por tipo na URL, página de detalhes e favoritos persistidos.",
+      "contexto": "A Capivara Games quer uma Pokédex web para a comunidade do seu aplicativo. O time de front usa Vue 3 com Pinia e Vue Router, e queremos entender como você organiza estado, rotas e chamadas a uma API pública real. Preferimos uma entrega pequena e sólida a muitas telas incompletas.",
+      "enunciado": "Construa um catálogo usando a **PokeAPI** (`https://pokeapi.co/api/v2`, sem chave).\n\n**Telas**\n- `/` — lista paginada (20 por página) com imagem, nome e número; busca por nome e filtro por tipo.\n- `/pokemon/:nome` — detalhes: imagem, tipos, altura, peso, habilidades e stats base; botão de favoritar; link para voltar mantendo página e filtros.\n- `/favoritos` — lista dos favoritos.\n- Qualquer outra rota → página 404.\n\n**Estado na URL**\nPágina, busca e tipo ficam na query string (ex.: `/?pagina=2&tipo=fire&busca=char`). Recarregar ou compartilhar o link deve mostrar o mesmo resultado, e o botão Voltar do navegador deve funcionar.\n\n**Endpoints úteis**\n- `GET /pokemon?limit=20&offset=0` → `{ count, next, previous, results: [{ name, url }] }`\n- `GET /pokemon/{nome ou id}` → detalhes (`sprites`, `types`, `stats`, `height`, `weight`, `abilities`); nome inexistente responde **404**.\n- `GET /type` → lista de tipos; `GET /type/{nome}` → `{ ..., pokemon: [{ slot, pokemon: { name, url } }] }`\n\nA API **não tem busca parcial por nome**. Decida — e explique no README — se vai carregar a lista de nomes uma vez (`/pokemon?limit=2000`) e filtrar no cliente, ou aceitar só o nome exato.",
+      "requisitos": [
+        "Vue 3 + TypeScript + Vue Router com as rotas `/`, `/pokemon/:nome`, `/favoritos` e uma rota 404.",
+        "Listagem paginada de 20 em 20, com anterior/próxima e indicação da página atual.",
+        "Busca por nome e filtro por tipo, combináveis.",
+        "Página, busca e tipo sincronizados com a query string.",
+        "Detalhes com imagem, tipos, altura (m), peso (kg), habilidades e stats; nome inexistente mostra estado de \"não encontrado\".",
+        "Favoritos em uma store Pinia, persistidos em `localStorage`, com adicionar/remover na lista e nos detalhes.",
+        "Estados de carregamento, erro (com \"Tentar novamente\") e lista vazia em todas as telas que buscam dados.",
+        "Tipos TypeScript para as respostas da API que você usa.",
+        "Testes com Vitest para a store de favoritos e para ao menos um componente ou composable."
+      ],
+      "diferenciais": [
+        "Cache das respostas já buscadas para não repetir requisições.",
+        "Debounce de ~300 ms na busca.",
+        "Imagens com `loading=\"lazy\"` e skeleton durante o carregamento.",
+        "Teste e2e (Playwright ou Cypress) do fluxo buscar → abrir detalhes → favoritar.",
+        "Layout responsivo e navegação completa por teclado.",
+        "Deploy público com o link no README."
+      ],
+      "criterios": [
+        "Abrir `/?pagina=3&tipo=water` direto na barra de endereços mostra exatamente o mesmo resultado após recarregar.",
+        "O botão Voltar do navegador retorna à lista com a página e os filtros anteriores.",
+        "`/pokemon/nao-existe` mostra \"não encontrado\" (sem tela em branco nem erro no console).",
+        "Com a rede offline, a lista mostra erro e o botão \"Tentar novamente\" funciona quando a rede volta.",
+        "Busca sem resultados (ou o tipo `stellar`, que não tem Pokémon) mostra um estado vazio amigável.",
+        "Favoritos persistem após F5 e aparecem em `/favoritos`.",
+        "A store Pinia concentra a regra de favoritos; componentes não acessam `localStorage` diretamente.",
+        "Componentização clara (ex.: `PokemonCard`, `Paginacao`, `FiltroTipo`), sem componentes gigantes.",
+        "Testes passam com `npm run test` e incluem um cenário de erro/404 com `fetch` mockado.",
+        "Imagens têm `alt`, controles têm rótulo e o foco é visível.",
+        "O README permite rodar sem ajuda e explica a estratégia de busca, filtro e paginação.",
+        "Commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público com README (como rodar e testar, decisões sobre busca/paginação/cache e o que ficou de fora). Commits pequenos ao longo do trabalho. Link de deploy é bem-vindo.",
+      "dicas": [
+        "Ordem sugerida: lista paginada + detalhes + estados de erro → URL sincronizada → favoritos → testes → diferenciais. Se o tempo acabar, entregue o núcleo + README.",
+        "Use `useRoute()` e `useRouter()`: `router.push({ query: { ...route.query, pagina: 2 } })` ao trocar de página e `router.replace` enquanto a pessoa digita a busca, para não encher o histórico.",
+        "Recarregue os dados com `watch(() => route.query, carregar, { immediate: true })`.",
+        "O id está no final do `url` de cada item (`.../pokemon/25/`). A imagem pode ser montada sem requisição extra: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png`.",
+        "`height` vem em decímetros e `weight` em hectogramas: divida por 10 para ter metros e quilos.",
+        "Com `/type/{nome}` você recebe todos os Pokémon do tipo de uma vez; pagine no cliente.",
+        "Para testar a store: `setActivePinia(createPinia())` no `beforeEach`.",
+        "Documentação: https://pokeapi.co/docs/v2"
+      ],
+      "inspiracao": [
+        {
+          "titulo": "Pagnet/BLU — desafio front-end com a PokéAPI",
+          "url": "https://github.com/Pagnet/desafio-front-end"
+        },
+        {
+          "titulo": "Concrete Solutions — recrutamento front-end (rotas, testes e layout responsivo)",
+          "url": "https://github.com/concretesolutions/recrutamento-fe"
+        },
+        {
+          "titulo": "Rocketseat — frontend challenge (critérios de avaliação)",
+          "url": "https://github.com/Rocketseat/frontend-challenge"
+        }
+      ]
+    },
+    {
+      "id": "front-kanban",
+      "titulo": "Quadro Kanban com persistência",
+      "area": "front",
+      "formato": "take-home",
+      "nivel": "intermediário",
+      "tempoSugeridoMin": 180,
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite",
+        "Pinia",
+        "Vitest"
+      ],
+      "resumo": "Quadro com colunas A fazer, Fazendo e Feito para criar, editar, mover e excluir cartões, com estado persistido e testado.",
+      "contexto": "Na Jabuticaba Software, os times acompanham demandas em um quadro interno que ficou lento e difícil de usar com teclado. Precisamos de uma nova versão, simples e acessível, e queremos avaliar como você modela o estado da aplicação e como o testa. Não use bibliotecas prontas de quadro Kanban.",
+      "enunciado": "Construa um quadro Kanban em **Vue 3 + TypeScript** com **Pinia**, sem back-end (persistência no navegador).\n\n**Modelo sugerido**\n```ts\ntype ColunaId = 'a-fazer' | 'fazendo' | 'feito'\n\ninterface Cartao {\n  id: string\n  titulo: string\n  descricao?: string\n  coluna: ColunaId\n  criadoEm: string // ISO 8601\n}\n```\n\n**Funcionalidades**\n- Três colunas fixas (A fazer, Fazendo, Feito), cada uma com contador de cartões.\n- Criar cartão: título obrigatório (até 80 caracteres) e descrição opcional.\n- Editar título e descrição.\n- Mover cartão entre colunas por **arrastar e soltar** ou por **botões/menu** (\"Mover para →\"). Se fizer arrastar, mantenha uma alternativa que funcione só com teclado.\n- Excluir cartão pedindo confirmação.\n- Estado salvo em `localStorage` e restaurado ao abrir a página.",
+      "requisitos": [
+        "Três colunas (A fazer, Fazendo, Feito) com contador de cartões em cada uma.",
+        "Criar cartão com título obrigatório (máx. 80 caracteres) e descrição opcional, exibindo mensagem de validação.",
+        "Editar título e descrição de um cartão existente.",
+        "Mover cartões entre colunas por arrastar e soltar ou por botões; a opção escolhida precisa funcionar só com teclado.",
+        "Excluir cartão com etapa de confirmação.",
+        "Estado centralizado em uma store Pinia (estado + getter por coluna + ações criar/editar/mover/excluir).",
+        "Persistência em `localStorage` com leitura segura: dado ausente ou corrompido não quebra a aplicação.",
+        "Testes unitários da store com Vitest cobrindo cada ação e ao menos um caso inválido (título vazio, cartão inexistente)."
+      ],
+      "diferenciais": [
+        "Reordenar cartões dentro da mesma coluna.",
+        "Filtro por texto em todas as colunas.",
+        "Desfazer a última exclusão (aviso com botão \"Desfazer\").",
+        "Teste de componente do formulário de criação com Vue Test Utils.",
+        "Anúncio para leitor de tela ao mover (região `aria-live`: \"Cartão X movido para Feito\").",
+        "Layout responsivo: colunas empilhadas em telas estreitas."
+      ],
+      "criterios": [
+        "Criar, editar, mover e excluir funcionam e os contadores se atualizam.",
+        "Recarregar a página mantém todos os cartões nas colunas certas.",
+        "Gravar um valor inválido no `localStorage` (ex.: `{`) e recarregar não quebra a aplicação.",
+        "Título vazio ou com mais de 80 caracteres é bloqueado, com mensagem visível associada ao campo.",
+        "É possível mover um cartão usando apenas teclado (Tab + Enter/Espaço).",
+        "As regras ficam na store; componentes só disparam ações e exibem estado.",
+        "Cartões por coluna são derivados com getters/computed, sem duplicar estado.",
+        "Testes da store passam com `npm run test` e incluem casos inválidos.",
+        "Botões só com ícone têm nome acessível (`aria-label`).",
+        "O README explica como rodar e testar e por que escolheu arrastar ou botões.",
+        "Commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público com README (instalar, rodar, testar, decisões de modelagem e limitações conhecidas). Commits pequenos. Um GIF ou print no README ajuda quem avalia.",
+      "dicas": [
+        "Ordem sugerida: store + testes da store → colunas e criação → mover (botões primeiro, arrastar depois) → persistência → estilo.",
+        "Botões \"Mover para ←/→\" resolvem a acessibilidade e são mais rápidos de fazer que drag and drop; arrastar pode vir como melhoria.",
+        "Para persistir: `store.$subscribe((_mutacao, estado) => localStorage.setItem(CHAVE, JSON.stringify(estado)))` ou um `watch` com `{ deep: true }`.",
+        "Gere ids com `crypto.randomUUID()`.",
+        "No drag and drop nativo, use `@dragover.prevent` na área de destino; sem isso o evento `drop` não dispara.",
+        "Teste a store isolada: `setActivePinia(createPinia())` no `beforeEach` e chame as ações diretamente."
+      ],
+      "inspiracao": [
+        {
+          "titulo": "Rocketseat — frontend challenge (gerenciamento de estado, componentização, acessibilidade)",
+          "url": "https://github.com/Rocketseat/frontend-challenge"
+        },
+        {
+          "titulo": "Loggi — desafio front-end (componentização e histórico de commits)",
+          "url": "https://github.com/loggi/desafio-frontend"
+        }
+      ]
+    },
+    {
+      "id": "front-formulario",
+      "titulo": "Cadastro em etapas com validação acessível",
+      "area": "front",
+      "formato": "take-home",
+      "nivel": "básico",
+      "tempoSugeridoMin": 120,
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite",
+        "Vitest"
+      ],
+      "resumo": "Formulário de cadastro em 3 etapas com validação por campo, mensagens de erro acessíveis e tela de revisão.",
+      "contexto": "A Pitanga Seguros perde clientes no formulário de cadastro do site: ele é longo, confuso e não funciona bem com leitores de tela. Queremos um protótipo em etapas, com validação clara e acessível. Nesta vaga, acessibilidade e experiência de uso pesam tanto quanto o código.",
+      "enunciado": "Construa um cadastro em **3 etapas + revisão**, em Vue 3 + TypeScript, sem back-end (ao concluir, mostre uma mensagem de sucesso e faça `console.log` do objeto final).\n\n**Etapa 1 — Dados pessoais**\n- Nome completo (obrigatório, ao menos 2 palavras)\n- E-mail (obrigatório, formato válido)\n- Data de nascimento (obrigatória, 18 anos ou mais)\n- CPF (obrigatório, com máscara `000.000.000-00`; validar os dígitos verificadores é diferencial)\n\n**Etapa 2 — Endereço**\n- CEP, logradouro, número, complemento (opcional), bairro, cidade e UF\n\n**Etapa 3 — Acesso**\n- Senha (mínimo 8 caracteres, com letra e número) e confirmação de senha\n- Aceite dos termos (obrigatório)\n\n**Revisão** — mostra tudo o que foi preenchido, com um botão \"Editar\" por seção (leva à etapa correspondente) e o botão \"Concluir\".\n\n**Regras de validação e acessibilidade**\n- Validar ao sair do campo (`blur`) e ao tentar avançar; não avançar com erros.\n- A mensagem de erro fica abaixo do campo e é ligada a ele por `aria-describedby`; o campo inválido recebe `aria-invalid=\"true\"`.\n- Ao tentar avançar com erros, o foco vai para o primeiro campo inválido.\n- A etapa atual é indicada de forma visível (\"Etapa 2 de 3\") e acessível (`aria-current=\"step\"` no indicador).\n- Voltar para uma etapa anterior não apaga o que já foi digitado.",
+      "requisitos": [
+        "Fluxo em 3 etapas + revisão, com botões Voltar/Avançar e indicador \"Etapa X de 3\".",
+        "Validações de cada campo conforme o enunciado, executadas no `blur` e ao avançar.",
+        "Todo campo tem `label` visível associado (`for`/`id`); obrigatórios indicados em texto, não só por cor.",
+        "Mensagens de erro ligadas ao campo com `aria-describedby`, e `aria-invalid=\"true\"` no campo inválido.",
+        "Foco movido para o primeiro campo inválido ao tentar avançar.",
+        "Dados preservados ao navegar entre as etapas.",
+        "Tela de revisão com botão \"Editar\" para cada seção.",
+        "Funções de validação puras em módulo separado (ex.: `validacoes.ts`) com testes Vitest de casos válidos e inválidos."
+      ],
+      "diferenciais": [
+        "Validação real do CPF (dígitos verificadores), rejeitando sequências como `111.111.111-11`.",
+        "Preenchimento do endereço pelo CEP (ViaCEP ou BrasilAPI), com loading e foco levado ao campo \"Número\".",
+        "Rascunho em `sessionStorage` para não perder dados ao recarregar (sem guardar a senha).",
+        "Indicador de força da senha com texto, não só cor.",
+        "Testes de componente verificando que o erro aparece e que o foco vai para o campo inválido."
+      ],
+      "criterios": [
+        "Não é possível avançar com campo obrigatório vazio ou inválido.",
+        "Cada erro aparece junto do campo com texto claro (ex.: \"Informe um e-mail válido\") e some ao corrigir.",
+        "No HTML, o campo inválido tem `aria-invalid=\"true\"` e `aria-describedby` apontando para o id da mensagem.",
+        "Ao clicar em Avançar com erro, o foco vai para o primeiro campo inválido.",
+        "O fluxo inteiro pode ser concluído só com teclado, com foco sempre visível.",
+        "Voltar e avançar mantém os dados; \"Editar\" na revisão leva à etapa certa.",
+        "Menor de 18 anos e confirmação de senha diferente são rejeitados.",
+        "Validações testadas com casos inválidos e de limite (ex.: quem faz 18 anos hoje).",
+        "HTML semântico: `form`, `fieldset`/`legend` ou título por etapa, e `button` com `type` correto.",
+        "Funciona em 320px de largura sem rolagem horizontal.",
+        "O README explica como rodar e testar e as decisões de acessibilidade.",
+        "Commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público com README (como rodar e testar, decisões de validação e acessibilidade, o que faria com mais tempo). Commits pequenos. Pode usar biblioteca de validação (ex.: VeeValidate + Zod), mas explique a escolha; fazer à mão também é ótimo.",
+      "dicas": [
+        "Ordem sugerida: navegação entre etapas com um único objeto de dados → validações da etapa 1 → acessibilidade dos erros → demais etapas → revisão → diferenciais.",
+        "Guarde todos os dados em um único `reactive` (no componente pai ou em uma store) e passe para cada etapa: assim nada se perde ao trocar de etapa.",
+        "Para mover o foco: `ref` no input e `nextTick(() => campoRef.value?.focus())`.",
+        "Idade: compare ano, mês e dia; dividir milissegundos por 365 erra perto do aniversário.",
+        "CPF: o 1º dígito verificador usa os 9 primeiros dígitos com pesos 10 a 2; o 2º usa os 10 primeiros com pesos 11 a 2. Em cada um: (soma × 10) % 11, e se der 10 vira 0.",
+        "Teste com um leitor de tela real (o NVDA é gratuito no Windows) ou, no mínimo, com a aba Accessibility do DevTools."
+      ],
+      "inspiracao": [
+        {
+          "titulo": "Loggi — desafio front-end (HTML semântico e mobile first)",
+          "url": "https://github.com/loggi/desafio-frontend"
+        },
+        {
+          "titulo": "Rocketseat — frontend challenge (usabilidade e acessibilidade como critérios)",
+          "url": "https://github.com/Rocketseat/frontend-challenge"
+        }
+      ]
+    },
+    {
+      "id": "front-github",
+      "titulo": "Explorador de usuários do GitHub",
+      "area": "front",
+      "formato": "take-home",
+      "nivel": "intermediário",
+      "tempoSugeridoMin": 150,
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite",
+        "Vue Router",
+        "Vitest"
+      ],
+      "resumo": "Busque um usuário do GitHub, veja o perfil e a lista de repositórios ordenável, tratando 404 e limite de requisições.",
+      "contexto": "A Seriema RH Tech está montando uma ferramenta para recrutadores conhecerem o perfil técnico de candidatos. Queremos uma interface rápida e responsiva que consuma a API pública do GitHub. O desafio avalia consumo de API, roteamento, tratamento de erros e testes.",
+      "enunciado": "Construa uma SPA em Vue 3 + TypeScript com Vue Router usando a **API REST do GitHub** sem autenticação.\n\n**Rotas**\n- `/` — campo de busca por login.\n- `/usuarios/:login` — perfil (avatar, nome, login, bio, seguidores, seguindo, total de repositórios públicos, link para o GitHub) e lista de repositórios.\n\n**Repositórios**\n- Nome (link para o GitHub), descrição, linguagem, estrelas e data da última atualização em formato brasileiro.\n- Ordenação por estrelas, nome ou atualização, crescente ou decrescente, refletida na URL (ex.: `?ordem=estrelas&direcao=desc`).\n\n**Endpoints**\n- `GET https://api.github.com/users/{login}` — responde **404** se o usuário não existir.\n- `GET https://api.github.com/users/{login}/repos?per_page=100` — até 100 repositórios por página.\n\n**Limite de requisições**\nSem autenticação, o GitHub permite **60 requisições por hora por IP**. Ao estourar, responde **403** ou **429** com o cabeçalho `x-ratelimit-remaining: 0` e `x-ratelimit-reset` (momento de liberação, em segundos desde 1970, UTC). Sua aplicação deve reconhecer esse caso e mostrar uma mensagem própria, com o horário em que será possível tentar de novo.\n\n**Layout** — responsivo, funcional a partir de **320px** de largura.",
+      "requisitos": [
+        "Rotas `/` e `/usuarios/:login` com Vue Router; abrir a URL de um perfil diretamente funciona.",
+        "Busca por login que navega para a rota do perfil (busca vazia não é enviada).",
+        "Perfil com avatar (com `alt`), nome, login, bio, seguidores, seguindo e total de repositórios públicos.",
+        "Lista de repositórios com nome, descrição, linguagem, estrelas e data de atualização em `dd/mm/aaaa`.",
+        "Ordenação por estrelas, nome e atualização (crescente/decrescente) persistida na query string.",
+        "Tratamento distinto para: usuário inexistente (404), limite de requisições (403/429 com `x-ratelimit-remaining: 0`), erro de rede e usuário sem repositórios.",
+        "Indicador de carregamento durante as requisições.",
+        "Camada de serviço tipada (ex.: `githubApi.ts`) separada dos componentes, com interfaces `Usuario` e `Repositorio`.",
+        "Testes Vitest para a ordenação e para o tratamento de 404 e de limite, com `fetch` mockado."
+      ],
+      "diferenciais": [
+        "Paginação ou \"carregar mais\" para quem tem mais de 100 repositórios (cabeçalho `Link`).",
+        "Filtro por linguagem ou por nome de repositório.",
+        "Cache em memória para não gastar requisições ao voltar a um perfil já visitado.",
+        "Buscas recentes salvas em `localStorage`.",
+        "Teste e2e do fluxo principal."
+      ],
+      "criterios": [
+        "Buscar `octocat` mostra perfil e repositórios corretamente.",
+        "Um login inexistente mostra \"Usuário não encontrado\", não um erro genérico.",
+        "Há teste mostrando que 403/429 com `x-ratelimit-remaining: 0` exibe a mensagem de limite com o horário de liberação.",
+        "A ordenação muda a lista, aparece na URL e se mantém ao recarregar.",
+        "Abrir `/usuarios/octocat` direto na barra de endereços funciona.",
+        "Em 320px não há rolagem horizontal e o conteúdo continua legível.",
+        "Componentes não chamam `fetch` diretamente; a camada de serviço converte status HTTP em erros de domínio (ex.: `UsuarioNaoEncontrado`, `LimiteExcedido`).",
+        "Datas e números formatados em pt-BR (`Intl.DateTimeFormat` / `toLocaleDateString('pt-BR')`).",
+        "Testes passam e cobrem ao menos 404 e limite de requisições.",
+        "Foco visível, links com texto descritivo e imagens com `alt`.",
+        "O README permite rodar sem ajuda e menciona o limite de 60 requisições por hora.",
+        "Commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público com README (como rodar e testar, como tratou erros e limite de requisições, melhorias futuras). Commits pequenos. Não coloque tokens no código nem no repositório.",
+      "dicas": [
+        "Ordem sugerida: perfil + repositórios → 404 e limite → ordenação na URL → responsividade → testes. Se o tempo acabar, entregue o núcleo + README.",
+        "O limite de 60 req/h acaba rápido durante o desenvolvimento: use dados mockados ou cache enquanto ajusta o layout.",
+        "`response.headers.get('x-ratelimit-remaining')` e `new Date(Number(reset) * 1000)` dão o horário de liberação (esses cabeçalhos são expostos via CORS).",
+        "O endpoint de repositórios do usuário não ordena por estrelas: ordene no cliente com `[...repos].sort(...)`, sem mutar o array original.",
+        "`watch(() => route.params.login, carregar, { immediate: true })` recarrega ao trocar de usuário sem sair do componente.",
+        "Documentação: https://docs.github.com/pt/rest"
+      ],
+      "inspiracao": [
+        {
+          "titulo": "Concrete Solutions — recrutamento front-end (busca de usuários do GitHub, rotas, testes, layout a partir de 320x480)",
+          "url": "https://github.com/concretesolutions/recrutamento-fe"
+        }
+      ]
+    },
+    {
+      "id": "back-transacoes",
+      "titulo": "API de transações e estatísticas em memória",
+      "area": "back",
+      "formato": "take-home",
+      "nivel": "básico",
+      "tempoSugeridoMin": 150,
+      "stack": [
+        "Java 21",
+        "Spring Boot 3",
+        "JUnit 5",
+        "MockMvc"
+      ],
+      "resumo": "API REST sem banco de dados que recebe transações e calcula estatísticas dos últimos 60 segundos, com validações e testes de erro.",
+      "contexto": "O Banco Mandacaru precisa de um serviço leve que receba transações e alimente em tempo real o painel do time antifraude. Queremos avaliar qualidade e legibilidade do código, organização do projeto e, principalmente, a quantidade e a qualidade dos testes. Siga os contratos à risca: nomes de endpoints e campos fazem parte da avaliação.",
+      "enunciado": "Crie uma API REST com **Spring Boot 3 e Java 21** que **não use banco de dados nem cache externo**: tudo fica em memória.\n\n**1. Registrar transação** — `POST /transacao`\n```json\n{\n  \"valor\": 123.45,\n  \"dataHora\": \"2026-09-23T12:34:56.789-03:00\"\n}\n```\n- `valor`: decimal, obrigatório, maior ou igual a 0.\n- `dataHora`: data/hora ISO 8601 com fuso (`OffsetDateTime`), obrigatória, não pode estar no futuro.\n\nRespostas (sem corpo):\n- **201 Created** — transação aceita.\n- **422 Unprocessable Entity** — JSON válido, mas alguma regra foi violada (campo ausente, valor negativo, data no futuro).\n- **400 Bad Request** — a API não entendeu a requisição (JSON malformado, tipo incompatível).\n\n**2. Limpar transações** — `DELETE /transacao` → **200 OK**, apaga todas.\n\n**3. Estatísticas** — `GET /estatistica` → **200 OK**, considerando só as transações com `dataHora` nos **últimos 60 segundos**:\n```json\n{\n  \"count\": 3,\n  \"sum\": 360.0,\n  \"avg\": 120.0,\n  \"min\": 60.0,\n  \"max\": 200.0\n}\n```\nSem transações no período, todos os campos devem ser `0`.\n\nObservação: este desafio é **inspirado** no desafio público de vaga júnior do Itaú (link em Inspiração); os contratos foram adaptados e ele não é uma cópia.",
+      "requisitos": [
+        "Projeto Spring Boot 3 com Java 21 (Maven ou Gradle), sem banco de dados, sem H2 e sem cache externo.",
+        "`POST /transacao` com os campos exatamente `valor` e `dataHora`, respondendo 201, 422 ou 400 conforme o enunciado, sem corpo.",
+        "Validações: campos obrigatórios, `valor` >= 0 e `dataHora` não futura → 422.",
+        "JSON malformado ou com tipo incompatível → 400.",
+        "`DELETE /transacao` apaga todas as transações e responde 200.",
+        "`GET /estatistica` retorna `count`, `sum`, `avg`, `min` e `max` das transações dos últimos 60 segundos, com tudo 0 quando não houver nenhuma.",
+        "Armazenamento em memória seguro para acesso concorrente.",
+        "Camadas separadas: controller (HTTP), service (regras e cálculo) e repositório em memória.",
+        "Testes com JUnit 5: unitários do cálculo e de integração com MockMvc cobrindo caminhos felizes e de erro (422 e 400).",
+        "README com como rodar, como testar e exemplos de requisição com `curl`."
+      ],
+      "diferenciais": [
+        "Janela de tempo configurável (ex.: `GET /estatistica?segundos=120` ou propriedade no `application.properties`).",
+        "Documentação da API com springdoc-openapi (Swagger UI).",
+        "Healthcheck com Spring Boot Actuator (`/actuator/health`).",
+        "Logs das operações e do tempo de cálculo das estatísticas.",
+        "Dockerfile para rodar a aplicação em container.",
+        "Teste de concorrência (várias threads registrando transações) comprovando que a contagem fica correta."
+      ],
+      "criterios": [
+        "Os três endpoints usam exatamente os caminhos, campos e status especificados.",
+        "`valor` negativo, `dataHora` no futuro e corpo `{}` retornam 422; JSON cortado (ex.: `{\"valor\":`) retorna 400.",
+        "Transação com data antiga é aceita (201), mas não entra na estatística.",
+        "Estatística sem transações retorna todos os campos com 0 (sem `null`, sem infinito, sem erro).",
+        "Nenhuma dependência de banco no projeto (sem JPA/H2) e dados em estrutura thread-safe.",
+        "Controller fino: sem cálculo de estatística nem regra de validação dentro dele.",
+        "Erros tratados de forma centralizada (`@RestControllerAdvice`), sem try/catch espalhado.",
+        "Testes passam com `mvn test` (ou `gradle test`) e incluem: 201, 422 por valor negativo, 422 por data futura, 400 por JSON inválido e estatística vazia.",
+        "Nomes de classes, métodos e variáveis claros; sem código comentado ou morto.",
+        "O README permite rodar e testar a API sem ajuda, com exemplos de `curl`.",
+        "O histórico de commits mostra a evolução (não é um commit único)."
+      ],
+      "entrega": "Repositório público (GitHub ou GitLab) com README: pré-requisitos, como rodar, como testar, exemplos de `curl` e decisões (ex.: `BigDecimal` x `double`, borda da janela de 60 s). Commits pequenos e descritivos. Não suba a pasta `target/` nem arquivos da IDE.",
+      "dicas": [
+        "Ordem sugerida: POST com 201/422/400 → GET /estatistica → DELETE → testes de erro → README → extras.",
+        "Adicione `spring-boot-starter-validation` e use `@NotNull`, `@PositiveOrZero` e `@PastOrPresent` em um `record` de entrada, recebido com `@Valid @RequestBody`.",
+        "Por padrão, falha de `@Valid` gera `MethodArgumentNotValidException` (400). Mapeie para 422 em um `@RestControllerAdvice`; JSON ilegível gera `HttpMessageNotReadableException`, que deve continuar 400.",
+        "Não use `double` primitivo no DTO: se `valor` não vier no JSON, ele vira `0.0` e passa na validação. Use `BigDecimal` (ou `Double`) com `@NotNull`.",
+        "`DoubleSummaryStatistics` (via `mapToDouble(...).summaryStatistics()`) calcula tudo de uma vez, mas sem elementos `min` e `max` vêm como infinito: trate a lista vazia.",
+        "Injete um `java.time.Clock` no service e use `Clock.fixed(...)` nos testes da janela de 60 segundos.",
+        "\"Testar apenas os caminhos felizes não é muito efetivo\": escreva os testes de erro antes de enfeitar o código."
+      ],
+      "gabarito": "**Casos que sua API deve passar**\n- `POST /transacao` com `{\"valor\": 10.5, \"dataHora\": \"<agora, com fuso>\"}` → 201\n- `valor` negativo → 422\n- `dataHora` no futuro → 422\n- corpo `{}` (campos ausentes) → 422\n- `{\"valor\": \"abc\", ...}` → 400 (tipo incompatível)\n- corpo `{\"valor\":` (JSON cortado) → 400\n- `dataHora` sem fuso (ex.: `2026-09-23T12:00:00`) → 400, pois não é um `OffsetDateTime` válido (documente a decisão)\n- transação de ontem → 201, mas fora da estatística\n- `GET /estatistica` sem transações → 200 com tudo 0\n- `DELETE /transacao` → 200, e a estatística volta a zero\n\n**Núcleo de uma solução possível** (cada tipo em seu arquivo; imports omitidos):\n```java\npublic record TransacaoRequest(\n        @NotNull @PositiveOrZero BigDecimal valor,\n        @NotNull @PastOrPresent OffsetDateTime dataHora) {}\n\npublic record EstatisticaResponse(long count, double sum, double avg, double min, double max) {\n    static EstatisticaResponse vazia() {\n        return new EstatisticaResponse(0, 0, 0, 0, 0);\n    }\n}\n\n@Service\npublic class TransacaoService {\n    private final Queue<TransacaoRequest> transacoes = new ConcurrentLinkedQueue<>();\n    private final Clock clock;\n\n    public TransacaoService(Clock clock) {\n        this.clock = clock;\n    }\n\n    public void registrar(TransacaoRequest transacao) {\n        transacoes.add(transacao);\n    }\n\n    public void limpar() {\n        transacoes.clear();\n    }\n\n    public EstatisticaResponse estatisticas(Duration janela) {\n        OffsetDateTime limite = OffsetDateTime.now(clock).minus(janela);\n        DoubleSummaryStatistics stats = transacoes.stream()\n                .filter(t -> !t.dataHora().isBefore(limite))\n                .mapToDouble(t -> t.valor().doubleValue())\n                .summaryStatistics();\n        if (stats.getCount() == 0) return EstatisticaResponse.vazia(); // evita min/max infinitos\n        return new EstatisticaResponse(stats.getCount(), stats.getSum(),\n                stats.getAverage(), stats.getMin(), stats.getMax());\n    }\n}\n\n@RestController\npublic class TransacaoController {\n    private final TransacaoService service;\n\n    public TransacaoController(TransacaoService service) {\n        this.service = service;\n    }\n\n    @PostMapping(\"/transacao\")\n    public ResponseEntity<Void> registrar(@Valid @RequestBody TransacaoRequest request) {\n        service.registrar(request);\n        return ResponseEntity.status(HttpStatus.CREATED).build();\n    }\n\n    @DeleteMapping(\"/transacao\")\n    public ResponseEntity<Void> limpar() {\n        service.limpar();\n        return ResponseEntity.ok().build();\n    }\n\n    @GetMapping(\"/estatistica\")\n    public EstatisticaResponse estatistica() {\n        return service.estatisticas(Duration.ofSeconds(60));\n    }\n}\n\n@RestControllerAdvice\npublic class TratadorDeErros {\n    @ExceptionHandler(MethodArgumentNotValidException.class)\n    public ResponseEntity<Void> regraViolada() {\n        return ResponseEntity.unprocessableEntity().build(); // 422\n    }\n\n    @ExceptionHandler(HttpMessageNotReadableException.class)\n    public ResponseEntity<Void> jsonIlegivel() {\n        return ResponseEntity.badRequest().build(); // 400\n    }\n}\n```\n\nO `Clock` vira um bean: `@Bean Clock clock() { return Clock.systemDefaultZone(); }` em uma classe `@Configuration`. Com `Clock.fixed(...)` no teste, as transações de 10 s, 30 s e 60 s atrás entram e a de 61 s não: o resultado é exatamente o JSON do enunciado (count 3, sum 360, avg 120, min 60, max 200).\n\n**Pontos que costumam derrubar a nota**\n- Retornar 400 para regra violada (o contrato pede 422).\n- `min`/`max` infinitos ou `avg` = `NaN` quando não há transações.\n- `ArrayList` comum acessada por várias requisições ao mesmo tempo (use `ConcurrentLinkedQueue` ou sincronize).\n- Só testar o caminho feliz.",
+      "inspiracao": [
+        {
+          "titulo": "Itaú — desafio de programação para vaga júnior (API de transações em Spring Boot)",
+          "url": "https://github.com/rafaellins-itau/desafio-itau-vaga-99-junior"
+        }
+      ]
+    },
+    {
+      "id": "back-transferencias",
+      "titulo": "API de transferências simplificada",
+      "area": "back",
+      "formato": "take-home",
+      "nivel": "intermediário",
+      "tempoSugeridoMin": 240,
+      "stack": [
+        "Java 21",
+        "Spring Boot 3",
+        "Spring Data JPA",
+        "PostgreSQL",
+        "JUnit 5",
+        "Mockito"
+      ],
+      "resumo": "Transferências entre usuários comuns e lojistas, com saldo, transação atômica, autorizador externo mockado e notificação tolerante a falhas.",
+      "contexto": "A Carambola Pay é uma carteira digital em que pessoas enviam dinheiro umas às outras e pagam lojistas. Precisamos da primeira versão do serviço de transferências, e ela tem de ser correta: dinheiro não pode sumir nem ser criado. Queremos ver como você modela o domínio, garante consistência e lida com serviços externos instáveis.",
+      "enunciado": "Crie uma API REST em **Spring Boot 3 + Java 21 + Spring Data JPA + PostgreSQL** para transferências entre usuários.\n\n**Regras de negócio**\n- Há dois tipos de usuário: **COMUM** e **LOJISTA**. Ambos têm nome completo, documento (CPF ou CNPJ) e e-mail **únicos**, e uma carteira com saldo.\n- Usuários comuns enviam e recebem; **lojistas só recebem**.\n- O pagador precisa ter saldo suficiente; o valor deve ser maior que zero; não é permitido transferir para si mesmo.\n- Antes de concluir, consulte um **serviço autorizador externo** (mock). Se ele negar ou estiver indisponível, a transferência não acontece.\n- A operação é **atômica**: débito, crédito e registro da transferência acontecem juntos ou nada acontece (`@Transactional`).\n- Após o sucesso, o recebedor é **notificado** por um serviço externo (mock) que às vezes falha. Falha na notificação **não** desfaz a transferência.\n\n**Endpoint principal**\n```http\nPOST /transferencias\nContent-Type: application/json\n\n{\n  \"valor\": 100.00,\n  \"pagadorId\": 4,\n  \"recebedorId\": 15\n}\n```\nRespostas esperadas:\n- **201 Created** — com id da transferência, valor e data/hora.\n- **400 Bad Request** — dados inválidos (valor <= 0, campos ausentes).\n- **404 Not Found** — pagador ou recebedor inexistente.\n- **422 Unprocessable Entity** — regra de negócio violada (lojista pagando, saldo insuficiente, transferência para si mesmo, não autorizada).\n\n**Serviços externos (mocks)**\nCrie os mocks como você preferir (um controller em um perfil de desenvolvimento, WireMock ou um servidor fake). Contratos sugeridos:\n- Autorizador: `GET /autorizacao` → `200 {\"autorizado\": true}` ou `403 {\"autorizado\": false}`.\n- Notificação: `POST /notificacoes` → `204`, e de vez em quando `503`.\n\nO cadastro de usuários pode ser por endpoint (`POST /usuarios`) ou por carga inicial de dados.\n\nObservação: desafio **inspirado** no desafio público de back-end do PicPay (link em Inspiração), simplificado e adaptado.",
+      "requisitos": [
+        "Spring Boot 3, Java 21, Spring Data JPA e PostgreSQL (o banco pode subir com Docker).",
+        "Usuários COMUM/LOJISTA com documento e e-mail únicos garantidos no banco (constraint `UNIQUE`) e saldo em `BigDecimal`.",
+        "`POST /transferencias` aplicando todas as regras: saldo suficiente, valor > 0, lojista não envia, sem transferência para si mesmo.",
+        "Consulta ao autorizador antes de efetivar; negativa ou indisponibilidade (timeout, 5xx) cancela a operação.",
+        "Débito, crédito e registro da transferência em uma única transação (`@Transactional`): qualquer falha desfaz tudo.",
+        "Notificação ao recebedor após o sucesso, sem desfazer a transferência se o serviço de notificação falhar.",
+        "Status HTTP corretos (201, 400, 404, 422) com corpo de erro padronizado (ex.: `ProblemDetail`).",
+        "Tratamento de exceções centralizado em `@RestControllerAdvice`, com exceções de domínio.",
+        "Testes unitários do service com Mockito (autorizador e notificador mockados), incluindo cenários de erro e de rollback.",
+        "README com como subir o banco, rodar a aplicação e os testes, e exemplos de requisição."
+      ],
+      "diferenciais": [
+        "Notificação assíncrona depois do commit (`@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)` + `@Async`) com nova tentativa em caso de falha.",
+        "Controle de concorrência no saldo (lock pessimista ou `@Version`) com teste de duas transferências simultâneas.",
+        "Migrations com Flyway.",
+        "Docker Compose com aplicação + PostgreSQL.",
+        "Testes de integração com Testcontainers e WireMock.",
+        "Documentação OpenAPI/Swagger."
+      ],
+      "criterios": [
+        "Transferência válida debita o pagador, credita o recebedor e retorna 201.",
+        "Lojista enviando, saldo insuficiente e autorização negada retornam 422 sem alterar nenhum saldo.",
+        "Valor zero/negativo ou campo ausente retorna 400; usuário inexistente retorna 404.",
+        "Se algo falhar depois do débito (ex.: exceção forçada em teste), o saldo do pagador volta ao valor original.",
+        "Falha no serviço de notificação não muda a resposta (continua 201) e fica registrada em log.",
+        "Autorizador lento ou fora do ar é tratado com timeout configurado, sem travar a requisição nem responder 500 genérico.",
+        "Dinheiro em `BigDecimal` com coluna `NUMERIC`, nunca `double`/`float`.",
+        "Regras no service/domínio; controller só traduz HTTP; entidades não são expostas (há DTOs).",
+        "Clientes HTTP externos atrás de interfaces, o que facilita o mock nos testes.",
+        "Testes passam e cobrem caminhos felizes e de erro, com `verify` garantindo que nada é salvo quando uma regra falha.",
+        "O README permite subir banco + aplicação e testar sem ajuda.",
+        "Commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público com README: como subir o PostgreSQL, variáveis de ambiente, como rodar e testar, decisões de arquitetura e o que faria com mais tempo. Commits pequenos. Não suba senhas reais: use variáveis de ambiente ou valores de desenvolvimento documentados.",
+      "dicas": [
+        "Ordem sugerida: modelo + regra de saldo + `@Transactional` + testes do service → endpoint com status corretos → autorizador → notificação → extras. Se o tempo acabar, entregue o núcleo testado + README.",
+        "`@Transactional` funciona por proxy: chamar um método anotado a partir de outro método da mesma classe (auto-invocação) não abre transação.",
+        "Por padrão, o rollback acontece para exceções não verificadas (`RuntimeException`); exceções verificadas precisam de `rollbackFor`.",
+        "Use `RestClient` (Spring Framework 6.1+ / Boot 3.2+) ou `WebClient` para chamar os mocks e configure timeouts de conexão e de leitura.",
+        "Com Mockito: `when(autorizador.autorizar()).thenReturn(false)` e depois `verify(transferenciaRepository, never()).save(any())`.",
+        "Pense (e escreva no README) se o autorizador é chamado dentro ou fora da transação: chamar HTTP com a transação aberta segura uma conexão do banco durante a chamada.",
+        "Para `@Async` funcionar, habilite com `@EnableAsync` em uma classe de configuração."
+      ],
+      "inspiracao": [
+        {
+          "titulo": "PicPay — desafio back-end (transferências entre usuários e lojistas)",
+          "url": "https://github.com/PicPay/picpay-desafio-backend"
+        }
+      ]
+    },
+    {
+      "id": "back-encurtador",
+      "titulo": "Encurtador de URLs",
+      "area": "back",
+      "formato": "take-home",
+      "nivel": "básico",
+      "tempoSugeridoMin": 120,
+      "stack": [
+        "Java 21",
+        "Spring Boot 3",
+        "Spring Data JPA",
+        "PostgreSQL",
+        "JUnit 5"
+      ],
+      "resumo": "API que gera códigos curtos para URLs, redireciona com 302 e conta os acessos de cada link.",
+      "contexto": "O time de marketing da Araucária Varejo envia campanhas por SMS e precisa de links curtos e rastreáveis. Queremos um serviço interno simples, confiável e bem testado. Você pode usar PostgreSQL ou H2 em desenvolvimento, desde que o README explique como rodar.",
+      "enunciado": "Crie uma API em **Spring Boot 3 + Java 21** que encurta URLs.\n\n**1. Encurtar** — `POST /encurtar`\n```json\n{ \"url\": \"https://www.exemplo.com.br/campanhas/primavera?utm_source=sms\" }\n```\nResposta **201 Created**, com o cabeçalho `Location` apontando para o link curto:\n```json\n{\n  \"codigo\": \"aZ3kP9\",\n  \"urlCurta\": \"http://localhost:8080/aZ3kP9\",\n  \"urlOriginal\": \"https://www.exemplo.com.br/campanhas/primavera?utm_source=sms\"\n}\n```\n- URL ausente, vazia, malformada ou com esquema diferente de `http`/`https` → **400 Bad Request** com mensagem.\n\n**2. Redirecionar** — `GET /{codigo}`\n- Código existente → **302 Found** com o cabeçalho `Location` igual à URL original, e o contador de acessos aumenta.\n- Código inexistente → **404 Not Found**.\n\n**3. Estatísticas** — `GET /{codigo}/estatisticas` → **200 OK**\n```json\n{ \"codigo\": \"aZ3kP9\", \"urlOriginal\": \"https://...\", \"acessos\": 42, \"criadoEm\": \"2026-09-23T10:15:30Z\" }\n```\n\n**Código curto** — 6 a 8 caracteres alfanuméricos (`[a-zA-Z0-9]`), único. Explique no README como gera o código e como evita colisões.\n\nObservação: tema **inspirado** no desafio \"Encurtador de URLs\" da lista da comunidade backend-br (link em Inspiração).",
+      "requisitos": [
+        "`POST /encurtar` valida a URL (apenas `http`/`https`) e responde 201 com `codigo`, `urlCurta`, `urlOriginal` e cabeçalho `Location`.",
+        "URL inválida ou ausente → 400 com corpo de erro explicando o motivo.",
+        "Código de 6 a 8 caracteres alfanuméricos, único (constraint `UNIQUE` no banco), com estratégia contra colisão.",
+        "`GET /{codigo}` responde 302 com `Location` para a URL original; código inexistente → 404.",
+        "Cada redirecionamento incrementa o contador de acessos sem perder incrementos em acessos simultâneos.",
+        "`GET /{codigo}/estatisticas` com total de acessos e data de criação.",
+        "Persistência com Spring Data JPA (PostgreSQL, ou H2 documentado no README).",
+        "Testes com JUnit 5 cobrindo geração de código, validação de URL e os status 201, 400, 302 e 404."
+      ],
+      "diferenciais": [
+        "Expiração: campo opcional `expiraEm` (ou validade padrão); código expirado responde **410 Gone**.",
+        "A mesma URL encurtada duas vezes devolve o mesmo código (ou justifique por que não).",
+        "Apelido personalizado opcional (`\"alias\": \"primavera\"`), com 409 Conflict se já existir.",
+        "Swagger/OpenAPI e Dockerfile ou Docker Compose.",
+        "Limite simples de requisições por IP no endpoint de encurtar."
+      ],
+      "criterios": [
+        "`curl -i -X POST` com URL válida retorna 201, `Location` e o JSON especificado.",
+        "`ftp://x`, `javascript:alert(1)`, texto aleatório e corpo vazio retornam 400.",
+        "`curl -i http://localhost:8080/{codigo}` retorna 302 com o `Location` correto, e o navegador redireciona.",
+        "Código inexistente retorna 404 com corpo de erro, não 500.",
+        "O contador é incrementado de forma atômica (`update ... set acessos = acessos + 1` ou lock), não com \"ler, somar e salvar\" sem proteção.",
+        "Colisão de código é tratada (nova tentativa ou geração a partir do id da sequence).",
+        "A validação usa `java.net.URI` (ou Bean Validation) conferindo esquema e host, em vez de uma regex frágil.",
+        "Separação controller/service/repository, com DTOs de entrada e saída.",
+        "Testes passam e incluem os casos de erro (400 e 404).",
+        "O README explica como rodar e testar, com exemplos de `curl`.",
+        "Commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público com README (como rodar, banco escolhido, como testar, exemplos de `curl`, estratégia de geração de código e o que faria com mais tempo). Commits pequenos.",
+      "dicas": [
+        "Ordem sugerida: encurtar + redirecionar + validação → contador → estatísticas → testes de erro → README → expiração.",
+        "Redirecionamento: `ResponseEntity.status(HttpStatus.FOUND).location(URI.create(urlOriginal)).build()`.",
+        "Para gerar o código: `SecureRandom` sorteando de um alfabeto de 62 caracteres, ou converter o id da sequence para base 62.",
+        "Incremento atômico: `@Modifying @Query(\"update LinkCurto l set l.acessos = l.acessos + 1 where l.codigo = :codigo\")` chamado dentro de um método `@Transactional`.",
+        "No MockMvc, confira `status().isFound()` e `header().string(\"Location\", ...)`.",
+        "Use 302, não 301: o navegador guarda o 301 em cache e os acessos seguintes nem chegam ao servidor (o contador pararia). Bom argumento para o README."
+      ],
+      "inspiracao": [
+        {
+          "titulo": "backend-br/desafios — lista de desafios de back-end (Encurtador de URLs)",
+          "url": "https://github.com/backend-br/desafios"
+        }
+      ]
+    },
+    {
+      "id": "back-estoque",
+      "titulo": "API de pedidos com baixa de estoque",
+      "area": "back",
+      "formato": "take-home",
+      "nivel": "intermediário",
+      "tempoSugeridoMin": 180,
+      "stack": [
+        "Java 21",
+        "Spring Boot 3",
+        "Spring Data JPA",
+        "PostgreSQL",
+        "Flyway",
+        "JUnit 5",
+        "Mockito"
+      ],
+      "resumo": "Cadastro de produtos e pedidos com itens, baixando o estoque em transação e respondendo 409 quando falta produto.",
+      "contexto": "A Loja Tucano Utilidades vende on-line e hoje controla o estoque em planilha, o que gera pedidos de produtos que já acabaram. Precisamos de uma API que registre pedidos e baixe o estoque de forma consistente. O time usa Spring Boot, JPA, PostgreSQL e Flyway, e revisa com atenção as migrations e os testes.",
+      "enunciado": "Crie uma API REST em **Spring Boot 3 + Java 21** com **PostgreSQL** e **Flyway**.\n\n**Produtos**\n- `POST /produtos` — cria (`nome`, `sku` único, `preco` > 0, `estoque` >= 0) → **201** com `Location`.\n- `GET /produtos?page=0&size=20&sort=nome,asc` — lista **paginada** e ordenável.\n- `GET /produtos/{id}` — **200** ou **404**.\n\n**Pedidos**\n```http\nPOST /pedidos\nContent-Type: application/json\n\n{\n  \"cliente\": \"maria@exemplo.com\",\n  \"itens\": [\n    { \"produtoId\": 1, \"quantidade\": 2 },\n    { \"produtoId\": 3, \"quantidade\": 1 }\n  ]\n}\n```\n- Valida a entrada, **baixa o estoque de todos os itens** e grava o pedido com o preço unitário do momento, os subtotais e o total → **201**.\n- Se **qualquer** item não tiver estoque suficiente → **409 Conflict** informando quais produtos faltaram, e **nenhum** estoque é alterado.\n- Produto inexistente → **404**; lista de itens vazia, quantidade <= 0 ou e-mail inválido → **400**.\n- `GET /pedidos/{id}` — pedido com itens, subtotais e total.\n\n**Banco** — todas as tabelas são criadas por migrations Flyway (`src/main/resources/db/migration/V1__cria_tabelas.sql`, …). A propriedade `spring.jpa.hibernate.ddl-auto` deve ficar em `validate` ou `none`.\n\nObservação: formato **inspirado** em desafios públicos de back-end Java (CRUD + regras de negócio + testes), adaptado.",
+      "requisitos": [
+        "Spring Boot 3 + Java 21 + Spring Data JPA + PostgreSQL, com schema criado apenas por migrations Flyway (`ddl-auto=validate` ou `none`).",
+        "Produtos: criar (`sku` único, `preco` > 0, `estoque` >= 0), buscar por id (404 se não existir) e listar com paginação e ordenação (`page`, `size`, `sort`).",
+        "`POST /pedidos` com validação de entrada (400), produto inexistente (404) e estoque insuficiente (409 listando os produtos).",
+        "Baixa de estoque de todos os itens e gravação do pedido em uma única transação: se um item falhar, nada é alterado.",
+        "Pedido guarda preço unitário do momento da compra, subtotal por item e total, tudo em `BigDecimal`.",
+        "`GET /pedidos/{id}` devolve pedido com itens via DTO (sem expor entidades e sem `LazyInitializationException`).",
+        "Erros padronizados com `@RestControllerAdvice` (ex.: `ProblemDetail`).",
+        "Testes de repositório com `@DataJpaTest` e de controller com `@WebMvcTest` + MockMvc, cobrindo 201, 400, 404 e 409.",
+        "README com como subir o PostgreSQL (`docker run` ou Compose), rodar e testar."
+      ],
+      "diferenciais": [
+        "Cancelamento de pedido (`POST /pedidos/{id}/cancelar`) devolvendo os itens ao estoque; cancelar duas vezes → 409.",
+        "Proteção contra concorrência na baixa (update condicional `where estoque >= :quantidade`, lock pessimista ou `@Version`) com teste de pedidos simultâneos.",
+        "Testcontainers com PostgreSQL real nos testes de integração.",
+        "Docker Compose com aplicação + banco.",
+        "Swagger/OpenAPI documentando exemplos de erro.",
+        "Filtro por nome na listagem de produtos."
+      ],
+      "criterios": [
+        "Subir a aplicação num banco vazio cria as tabelas via Flyway (existe `flyway_schema_history`), não por `ddl-auto`.",
+        "Pedido válido retorna 201, baixa o estoque, e o total confere com a soma de preço × quantidade.",
+        "Pedido com um item sem estoque retorna 409, e o estoque de **todos** os produtos continua igual (verificado em teste).",
+        "Produto inexistente retorna 404; itens vazios ou quantidade <= 0 retornam 400.",
+        "`sku` duplicado não vira 500: retorna 409 (ou 400) com mensagem.",
+        "A listagem respeita `page`, `size` e `sort` e informa total de elementos e de páginas.",
+        "Nenhuma entidade JPA é serializada direto na resposta; há DTOs (`record`).",
+        "Dinheiro em `BigDecimal` com coluna `NUMERIC`, sem `double`.",
+        "`@Transactional` fica na camada de service, não no controller.",
+        "Testes passam e incluem os casos de erro (400, 404, 409), não só o caminho feliz.",
+        "O README permite rodar sem ajuda.",
+        "Commits pequenos, e nenhuma migration já aplicada foi editada (correções entram em uma nova versão)."
+      ],
+      "entrega": "Repositório público com README: pré-requisitos, como subir o banco, variáveis de ambiente, como rodar e testar, exemplos de `curl` e decisões. Commits pequenos. Migrations nunca são editadas depois de aplicadas: correções entram em uma nova versão (`V2__...`).",
+      "dicas": [
+        "Ordem sugerida: migrations + produto → pedido com transação e 409 → testes de erro → paginação → README → diferenciais.",
+        "Com Flyway 10 ou superior (versão gerenciada a partir do Spring Boot 3.3), adicione também a dependência `flyway-database-postgresql`.",
+        "Paginação: receba `Pageable` no controller e devolva um DTO de página próprio (ou use `@EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO)`) em vez de serializar `PageImpl` direto.",
+        "`@DataJpaTest`, por padrão, troca o DataSource por um banco embutido (H2, se estiver no classpath). SQL específico do PostgreSQL nas migrations pode falhar nele: use Testcontainers com `@AutoConfigureTestDatabase(replace = Replace.NONE)` ou mantenha o SQL compatível.",
+        "Valide o estoque de todos os itens antes de alterar, ou lance uma exceção não verificada para o rollback desfazer tudo, e teste isso.",
+        "Para o 409 com a lista de faltantes, crie uma exceção de domínio (ex.: `EstoqueInsuficienteException`) com os ids e trate no advice."
+      ],
+      "inspiracao": [
+        {
+          "titulo": "FCamara — backend-test-java (API REST de estacionamento em Java + perguntas teóricas)",
+          "url": "https://github.com/fcamarasantos/backend-test-java"
+        },
+        {
+          "titulo": "PicPay — desafio back-end (transação atômica e competências avaliadas)",
+          "url": "https://github.com/PicPay/picpay-desafio-backend"
+        }
+      ]
+    },
+    {
+      "id": "back-csv",
+      "titulo": "Relatório de vendas a partir de CSV em Java puro",
+      "area": "back",
+      "formato": "prova-pratica",
+      "nivel": "básico",
+      "tempoSugeridoMin": 90,
+      "stack": [
+        "Java 21",
+        "JUnit 5"
+      ],
+      "resumo": "Leia um CSV de vendas sem frameworks e gere total por produto, top 3 e faturamento por mês, tratando linhas inválidas.",
+      "contexto": "Na prova prática da Guaraná Sistemas, você recebe um arquivo exportado do sistema de caixa e precisa gerar um relatório no terminal. Não é permitido usar Spring nem bibliotecas de CSV: queremos ver seu domínio de Java, da API de Streams e de testes. O arquivo real tem milhares de linhas e algumas vêm com defeito.",
+      "enunciado": "Escreva um programa **Java 21 sem frameworks** (Maven ou Gradle só para compilar e rodar os testes) que leia um CSV de vendas e imprima um relatório.\n\n**Formato do arquivo** — separador `;`, cabeçalho na primeira linha, data em `dd/MM/aaaa` e decimal com **vírgula** (padrão de planilhas em português):\n```text\ndata;produto;quantidade;preco_unitario\n05/01/2026;Caneta;10;2,50\n17/01/2026;Caderno;3;15,90\n20/01/2026;Mochila;1;129,90\n02/02/2026;Caneta;4;2,50\n10/02/2026;Caderno;5;15,90\n11/02/2026;Estojo;2;19,00\n15/02/2026;Mochila;;129,90\n28/02/2026;Caneta;abc;2,50\n31/02/2026;Caderno;1;15,90\n01/03/2026;Caderno;2;16,50\n03/03/2026;Estojo;1;19,00\n09/03/2026;Mochila;2;119,90\n15/03/2026;Caneta;-2;2,50\n18/03/2026;Borracha;5;1,50;promo\n22/03/2026;Lápis;12;1,20\n```\n\n**O relatório deve mostrar**\n- Quantidade de linhas válidas e inválidas.\n- **Total por produto**: quantidade vendida e faturamento (quantidade × preço unitário).\n- **Top 3 produtos** por faturamento (empate → ordem alfabética).\n- **Faturamento por mês** (`AAAA-MM`), em ordem cronológica.\n- A lista de **linhas inválidas**, com o número da linha no arquivo e o motivo.\n\n**Regras**\n- Uma linha é inválida se: não tiver exatamente 4 colunas, a data não existir no calendário (ex.: 31/02), o produto estiver vazio, a quantidade não for um inteiro maior que zero ou o preço não for um decimal maior que zero.\n- Linhas inválidas não interrompem o processamento; linhas em branco são ignoradas.\n- Arquivo inexistente → mensagem clara e código de saída diferente de 0.\n- Valores monetários com `BigDecimal`; formate a saída em reais (`R$ 1.234,56`).\n\nUso esperado: `java -jar relatorio.jar vendas.csv` (ou `java RelatorioVendas.java vendas.csv`).",
+      "requisitos": [
+        "Java 21 puro, sem Spring e sem bibliotecas de CSV; o caminho do arquivo vem por argumento.",
+        "Leitura com `Files.readAllLines`/`Files.lines` ou `BufferedReader`, em UTF-8, ignorando o cabeçalho.",
+        "Conversão de cada linha para um `record` (ex.: `Venda`), com data em `LocalDate`, quantidade `int` e preço `BigDecimal`.",
+        "Validação de cada linha conforme as regras, registrando número da linha e motivo sem interromper o processamento.",
+        "Total por produto, top 3 por faturamento e faturamento por mês calculados com Streams (`groupingBy`, `reducing`/`summingInt`).",
+        "Saída formatada em reais e meses em ordem cronológica.",
+        "Arquivo inexistente tratado com mensagem e código de saída diferente de 0.",
+        "Testes JUnit 5 para a leitura de uma linha válida, cada tipo de linha inválida e os agregados."
+      ],
+      "diferenciais": [
+        "Testes parametrizados (`@ParameterizedTest` com `@ValueSource` ou `@CsvSource`) para as linhas inválidas.",
+        "Parâmetro opcional para escolher o critério do top N (faturamento ou quantidade) e o tamanho de N.",
+        "Exportar o relatório também em um arquivo CSV ou JSON.",
+        "Processar arquivos grandes em streaming (`Files.lines`) sem carregar tudo na memória.",
+        "Separação em classes (leitor, validador, calculadora, impressora) com responsabilidades claras."
+      ],
+      "criterios": [
+        "Com o CSV do enunciado, os números batem com o gabarito (5 produtos, 10 linhas válidas, 5 inválidas).",
+        "A linha com 31/02/2026 é rejeitada (e não convertida silenciosamente para 28/02).",
+        "Quantidade vazia, não numérica ou negativa e linha com coluna a mais aparecem como inválidas, com número da linha e motivo.",
+        "Nenhum `double`/`float` no cálculo de dinheiro; somas feitas com `BigDecimal`.",
+        "O top 3 respeita o desempate por nome.",
+        "Meses em ordem cronológica (ex.: `TreeMap` ou `sorted`).",
+        "Arquivo inexistente gera mensagem amigável e código de saída diferente de 0, sem stack trace para o usuário.",
+        "Uso idiomático de Streams e `record`, sem laços aninhados desnecessários.",
+        "Testes passam e cobrem casos inválidos, não só a linha válida.",
+        "Código legível: métodos curtos e nomes que explicam a intenção."
+      ],
+      "entrega": "Repositório (ou pasta compactada, se a prova pedir) com o código, os testes, o CSV de exemplo e um README curto: como compilar, rodar e testar. Na prova presencial, o que conta é o que compila e roda até o fim do tempo.",
+      "dicas": [
+        "Ordem sugerida: ler e converter linhas válidas → validar e listar inválidas → agregados → saída formatada → testes. Se o tempo acabar, entregue o que compila e roda + testes da leitura.",
+        "Use `linha.split(\";\", -1)`: sem o `-1`, colunas vazias no final somem e a contagem de colunas fica errada.",
+        "Datas: `DateTimeFormatter.ofPattern(\"dd/MM/uuuu\").withResolverStyle(ResolverStyle.STRICT)`. No modo padrão (SMART), 31/02 vira 28/02 sem erro; e com STRICT o ano precisa ser `uuuu` (com `yyyy` até datas válidas falham).",
+        "Vírgula decimal: `new BigDecimal(texto.trim().replace(',', '.'))`.",
+        "Somar `BigDecimal` por grupo: `Collectors.groupingBy(Venda::produto, Collectors.reducing(BigDecimal.ZERO, Venda::total, BigDecimal::add))`.",
+        "Mês: `YearMonth.from(venda.data())`; agrupe em um `TreeMap` para já sair ordenado.",
+        "Em reais: `NumberFormat.getCurrencyInstance(Locale.of(\"pt\", \"BR\"))`."
+      ],
+      "gabarito": "**Saída esperada para o CSV do enunciado**\n```text\nLinhas válidas: 10 | inválidas: 5\n\nTotal por produto:\n  Mochila    3 un.  R$ 369,70\n  Caderno   10 un.  R$ 160,20\n  Estojo     3 un.  R$ 57,00\n  Caneta    14 un.  R$ 35,00\n  Lápis     12 un.  R$ 14,40\n\nTop 3 por faturamento: Mochila, Caderno, Estojo\n\nFaturamento por mês:\n  2026-01  R$ 202,60\n  2026-02  R$ 127,50\n  2026-03  R$ 306,20\n\nLinhas inválidas:\n  Linha 8: quantidade inválida ''\n  Linha 9: quantidade inválida 'abc'\n  Linha 10: data inválida '31/02/2026'\n  Linha 14: quantidade deve ser maior que zero\n  Linha 15: esperava 4 colunas, veio 5\n```\nFaturamento total: R$ 636,30. A Borracha não aparece porque sua única linha é inválida.\n\n**Solução de referência** (roda com `java RelatorioVendas.java vendas.csv`):\n```java\nimport java.io.IOException;\nimport java.math.BigDecimal;\nimport java.nio.charset.StandardCharsets;\nimport java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.text.NumberFormat;\nimport java.time.LocalDate;\nimport java.time.YearMonth;\nimport java.time.format.DateTimeFormatter;\nimport java.time.format.DateTimeParseException;\nimport java.time.format.ResolverStyle;\nimport java.util.*;\nimport java.util.stream.Collectors;\n\npublic class RelatorioVendas {\n\n    record Venda(LocalDate data, String produto, int quantidade, BigDecimal precoUnitario) {\n        BigDecimal total() {\n            return precoUnitario.multiply(BigDecimal.valueOf(quantidade));\n        }\n    }\n\n    record Leitura(List<Venda> vendas, List<String> erros) {}\n\n    // STRICT + \"uuuu\": 31/02/2026 é rejeitado (o padrão SMART ajustaria para 28/02)\n    private static final DateTimeFormatter DATA =\n            DateTimeFormatter.ofPattern(\"dd/MM/uuuu\").withResolverStyle(ResolverStyle.STRICT);\n\n    static Venda parseLinha(String linha) {\n        String[] c = linha.split(\";\", -1);\n        if (c.length != 4) throw new IllegalArgumentException(\"esperava 4 colunas, veio \" + c.length);\n        LocalDate data;\n        try {\n            data = LocalDate.parse(c[0].trim(), DATA);\n        } catch (DateTimeParseException e) {\n            throw new IllegalArgumentException(\"data inválida '\" + c[0] + \"'\");\n        }\n        String produto = c[1].trim();\n        if (produto.isEmpty()) throw new IllegalArgumentException(\"produto vazio\");\n        int quantidade;\n        try {\n            quantidade = Integer.parseInt(c[2].trim());\n        } catch (NumberFormatException e) {\n            throw new IllegalArgumentException(\"quantidade inválida '\" + c[2] + \"'\");\n        }\n        if (quantidade <= 0) throw new IllegalArgumentException(\"quantidade deve ser maior que zero\");\n        BigDecimal preco;\n        try {\n            preco = new BigDecimal(c[3].trim().replace(',', '.'));\n        } catch (NumberFormatException e) {\n            throw new IllegalArgumentException(\"preço inválido '\" + c[3] + \"'\");\n        }\n        if (preco.signum() <= 0) throw new IllegalArgumentException(\"preço deve ser maior que zero\");\n        return new Venda(data, produto, quantidade, preco);\n    }\n\n    static Leitura ler(List<String> linhas) {\n        List<Venda> vendas = new ArrayList<>();\n        List<String> erros = new ArrayList<>();\n        for (int i = 1; i < linhas.size(); i++) { // i = 0 é o cabeçalho\n            String linha = linhas.get(i);\n            if (linha.isBlank()) continue;\n            try {\n                vendas.add(parseLinha(linha));\n            } catch (IllegalArgumentException e) {\n                erros.add(\"Linha \" + (i + 1) + \": \" + e.getMessage());\n            }\n        }\n        return new Leitura(vendas, erros);\n    }\n\n    static Map<String, BigDecimal> faturamentoPorProduto(List<Venda> vendas) {\n        return vendas.stream().collect(Collectors.groupingBy(Venda::produto,\n                Collectors.reducing(BigDecimal.ZERO, Venda::total, BigDecimal::add)));\n    }\n\n    static Map<String, Integer> quantidadePorProduto(List<Venda> vendas) {\n        return vendas.stream().collect(Collectors.groupingBy(Venda::produto,\n                Collectors.summingInt(Venda::quantidade)));\n    }\n\n    static List<String> top3(List<Venda> vendas) {\n        return faturamentoPorProduto(vendas).entrySet().stream()\n                .sorted(Map.Entry.<String, BigDecimal>comparingByValue().reversed()\n                        .thenComparing(Map.Entry.comparingByKey()))\n                .limit(3)\n                .map(Map.Entry::getKey)\n                .toList();\n    }\n\n    static SortedMap<YearMonth, BigDecimal> faturamentoPorMes(List<Venda> vendas) {\n        return vendas.stream().collect(Collectors.groupingBy(v -> YearMonth.from(v.data()), TreeMap::new,\n                Collectors.reducing(BigDecimal.ZERO, Venda::total, BigDecimal::add)));\n    }\n\n    public static void main(String[] args) {\n        if (args.length != 1) {\n            System.err.println(\"Uso: java RelatorioVendas.java <arquivo.csv>\");\n            System.exit(1);\n        }\n        List<String> linhas;\n        try {\n            linhas = Files.readAllLines(Path.of(args[0]), StandardCharsets.UTF_8);\n        } catch (IOException e) {\n            System.err.println(\"Não foi possível ler o arquivo: \" + e.getMessage());\n            System.exit(1);\n            return;\n        }\n        Leitura leitura = ler(linhas);\n        List<Venda> vendas = leitura.vendas();\n        NumberFormat reais = NumberFormat.getCurrencyInstance(Locale.of(\"pt\", \"BR\"));\n\n        System.out.printf(\"Linhas válidas: %d | inválidas: %d%n\", vendas.size(), leitura.erros().size());\n        System.out.println(\"\\nTotal por produto:\");\n        Map<String, Integer> quantidades = quantidadePorProduto(vendas);\n        faturamentoPorProduto(vendas).entrySet().stream()\n                .sorted(Map.Entry.<String, BigDecimal>comparingByValue().reversed())\n                .forEach(e -> System.out.printf(\"  %-8s %3d un.  %s%n\",\n                        e.getKey(), quantidades.get(e.getKey()), reais.format(e.getValue())));\n        System.out.println(\"\\nTop 3 por faturamento: \" + String.join(\", \", top3(vendas)));\n        System.out.println(\"\\nFaturamento por mês:\");\n        faturamentoPorMes(vendas).forEach((mes, total) -> System.out.printf(\"  %s  %s%n\", mes, reais.format(total)));\n        System.out.println(\"\\nLinhas inválidas:\");\n        leitura.erros().forEach(erro -> System.out.println(\"  \" + erro));\n    }\n}\n```\n\n**Testes de referência** (JUnit 5):\n```java\nimport static org.junit.jupiter.api.Assertions.*;\n\nimport java.math.BigDecimal;\nimport java.util.List;\nimport org.junit.jupiter.api.Test;\nimport org.junit.jupiter.params.ParameterizedTest;\nimport org.junit.jupiter.params.provider.ValueSource;\n\nclass RelatorioVendasTest {\n\n    @Test\n    void lerLinhaValidaComVirgulaDecimal() {\n        var venda = RelatorioVendas.parseLinha(\"05/01/2026;Caneta;10;2,50\");\n        assertEquals(\"Caneta\", venda.produto());\n        assertEquals(0, new BigDecimal(\"25.00\").compareTo(venda.total()));\n    }\n\n    @ParameterizedTest\n    @ValueSource(strings = {\n        \"15/02/2026;Mochila;;129,90\",      // quantidade vazia\n        \"28/02/2026;Caneta;abc;2,50\",      // quantidade não numérica\n        \"31/02/2026;Caderno;1;15,90\",      // data inexistente\n        \"15/03/2026;Caneta;-2;2,50\",       // quantidade negativa\n        \"18/03/2026;Borracha;5;1,50;promo\" // coluna a mais\n    })\n    void rejeitaLinhasInvalidas(String linha) {\n        assertThrows(IllegalArgumentException.class, () -> RelatorioVendas.parseLinha(linha));\n    }\n\n    @Test\n    void linhaInvalidaNaoInterrompeALeitura() {\n        var leitura = RelatorioVendas.ler(List.of(\n            \"data;produto;quantidade;preco_unitario\",\n            \"05/01/2026;Caneta;10;2,50\",\n            \"31/02/2026;Caderno;1;15,90\",\n            \"22/03/2026;Lápis;12;1,20\"));\n        assertEquals(2, leitura.vendas().size());\n        assertEquals(List.of(\"Linha 3: data inválida '31/02/2026'\"), leitura.erros());\n    }\n\n    @Test\n    void top3OrdenaPorFaturamento() {\n        var vendas = RelatorioVendas.ler(List.of(\"cabecalho\",\n            \"05/01/2026;A;1;10,00\", \"05/01/2026;B;1;30,00\",\n            \"05/01/2026;C;1;20,00\", \"05/01/2026;D;1;5,00\")).vendas();\n        assertEquals(List.of(\"B\", \"C\", \"A\"), RelatorioVendas.top3(vendas));\n    }\n}\n```",
+      "inspiracao": []
+    },
+    {
+      "id": "full-contatos",
+      "titulo": "Clientes e contatos 1:N",
+      "area": "fullstack",
+      "formato": "take-home",
+      "nivel": "intermediário",
+      "tempoSugeridoMin": 240,
+      "stack": [
+        "Java 21",
+        "Spring Boot 3",
+        "Spring Data JPA",
+        "PostgreSQL",
+        "Vue 3",
+        "TypeScript",
+        "Vite"
+      ],
+      "resumo": "CRUD de clientes com vários contatos (1:N), com API Spring Boot, front Vue e um relatório simples.",
+      "contexto": "A Colibri CRM atende pequenas empresas que ainda guardam os clientes em planilhas. Precisamos de um MVP para cadastrar clientes e os contatos de cada um, com um relatório simples para impressão. É uma vaga fullstack: avaliamos a API, a interface e como as duas partes conversam.",
+      "enunciado": "Construa uma aplicação **fullstack**: API em **Spring Boot 3 + Java 21 + JPA + PostgreSQL** e front-end em **Vue 3 + TypeScript**.\n\n**Domínio**\n- **Cliente**: nome completo, e-mail, telefone e data de cadastro (preenchida pelo sistema).\n- **Contato**: nome completo, e-mail e telefone. Cada contato pertence a **um** cliente; um cliente tem **vários** contatos (1:N).\n\n**API (sugestão de rotas)**\n- `GET` e `POST /api/clientes`; `GET`, `PUT` e `DELETE /api/clientes/{id}`\n- `GET` e `POST /api/clientes/{id}/contatos`; `PUT` e `DELETE /api/contatos/{id}`\n- `GET /api/relatorios/clientes` — clientes com seus contatos\n\n**Front-end**\n- Lista de clientes com busca por nome; formulário de criar/editar com validação.\n- Tela do cliente com seus contatos: adicionar, editar e remover.\n- Tela de **relatório**: todos os clientes com seus contatos, legível impressa (CSS `@media print`); exportar PDF/CSV é diferencial.\n\n**Regras**\n- Campos obrigatórios e formato de e-mail validados **no front e na API** (o back nunca confia no front).\n- Excluir um cliente exclui os contatos dele (ou é bloqueado, se preferir); documente a estratégia.\n- O front roda em outra porta: configure CORS na API ou use o proxy do Vite, e documente a escolha.\n\nObservação: desafio **inspirado** no desafio público fullstack júnior da CustomerX (link em Inspiração), adaptado para Spring Boot + Vue.",
+      "requisitos": [
+        "API Spring Boot 3 com CRUD de clientes e de contatos e relacionamento 1:N mapeado em JPA.",
+        "Validação com Bean Validation na API (400 com erros por campo) e validação equivalente nos formulários do front.",
+        "Status HTTP corretos: 201 ao criar, 204 ao excluir, 404 para id inexistente, 400 para dados inválidos.",
+        "DTOs de entrada e saída, sem expor entidades e sem recursão infinita cliente ↔ contatos no JSON.",
+        "Front Vue 3 + TypeScript com Vue Router: lista de clientes, formulário, detalhe com contatos e relatório.",
+        "Front com estados de carregamento, erro e lista vazia, exibindo as mensagens de validação vindas da API.",
+        "Relatório de clientes com seus contatos (tela imprimível ou exportação).",
+        "CORS liberado apenas para a origem do front, ou proxy do Vite documentado.",
+        "Testes: service/controller na API (JUnit 5 + Mockito/MockMvc) e ao menos um teste Vitest no front.",
+        "README na raiz explicando como subir banco, API e front (ordem, portas e variáveis)."
+      ],
+      "diferenciais": [
+        "Docker Compose subindo PostgreSQL + API (+ front).",
+        "Migrations com Flyway.",
+        "Paginação e busca na listagem de clientes.",
+        "Exportação do relatório em CSV ou PDF.",
+        "Autenticação simples com Spring Security.",
+        "Máscara de telefone e confirmação acessível antes de excluir."
+      ],
+      "criterios": [
+        "Consigo criar, editar, listar e excluir clientes e contatos pela interface.",
+        "Excluir um cliente trata os contatos conforme a estratégia documentada, sem erro de chave estrangeira na tela.",
+        "Dados inválidos enviados direto à API (ex.: com `curl`) retornam 400 com erros por campo: a validação não existe só no front.",
+        "Id inexistente retorna 404; criar retorna 201 e excluir retorna 204.",
+        "O JSON de cliente com contatos não entra em recursão infinita e não expõe entidades JPA.",
+        "Não há erro de CORS no console do navegador.",
+        "O front mostra loading, erro e vazio; erros de validação da API aparecem junto dos campos.",
+        "O relatório lista cada cliente com seus contatos e fica legível impresso.",
+        "Back organizado em camadas; front organizado em componentes e serviços, com tipos TypeScript para os DTOs.",
+        "Testes passam nos dois projetos e incluem ao menos um caso de erro.",
+        "O README permite subir tudo sem ajuda (banco, API e front).",
+        "As instruções de entrega foram seguidas e o histórico de commits mostra a evolução."
+      ],
+      "entrega": "Um repositório público (monorepo com as pastas `api/` e `web/`) ou dois repositórios linkados no README. README na raiz com pré-requisitos, como subir tudo, portas usadas e decisões. Commits pequenos nos dois lados. Envie o link dentro do prazo; no simulado, antes de o cronômetro zerar.",
+      "dicas": [
+        "Com 4 horas, priorize: clientes funcionando de ponta a ponta (API + tela) → contatos → relatório → testes → README. Docker e extras ficam para o fim.",
+        "Para evitar recursão no JSON, devolva `record ClienteResponse(Long id, String nome, ..., List<ContatoResponse> contatos)` em vez da entidade.",
+        "Mapeamento: `@OneToMany(mappedBy = \"cliente\", cascade = CascadeType.ALL, orphanRemoval = true)` no cliente e `@ManyToOne(fetch = FetchType.LAZY)` no contato.",
+        "No relatório, evite N+1 consultas: `@EntityGraph(attributePaths = \"contatos\")` ou `join fetch` na consulta.",
+        "CORS: `@CrossOrigin(origins = \"http://localhost:5173\")` ou um `WebMvcConfigurer` com `addCorsMappings`; alternativa: `server.proxy` no `vite.config.ts` apontando `/api` para `http://localhost:8080`.",
+        "Padronize o erro de validação (ex.: `{ \"campos\": { \"email\": \"formato inválido\" } }`) para o front mostrar cada erro no campo certo.",
+        "Relatório: uma rota com tabela simples + `@media print` já resolve; `window.print()` abre a impressão."
+      ],
+      "inspiracao": [
+        {
+          "titulo": "CustomerX — desafio fullstack júnior (clientes e contatos 1:N + relatório)",
+          "url": "https://github.com/CustomerX-CX/desafio-fullstack-junior"
+        }
+      ]
+    },
+    {
+      "id": "full-financas",
+      "titulo": "Controle financeiro pessoal",
+      "area": "fullstack",
+      "formato": "take-home",
+      "nivel": "intermediário",
+      "tempoSugeridoMin": 240,
+      "stack": [
+        "Java 21",
+        "Spring Boot 3",
+        "Spring Data JPA",
+        "PostgreSQL",
+        "Vue 3",
+        "TypeScript",
+        "Pinia"
+      ],
+      "resumo": "Registre receitas e despesas por categoria e veja saldo e resumo por categoria de cada mês, com API Spring Boot e front Vue.",
+      "contexto": "O Jambo Finanças é um app para quem quer organizar o próprio dinheiro sem planilhas. Para o MVP, precisamos de lançamentos de receitas e despesas, categorias e um resumo mensal claro. Avaliamos a modelagem, a precisão dos cálculos e a experiência no front.",
+      "enunciado": "Construa uma API **Spring Boot 3** e um front **Vue 3 + TypeScript**.\n\n**Domínio**\n- **Categoria**: nome único e tipo (`RECEITA` ou `DESPESA`). Ex.: Salário (receita); Mercado, Aluguel e Transporte (despesas).\n- **Lançamento**: descrição, valor (> 0), data, tipo (`RECEITA`/`DESPESA`) e categoria (do mesmo tipo do lançamento).\n\n**API**\n- CRUD de categorias e de lançamentos.\n- `GET /api/lancamentos?mes=2026-09` — lançamentos do mês, ordenados por data.\n- `GET /api/resumo?mes=2026-09` — totais do mês:\n```json\n{\n  \"mes\": \"2026-09\",\n  \"totalReceitas\": 5000.00,\n  \"totalDespesas\": 3120.50,\n  \"saldo\": 1879.50,\n  \"porCategoria\": [\n    { \"categoria\": \"Aluguel\", \"tipo\": \"DESPESA\", \"total\": 1800.00 },\n    { \"categoria\": \"Mercado\", \"tipo\": \"DESPESA\", \"total\": 1320.50 },\n    { \"categoria\": \"Salário\", \"tipo\": \"RECEITA\", \"total\": 5000.00 }\n  ]\n}\n```\n\n**Front-end**\n- Seletor de mês (anterior/próximo) que atualiza lista e resumo.\n- Cards com receitas, despesas e saldo; saldo negativo destacado também por texto ou sinal, não só pela cor.\n- Formulário de lançamento com validação; editar e excluir lançamentos.\n- Resumo por categoria em lista ou tabela (gráfico é diferencial).\n- Valores em reais (`R$ 1.879,50`) e datas em `dd/mm/aaaa`.",
+      "requisitos": [
+        "API Spring Boot 3 com CRUD de categorias e lançamentos, persistidos em PostgreSQL via JPA.",
+        "Dinheiro em `BigDecimal` (coluna `NUMERIC(12,2)` ou similar); valor > 0 e categoria do mesmo tipo do lançamento.",
+        "Filtro de lançamentos por mês (`?mes=AAAA-MM`) e endpoint de resumo com receitas, despesas, saldo e total por categoria.",
+        "Status corretos: 400 para validação, 404 para inexistente e 409 ao excluir categoria em uso (ou outra estratégia documentada).",
+        "Front Vue 3 + TypeScript com seletor de mês, cards de totais, lista de lançamentos e formulário de criar/editar/excluir.",
+        "Valores e datas formatados em pt-BR (`Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })`).",
+        "Mês selecionado e dados em Pinia (ou composable), com loading e erro tratados.",
+        "Testes: cálculo do resumo na API (JUnit 5) e ao menos um teste Vitest (formatação ou store).",
+        "README explicando como subir banco, API e front."
+      ],
+      "diferenciais": [
+        "Gráfico simples de despesas por categoria (Chart.js, ECharts ou barras em CSS), com os valores também em texto.",
+        "Categorias padrão criadas por migration Flyway.",
+        "Exportar os lançamentos do mês em CSV.",
+        "Lançamentos recorrentes (ex.: aluguel todo mês).",
+        "Docker Compose com banco + API.",
+        "Filtro por categoria e busca por descrição."
+      ],
+      "criterios": [
+        "Saldo e totais do mês batem com os lançamentos (confira criando 3 ou 4 lançamentos à mão).",
+        "Lançamentos de outros meses não entram no resumo, inclusive nos dias 1º e último do mês.",
+        "Nenhum `double`/`float` para dinheiro no back; o front exibe os totais calculados pela API, sem erro de arredondamento visível.",
+        "Valor zero/negativo e categoria de tipo diferente retornam 400 com mensagem clara.",
+        "Excluir categoria usada por lançamentos não gera 500.",
+        "Valores aparecem como `R$ 1.879,50` e datas como `23/09/2026` (sem voltar um dia por causa do fuso).",
+        "Saldo negativo é indicado por texto ou sinal além da cor.",
+        "Componentes pequenos no front (card de total, lista, formulário, seletor de mês) e tipos TypeScript para os DTOs.",
+        "Testes do resumo cobrem mês sem lançamentos (tudo zero) e mês com receitas e despesas.",
+        "O README permite subir tudo sem ajuda.",
+        "Commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público (monorepo `api/` + `web/`) com README na raiz: pré-requisitos, como subir, portas, decisões (ex.: por que `BigDecimal`), prints das telas e o que faria com mais tempo. Commits pequenos.",
+      "dicas": [
+        "Ordem sugerida: lançamentos + resumo na API com testes → tela do mês com cards e lista → formulário → categorias → gráfico. Se o tempo acabar, entregue o núcleo + README.",
+        "`@RequestParam YearMonth mes` converte `2026-09` automaticamente; use `mes.atDay(1)` e `mes.atEndOfMonth()` no filtro por período.",
+        "Resumo por categoria em uma consulta: JPQL `select new com.seuprojeto.ResumoCategoria(c.nome, c.tipo, sum(l.valor)) ... group by c.nome, c.tipo` (o construtor precisa do nome completo da classe).",
+        "`BigDecimal` se compara com `compareTo`, não com `equals`: `new BigDecimal(\"1.0\").equals(new BigDecimal(\"1.00\"))` é `false`.",
+        "No front, cuidado com `new Date('2026-09-01')`: data sem horário é interpretada como UTC e aparece como 31/08 no horário de Brasília. Formate a string diretamente ou crie a data com ano, mês e dia locais."
+      ],
+      "inspiracao": [
+        {
+          "titulo": "CustomerX — desafio fullstack júnior (critérios de avaliação: requisitos básicos, documentação, instruções de envio)",
+          "url": "https://github.com/CustomerX-CX/desafio-fullstack-junior"
+        }
+      ]
+    },
+    {
+      "id": "full-enquetes",
+      "titulo": "Enquetes com votação e resultados",
+      "area": "fullstack",
+      "formato": "take-home",
+      "nivel": "avançado",
+      "tempoSugeridoMin": 240,
+      "stack": [
+        "Java 21",
+        "Spring Boot 3",
+        "Spring Data JPA",
+        "PostgreSQL",
+        "Vue 3",
+        "TypeScript",
+        "Docker"
+      ],
+      "resumo": "Crie enquetes com prazo, vote uma única vez e acompanhe os resultados em percentuais quase em tempo real.",
+      "contexto": "O Coletivo Buriti organiza consultas em associações de bairro e precisa de um sistema de enquetes confiável: cada pessoa vota uma vez e o resultado é transparente. Este é o nosso desafio mais completo. Não esperamos tudo perfeito, mas queremos ver suas prioridades e como você lida com concorrência e integridade dos dados.",
+      "enunciado": "Construa uma API **Spring Boot 3** e um front **Vue 3 + TypeScript**.\n\n**Funcionalidades**\n- Criar enquete: pergunta, 2 a 10 opções (sem repetição) e data/hora de início e de encerramento.\n- Listar enquetes com status calculado: **não iniciada**, **em andamento** ou **encerrada**.\n- Votar em uma opção de uma enquete em andamento.\n- **Um voto por participante**: identifique o participante por um id anônimo gerado no navegador (UUID salvo em `localStorage`) e enviado em um cabeçalho (ex.: `X-Participante-Id`), ou por login, se preferir. Explique no README as limitações da abordagem.\n- Resultados: votos e **percentual** por opção e total de votos, atualizados enquanto a tela estiver aberta (**polling** a cada poucos segundos; **SSE** é diferencial).\n\n**Contratos sugeridos**\n- `POST /api/enquetes` → **201**\n- `GET /api/enquetes` e `GET /api/enquetes/{id}` → **200** / **404**\n- `POST /api/enquetes/{id}/votos` com `{ \"opcaoId\": 7 }` → **201**; voto repetido → **409 Conflict**; enquete fora do prazo → **422**; opção de outra enquete → **400** (ou 422; documente).\n- `GET /api/enquetes/{id}/resultado`:\n```json\n{\n  \"enqueteId\": 1,\n  \"totalVotos\": 8,\n  \"opcoes\": [\n    { \"id\": 7, \"texto\": \"Praça\", \"votos\": 5, \"percentual\": 62.5 },\n    { \"id\": 8, \"texto\": \"Quadra\", \"votos\": 3, \"percentual\": 37.5 }\n  ]\n}\n```\n\n**Integridade** — a regra de um voto por participante deve ser garantida **no banco** (constraint `UNIQUE (enquete_id, participante_id)`), não só com um `if` no service: duas requisições simultâneas não podem gerar dois votos.",
+      "requisitos": [
+        "API Spring Boot 3 + JPA + PostgreSQL com enquetes, opções e votos.",
+        "Validação da criação: pergunta obrigatória, 2 a 10 opções distintas e encerramento depois do início (400 caso contrário).",
+        "Status da enquete calculado a partir das datas (não iniciada, em andamento, encerrada).",
+        "Voto único por participante garantido por constraint `UNIQUE` no banco e traduzido para 409.",
+        "Voto fora do prazo → 422; enquete inexistente → 404.",
+        "Resultado com votos, percentual (uma casa decimal) e total; enquete sem votos mostra 0%, sem divisão por zero.",
+        "Front Vue com lista, criação, votação e resultado com atualização periódica, que é interrompida ao sair da tela.",
+        "Testes: regras de prazo e cálculo de percentual (JUnit 5) e teste de integração do voto duplicado retornando 409.",
+        "README com como subir tudo, decisões e limitações (ex.: o id anônimo pode ser burlado)."
+      ],
+      "diferenciais": [
+        "Resultados via Server-Sent Events (`SseEmitter`) em vez de polling.",
+        "Docker Compose subindo PostgreSQL, API e front com um comando.",
+        "Gráfico de barras acessível (percentuais também em texto) nos resultados.",
+        "Teste de concorrência disparando votos simultâneos do mesmo participante.",
+        "Migrations Flyway e dados de exemplo.",
+        "Encerrar a enquete manualmente antes do prazo."
+      ],
+      "criterios": [
+        "Criar enquete com 1 opção, opções repetidas ou fim antes do início retorna 400.",
+        "Votar duas vezes com o mesmo participante retorna 409 e o total não muda.",
+        "Votar antes do início ou depois do encerramento retorna 422.",
+        "A constraint `UNIQUE` existe no schema e a violação (`DataIntegrityViolationException`) vira 409, não 500.",
+        "Percentuais somam cerca de 100% e enquete sem votos mostra 0% sem erro.",
+        "A tela de resultado se atualiza sozinha, e o `setInterval`/`EventSource` é encerrado no `onUnmounted`.",
+        "Datas com fuso tratadas de forma consistente (`Instant`/`OffsetDateTime` na API, exibição local no front).",
+        "Back em camadas com DTOs; front com componentes e serviço de API tipados.",
+        "Testes passam e incluem os cenários de erro (400, 409, 422).",
+        "O README permite subir tudo sem ajuda; havendo Docker Compose, `docker compose up` basta.",
+        "Commits pequenos com mensagens descritivas."
+      ],
+      "entrega": "Repositório público (monorepo `api/` + `web/`) com README na raiz: como subir, decisões de arquitetura, limitações conhecidas e próximos passos. Commits pequenos.",
+      "dicas": [
+        "Ordem sugerida: criar enquete + votar com as regras + resultado (API e testes) → telas básicas → polling → README → SSE e Docker. Se o tempo acabar, entregue o núcleo + README.",
+        "Deixe o banco garantir o voto único: trate `DataIntegrityViolationException` no advice e responda 409. Use `saveAndFlush` para a violação acontecer dentro do método, e não só no commit.",
+        "Percentual: `votos * 100.0 / total` apenas quando `total > 0`; arredonde com `BigDecimal.valueOf(x).setScale(1, RoundingMode.HALF_UP)`.",
+        "Polling no Vue: `const id = setInterval(carregar, 3000)` no `onMounted` e `clearInterval(id)` no `onUnmounted`.",
+        "SSE: um endpoint que devolve `SseEmitter` e, no front, `new EventSource(url)` fechado com `close()`. O `EventSource` não envia cabeçalhos customizados, então use SSE só para resultados, que são públicos."
+      ],
+      "inspiracao": []
+    },
+    {
+      "id": "sql-ecommerce",
+      "titulo": "Consultas SQL de um e-commerce",
+      "area": "comum",
+      "formato": "prova-pratica",
+      "nivel": "básico",
+      "tempoSugeridoMin": 60,
+      "stack": [
+        "SQL",
+        "PostgreSQL"
+      ],
+      "resumo": "Responda 8 perguntas de negócio com SQL sobre clientes, produtos, pedidos e itens de pedido.",
+      "contexto": "Na prova prática da Loja Tamanduá, todas as pessoas candidatas (front, back ou fullstack) respondem a algumas consultas SQL. O banco é de um e-commerce pequeno de periféricos. Você pode consultar a documentação do PostgreSQL, mas não use ferramentas que gerem o SQL por você.",
+      "enunciado": "Use o schema e os dados abaixo (PostgreSQL) e escreva **uma consulta para cada pergunta**.\n\n```sql\nCREATE TABLE clientes (\n  id         SERIAL PRIMARY KEY,\n  nome       VARCHAR(100) NOT NULL,\n  email      VARCHAR(150) NOT NULL UNIQUE,\n  cidade     VARCHAR(80)  NOT NULL,\n  uf         CHAR(2)      NOT NULL,\n  criado_em  DATE         NOT NULL\n);\n\nCREATE TABLE produtos (\n  id         SERIAL PRIMARY KEY,\n  nome       VARCHAR(100)  NOT NULL,\n  categoria  VARCHAR(50)   NOT NULL,\n  preco      NUMERIC(10,2) NOT NULL CHECK (preco > 0)\n);\n\nCREATE TABLE pedidos (\n  id           SERIAL PRIMARY KEY,\n  cliente_id   INT         NOT NULL REFERENCES clientes(id),\n  data_pedido  DATE        NOT NULL,\n  status       VARCHAR(20) NOT NULL CHECK (status IN ('PAGO', 'PENDENTE', 'CANCELADO'))\n);\n\nCREATE TABLE itens_pedido (\n  pedido_id       INT           NOT NULL REFERENCES pedidos(id),\n  produto_id      INT           NOT NULL REFERENCES produtos(id),\n  quantidade      INT           NOT NULL CHECK (quantidade > 0),\n  preco_unitario  NUMERIC(10,2) NOT NULL,\n  PRIMARY KEY (pedido_id, produto_id)\n);\n\nINSERT INTO clientes (id, nome, email, cidade, uf, criado_em) VALUES\n  (1, 'Ana Souza',     'ana@exemplo.com',   'São Paulo',      'SP', '2025-11-03'),\n  (2, 'Bruno Lima',    'bruno@exemplo.com', 'Campinas',       'SP', '2025-12-10'),\n  (3, 'Carla Dias',    'carla@exemplo.com', 'Belo Horizonte', 'MG', '2026-01-15'),\n  (4, 'Diego Rocha',   'diego@exemplo.com', 'Curitiba',       'PR', '2026-02-01'),\n  (5, 'Elisa Martins', 'elisa@exemplo.com', 'Recife',         'PE', '2026-02-20'),\n  (6, 'Fábio Nunes',   'fabio@exemplo.com', 'Porto Alegre',   'RS', '2026-03-05');\n\nINSERT INTO produtos (id, nome, categoria, preco) VALUES\n  (1, 'Teclado mecânico',      'Periféricos', 250.00),\n  (2, 'Mouse sem fio',         'Periféricos',  90.00),\n  (3, 'Monitor 24 polegadas',  'Monitores',   699.00),\n  (4, 'Cabo HDMI',             'Acessórios',   35.00),\n  (5, 'Headset',               'Periféricos', 180.00),\n  (6, 'Suporte para notebook', 'Acessórios',  120.00),\n  (7, 'Webcam HD',             'Periféricos', 230.00);\n\nINSERT INTO pedidos (id, cliente_id, data_pedido, status) VALUES\n  (1,  1, '2026-01-10', 'PAGO'),\n  (2,  2, '2026-01-22', 'PAGO'),\n  (3,  1, '2026-02-05', 'PAGO'),\n  (4,  3, '2026-02-14', 'CANCELADO'),\n  (5,  4, '2026-02-28', 'PAGO'),\n  (6,  2, '2026-03-03', 'PENDENTE'),\n  (7,  3, '2026-03-12', 'PAGO'),\n  (8,  1, '2026-03-20', 'PAGO'),\n  (9,  4, '2026-03-31', 'PAGO'),\n  (10, 6, '2026-03-25', 'CANCELADO');\n\nINSERT INTO itens_pedido (pedido_id, produto_id, quantidade, preco_unitario) VALUES\n  (1, 1, 1, 250.00), (1, 2, 2,  90.00),\n  (2, 3, 1, 699.00), (2, 4, 2,  35.00),\n  (3, 5, 1, 180.00), (3, 4, 1,  35.00),\n  (4, 3, 2, 699.00),\n  (5, 2, 3,  85.00), (5, 6, 1, 120.00),\n  (6, 7, 1, 230.00),\n  (7, 1, 1, 240.00), (7, 2, 1,  90.00), (7, 4, 3, 35.00),\n  (8, 5, 2, 180.00),\n  (9, 4, 4,  30.00), (9, 2, 1,  90.00),\n  (10, 6, 1, 120.00);\n```\n\n**Perguntas**\n- **P1.** Quantos pedidos existem em cada status? Ordene do maior para o menor.\n- **P2.** Para cada pedido **pago**, mostre o id, o nome do cliente, a data e o valor total (soma de `quantidade * preco_unitario`), do maior para o menor valor.\n- **P3.** Quais clientes **nunca** fizeram um pedido (de qualquer status)?\n- **P4.** Qual o faturamento de cada mês (só pedidos pagos), no formato `AAAA-MM`, em ordem cronológica?\n- **P5.** Quais são os 3 produtos mais vendidos em **quantidade** (só pedidos pagos)?\n- **P6.** Quais clientes gastaram **mais de R$ 500,00** somando seus pedidos pagos? Mostre o total, do maior para o menor.\n- **P7.** Quais produtos têm preço de catálogo acima da **média** de preço de todos os produtos?\n- **P8.** Qual o **ticket médio** (valor médio por pedido pago) por UF do cliente, do maior para o menor?",
+      "requisitos": [
+        "Uma consulta SQL (PostgreSQL) para cada uma das 8 perguntas.",
+        "JOINs explícitos (`JOIN ... ON`), sem junção por vírgula no `FROM`.",
+        "Apenas pedidos com status `PAGO` nas perguntas de faturamento, vendas e gastos.",
+        "Valores calculados com `quantidade * preco_unitario` de `itens_pedido` (o preço do catálogo pode ter mudado).",
+        "Aliases legíveis nas colunas calculadas (ex.: `AS total`).",
+        "Ordenação conforme pedido em cada pergunta.",
+        "Cada consulta executada nos dados de exemplo, com o resultado conferido."
+      ],
+      "diferenciais": [
+        "Resolver a P3 de duas formas (`LEFT JOIN ... IS NULL` e `NOT EXISTS`) e comparar.",
+        "Usar CTE (`WITH`) para deixar a P8 mais legível.",
+        "Sugerir índices que ajudariam essas consultas (ex.: `pedidos (cliente_id)`, `pedidos (status, data_pedido)`, `itens_pedido (produto_id)`).",
+        "Explicar a diferença entre `WHERE` e `HAVING` e entre `COUNT(*)` e `COUNT(coluna)`."
+      ],
+      "criterios": [
+        "P1: contagem por status correta, com `GROUP BY`.",
+        "P2: total por pedido pago com o nome do cliente, juntando as três tabelas, em ordem decrescente.",
+        "P3: clientes sem pedido via `LEFT JOIN ... IS NULL` (ou `NOT EXISTS`); quem só tem pedido cancelado não aparece.",
+        "P4: faturamento por mês no formato AAAA-MM, só pedidos pagos, em ordem cronológica.",
+        "P5: top 3 por quantidade com `LIMIT` (ou `FETCH FIRST`), só pedidos pagos.",
+        "P6: filtro do agregado com `HAVING` (não `WHERE`) e pedidos não pagos excluídos.",
+        "P7: comparação com a média feita por subconsulta, sem valor digitado à mão.",
+        "P8: ticket médio calculado sobre o total de cada pedido, não sobre cada item.",
+        "Consultas legíveis: indentação, aliases claros e sem `SELECT *`.",
+        "Todas as consultas executam sem erro no PostgreSQL."
+      ],
+      "entrega": "Um arquivo `respostas.sql` com as 8 consultas, cada uma precedida de um comentário com o número da pergunta (`-- P1`). Na prova real, costuma ser enviado por formulário ou repositório; no simulado, rode no DB Fiddle e confira com o gabarito só no final.",
+      "dicas": [
+        "Pratique no DB Fiddle (https://www.db-fiddle.com/): escolha PostgreSQL, cole o schema e os INSERTs no painel da esquerda e as consultas no da direita.",
+        "Resolva primeiro as que você domina e deixe a P8 por último. Se o tempo acabar, entregue as consultas que rodam em vez de todas pela metade.",
+        "Com `LEFT JOIN`, `COUNT(*)` conta a linha do cliente mesmo sem pedidos; use `COUNT(p.id)` quando quiser que ele apareça com zero.",
+        "Um filtro sobre a tabela da direita de um `LEFT JOIN` vai no `ON`; colocado no `WHERE`, ele transforma o `LEFT JOIN` em `INNER JOIN`.",
+        "`WHERE` filtra linhas antes de agrupar; `HAVING` filtra os grupos depois.",
+        "Datas: `to_char(data_pedido, 'YYYY-MM')` ou `date_trunc('month', data_pedido)`."
+      ],
+      "gabarito": "Consultas conferidas no PostgreSQL com os dados do enunciado.\n\n**P1 — pedidos por status**\n```sql\nSELECT status, COUNT(*) AS quantidade\nFROM pedidos\nGROUP BY status\nORDER BY quantidade DESC;\n```\nResultado esperado: PAGO 7, CANCELADO 2, PENDENTE 1.\n\n**P2 — total de cada pedido pago**\n```sql\nSELECT p.id AS pedido_id,\n       c.nome AS cliente,\n       p.data_pedido,\n       SUM(i.quantidade * i.preco_unitario) AS total\nFROM pedidos p\nJOIN clientes c ON c.id = p.cliente_id\nJOIN itens_pedido i ON i.pedido_id = p.id\nWHERE p.status = 'PAGO'\nGROUP BY p.id, c.nome, p.data_pedido\nORDER BY total DESC;\n```\nResultado esperado: pedido 2 (Bruno, 769,00), 7 (Carla, 435,00), 1 (Ana, 430,00), 5 (Diego, 375,00), 8 (Ana, 360,00), 3 (Ana, 215,00), 9 (Diego, 210,00).\n\n**P3 — clientes sem pedido**\n```sql\nSELECT c.nome, c.email\nFROM clientes c\nLEFT JOIN pedidos p ON p.cliente_id = c.id\nWHERE p.id IS NULL\nORDER BY c.nome;\n```\nResultado esperado: apenas Elisa Martins. O Fábio tem um pedido cancelado, então não aparece.\n\nAlternativa com `NOT EXISTS`:\n```sql\nSELECT c.nome, c.email\nFROM clientes c\nWHERE NOT EXISTS (SELECT 1 FROM pedidos p WHERE p.cliente_id = c.id)\nORDER BY c.nome;\n```\n\n**P4 — faturamento por mês**\n```sql\nSELECT to_char(p.data_pedido, 'YYYY-MM') AS mes,\n       SUM(i.quantidade * i.preco_unitario) AS faturamento\nFROM pedidos p\nJOIN itens_pedido i ON i.pedido_id = p.id\nWHERE p.status = 'PAGO'\nGROUP BY mes\nORDER BY mes;\n```\nResultado esperado: 2026-01 → 1199,00; 2026-02 → 590,00; 2026-03 → 1005,00.\n\n**P5 — top 3 por quantidade**\n```sql\nSELECT pr.nome, SUM(i.quantidade) AS quantidade_vendida\nFROM itens_pedido i\nJOIN pedidos p ON p.id = i.pedido_id\nJOIN produtos pr ON pr.id = i.produto_id\nWHERE p.status = 'PAGO'\nGROUP BY pr.id, pr.nome\nORDER BY quantidade_vendida DESC\nLIMIT 3;\n```\nResultado esperado: Cabo HDMI (10), Mouse sem fio (7), Headset (3).\n\n**P6 — clientes com gasto acima de R$ 500**\n```sql\nSELECT c.nome, SUM(i.quantidade * i.preco_unitario) AS total_gasto\nFROM clientes c\nJOIN pedidos p ON p.cliente_id = c.id\nJOIN itens_pedido i ON i.pedido_id = p.id\nWHERE p.status = 'PAGO'\nGROUP BY c.id, c.nome\nHAVING SUM(i.quantidade * i.preco_unitario) > 500\nORDER BY total_gasto DESC;\n```\nResultado esperado: Ana Souza (1005,00), Bruno Lima (769,00), Diego Rocha (585,00). **Pegadinha:** sem o filtro de status, a Carla aparece com 1833,00 por causa do pedido cancelado.\n\n**P7 — produtos acima do preço médio**\n```sql\nSELECT nome, preco\nFROM produtos\nWHERE preco > (SELECT AVG(preco) FROM produtos)\nORDER BY preco DESC;\n```\nResultado esperado: média ≈ 229,14 → Monitor 24 polegadas (699,00), Teclado mecânico (250,00), Webcam HD (230,00).\n\n**P8 — ticket médio por UF**\n```sql\nWITH totais_pedido AS (\n  SELECT p.id, p.cliente_id, SUM(i.quantidade * i.preco_unitario) AS total\n  FROM pedidos p\n  JOIN itens_pedido i ON i.pedido_id = p.id\n  WHERE p.status = 'PAGO'\n  GROUP BY p.id, p.cliente_id\n)\nSELECT c.uf,\n       COUNT(*) AS pedidos,\n       ROUND(AVG(t.total), 2) AS ticket_medio\nFROM totais_pedido t\nJOIN clientes c ON c.id = t.cliente_id\nGROUP BY c.uf\nORDER BY ticket_medio DESC;\n```\nResultado esperado: SP 443,50 (4 pedidos), MG 435,00 (1), PR 292,50 (2). **Pegadinha:** fazer `AVG` direto sobre os itens dá a média por item (SP 253,43), não por pedido.\n\n**Sobre `COUNT(*)` com `LEFT JOIN`:** contando pedidos por cliente, `COUNT(*)` dá 1 para a Elisa (que não tem pedido), enquanto `COUNT(p.id)` dá 0.",
+      "inspiracao": []
+    },
+    {
+      "id": "live-senha",
+      "titulo": "Live coding: validador de senha com TDD",
+      "area": "comum",
+      "formato": "live-coding",
+      "nivel": "básico",
+      "tempoSugeridoMin": 45,
+      "stack": [
+        "Java 21",
+        "JUnit 5",
+        "TypeScript",
+        "Vitest"
+      ],
+      "resumo": "Implemente com TDD, pensando em voz alta, uma função que valida senhas e devolve a lista de regras não atendidas.",
+      "contexto": "No Acerola Bank, a etapa técnica é um pareamento de 45 minutos com uma pessoa do time. Você compartilha a tela, escolhe Java ou TypeScript e resolve um problema pequeno. Avaliamos mais o processo (perguntas, testes, passos pequenos e comunicação) do que um código perfeito.",
+      "enunciado": "Implemente uma função que recebe uma senha e retorna **a lista de erros** (vazia se a senha for válida). **Escreva os testes antes do código** (TDD: vermelho → verde → refatorar) e **pense em voz alta**.\n\n**Regras**\n- Pelo menos 8 caracteres.\n- Pelo menos uma letra maiúscula (A–Z).\n- Pelo menos uma letra minúscula (a–z).\n- Pelo menos um dígito.\n- Pelo menos um caractere especial dentre `!@#$%^&*()-+`.\n- Nenhum espaço em branco (espaço, tab ou quebra de linha).\n\n**Assinatura sugerida**\n```ts\nfunction validarSenha(senha: string): string[]\n```\n```java\nList<Erro> validar(String senha)\n```\n\n**Exemplos**\n```text\nvalidarSenha(\"abc\")        → [\"MINIMO_8\", \"MAIUSCULA\", \"DIGITO\", \"ESPECIAL\"]\nvalidarSenha(\"Abcdef1!\")   → []\nvalidarSenha(\"Abc def1!\")  → [\"SEM_ESPACO\"]\n```\nOs erros podem ser códigos (como acima), mensagens ou um enum: combine com o entrevistador. A ordem dos erros segue a ordem das regras.\n\n**No meio do pareamento, o entrevistador pode pedir:**\n- \"Agora a senha não pode ter 3 caracteres iguais seguidos (ex.: `aaa`).\"\n- \"Queremos mensagens em português para mostrar ao usuário.\"\n\nObservação: exercício **inspirado** no desafio \"Senha segura\" da lista da comunidade backend-br (link em Inspiração).",
+      "requisitos": [
+        "Escolher Java (JUnit 5) ou TypeScript (Vitest/Jest) e deixar o teste rodando antes de escrever a lógica.",
+        "Escrever cada teste antes da implementação da regra correspondente (ciclo vermelho → verde → refatorar visível).",
+        "Implementar as 6 regras, retornando todos os erros de uma vez (sem parar no primeiro).",
+        "Retornar lista vazia para senha válida.",
+        "Ter ao menos um teste por regra, um de senha válida e um com vários erros ao mesmo tempo.",
+        "Tratar senha vazia (e `null`/`undefined`, combinando o comportamento com o entrevistador).",
+        "Narrar o raciocínio em voz alta e fazer perguntas de esclarecimento no início."
+      ],
+      "diferenciais": [
+        "Regras como lista de objetos (ex.: `{ codigo, valida }`), para adicionar regra nova sem um `if` gigante.",
+        "Testes parametrizados (`@ParameterizedTest` no JUnit 5 ou `it.each` no Vitest).",
+        "Implementar a regra extra dos 3 caracteres iguais seguidos quando pedida, com o teste primeiro.",
+        "Expor como endpoint (`POST /senhas/validacao` → 204 se válida, 400 com a lista de erros), se sobrar tempo.",
+        "Um commit a cada ciclo verde."
+      ],
+      "criterios": [
+        "Fiz perguntas antes de codar (formato do retorno, caracteres especiais aceitos, entrada nula).",
+        "O primeiro teste foi escrito e falhou antes de qualquer implementação.",
+        "Avancei em passos pequenos, rodando os testes com frequência.",
+        "As 6 regras estão implementadas e cobertas por testes.",
+        "Senha com vários problemas retorna todos os erros, na ordem das regras.",
+        "Testei casos de borda: exatamente 7 e 8 caracteres, senha vazia e espaço no meio.",
+        "Refatorei com os testes verdes (nomes claros, sem duplicação).",
+        "Expliquei em voz alta o que estava fazendo e por quê, inclusive quando travei.",
+        "Terminei no tempo com os testes passando (mesmo sem os extras)."
+      ],
+      "entrega": "Não há entrega formal: o código fica na sua tela durante o pareamento. No simulado, fale em voz alta (ou grave a tela) e, no fim, salve o código em um repositório de estudos.",
+      "dicas": [
+        "Prepare o ambiente antes: um projeto vazio com um teste \"olá mundo\" passando em Java e em TS. Perder 10 minutos configurando é comum em entrevistas.",
+        "Comece pelo caso mais simples: \"senha válida retorna lista vazia\" ou \"senha curta retorna MINIMO_8\".",
+        "Regex úteis: `/[A-Z]/`, `/[a-z]/`, `/\\d/`, `/[!@#$%^&*()\\-+]/` e `/\\s/`. Em Java, `Pattern.compile(regex).matcher(senha).find()` (lembre de escapar a barra na string: `\"\\\\d\"`).",
+        "Perguntas que valem a pena: `_` ou `?` contam como especial? Letras acentuadas contam como maiúscula/minúscula? A ordem dos erros importa?",
+        "Se travar, diga o que está pensando e peça uma dica: isso conta a favor, não contra.",
+        "Se o tempo apertar, garanta as regras com testes passando antes de refatorar para a lista de regras."
+      ],
+      "gabarito": "**TypeScript** — implementação:\n```ts\ntype Regra = { codigo: string; valida: (senha: string) => boolean }\n\nconst REGRAS: Regra[] = [\n  { codigo: 'MINIMO_8', valida: (s) => s.length >= 8 },\n  { codigo: 'MAIUSCULA', valida: (s) => /[A-Z]/.test(s) },\n  { codigo: 'MINUSCULA', valida: (s) => /[a-z]/.test(s) },\n  { codigo: 'DIGITO', valida: (s) => /\\d/.test(s) },\n  { codigo: 'ESPECIAL', valida: (s) => /[!@#$%^&*()\\-+]/.test(s) },\n  { codigo: 'SEM_ESPACO', valida: (s) => !/\\s/.test(s) },\n]\n\nexport function validarSenha(senha: string): string[] {\n  return REGRAS.filter((regra) => !regra.valida(senha)).map((regra) => regra.codigo)\n}\n```\n\nTestes (Vitest):\n```ts\nimport { describe, it, expect } from 'vitest'\nimport { validarSenha } from './validarSenha'\n\ndescribe('validarSenha', () => {\n  it('aceita senha que cumpre todas as regras', () => {\n    expect(validarSenha('Abcdef1!')).toEqual([])\n  })\n\n  it.each([\n    ['Abcde1!', 'MINIMO_8'], // 7 caracteres\n    ['abcdef1!', 'MAIUSCULA'],\n    ['ABCDEF1!', 'MINUSCULA'],\n    ['Abcdefg!', 'DIGITO'],\n    ['Abcdefg1', 'ESPECIAL'],\n    ['Abc def1!', 'SEM_ESPACO'],\n  ])('\"%s\" falha só em %s', (senha, erro) => {\n    expect(validarSenha(senha)).toEqual([erro])\n  })\n\n  it('retorna todos os erros de uma vez, na ordem das regras', () => {\n    expect(validarSenha('abc')).toEqual(['MINIMO_8', 'MAIUSCULA', 'DIGITO', 'ESPECIAL'])\n  })\n\n  it('senha vazia falha em tudo, menos na regra de espaço', () => {\n    expect(validarSenha('')).toEqual(['MINIMO_8', 'MAIUSCULA', 'MINUSCULA', 'DIGITO', 'ESPECIAL'])\n  })\n})\n```\n\n**Java** — implementação:\n```java\nimport java.util.List;\nimport java.util.function.Predicate;\nimport java.util.regex.Pattern;\n\npublic class ValidadorSenha {\n\n    public enum Erro { MINIMO_8, MAIUSCULA, MINUSCULA, DIGITO, ESPECIAL, SEM_ESPACO }\n\n    private record Regra(Erro erro, Predicate<String> valida) {}\n\n    private static Predicate<String> contem(String regex) {\n        Pattern padrao = Pattern.compile(regex);\n        return senha -> padrao.matcher(senha).find();\n    }\n\n    private static final List<Regra> REGRAS = List.of(\n        new Regra(Erro.MINIMO_8, senha -> senha.length() >= 8),\n        new Regra(Erro.MAIUSCULA, contem(\"[A-Z]\")),\n        new Regra(Erro.MINUSCULA, contem(\"[a-z]\")),\n        new Regra(Erro.DIGITO, contem(\"\\\\d\")),\n        new Regra(Erro.ESPECIAL, contem(\"[!@#$%^&*()\\\\-+]\")),\n        new Regra(Erro.SEM_ESPACO, contem(\"\\\\s\").negate())\n    );\n\n    public List<Erro> validar(String senha) {\n        if (senha == null) throw new IllegalArgumentException(\"senha não pode ser nula\");\n        return REGRAS.stream()\n            .filter(regra -> !regra.valida().test(senha))\n            .map(Regra::erro)\n            .toList();\n    }\n}\n```\n\nTestes (JUnit 5):\n```java\nimport static org.junit.jupiter.api.Assertions.*;\n\nimport java.util.List;\nimport org.junit.jupiter.api.Test;\nimport org.junit.jupiter.params.ParameterizedTest;\nimport org.junit.jupiter.params.provider.CsvSource;\n\nclass ValidadorSenhaTest {\n\n    private final ValidadorSenha validador = new ValidadorSenha();\n\n    @Test\n    void senhaValidaNaoTemErros() {\n        assertEquals(List.of(), validador.validar(\"Abcdef1!\"));\n    }\n\n    @ParameterizedTest\n    @CsvSource({\n        \"Abcde1!,     MINIMO_8\",\n        \"abcdef1!,    MAIUSCULA\",\n        \"ABCDEF1!,    MINUSCULA\",\n        \"Abcdefg!,    DIGITO\",\n        \"Abcdefg1,    ESPECIAL\",\n        \"'Abc def1!', SEM_ESPACO\"\n    })\n    void cadaRegraFalhaIsoladamente(String senha, ValidadorSenha.Erro esperado) {\n        assertEquals(List.of(esperado), validador.validar(senha));\n    }\n\n    @Test\n    void retornaTodosOsErrosNaOrdemDasRegras() {\n        assertEquals(\n            List.of(ValidadorSenha.Erro.MINIMO_8, ValidadorSenha.Erro.MAIUSCULA,\n                    ValidadorSenha.Erro.DIGITO, ValidadorSenha.Erro.ESPECIAL),\n            validador.validar(\"abc\"));\n    }\n\n    @Test\n    void senhaNulaLancaExcecao() {\n        assertThrows(IllegalArgumentException.class, () -> validador.validar(null));\n    }\n}\n```\n\nOs testes acima passam como estão (9 no Vitest e 9 no JUnit). Em um TDD de verdade, eles nascem um por vez: cada `it`/`@Test` falha antes de a regra existir.",
+      "inspiracao": [
+        {
+          "titulo": "backend-br/desafios — lista de desafios de back-end (Senha segura)",
+          "url": "https://github.com/backend-br/desafios"
+        }
+      ]
+    },
+    {
+      "id": "live-algoritmo",
+      "titulo": "Live coding: agrupar e ranquear pedidos",
+      "area": "comum",
+      "formato": "live-coding",
+      "nivel": "básico",
+      "tempoSugeridoMin": 40,
+      "stack": [
+        "TypeScript",
+        "Java 21"
+      ],
+      "resumo": "Dada uma lista de pedidos, calcule total e média por cliente e os 3 clientes que mais gastaram, discutindo a complexidade.",
+      "contexto": "Na Pequi Delivery, a entrevista técnica tem um exercício de lógica de 40 minutos em um editor compartilhado, sem framework. O problema vem do dia a dia do time de dados: relatórios de pedidos. Queremos ver você entender o problema, escolher estruturas de dados adequadas e explicar o custo da solução.",
+      "enunciado": "Dada uma lista de pedidos, implemente funções que retornem:\n- o **total gasto por cliente** e a **quantidade de pedidos**;\n- a **média de valor por pedido** de cada cliente;\n- os **3 clientes que mais gastaram**, em ordem decrescente de total (empate → ordem alfabética do nome).\n\n**Entrada**\n```ts\ntype Pedido = { cliente: string; valor: number; data: string } // data em ISO 8601\n\nconst pedidos: Pedido[] = [\n  { cliente: 'Ana', valor: 120.5, data: '2026-09-01' },\n  { cliente: 'Bruno', valor: 80, data: '2026-09-02' },\n  { cliente: 'Ana', valor: 49.5, data: '2026-09-03' },\n  { cliente: 'Carla', valor: 200, data: '2026-09-03' },\n  { cliente: 'Bruno', valor: 90, data: '2026-09-05' },\n  { cliente: 'Diego', valor: 30, data: '2026-09-06' },\n  { cliente: 'Carla', valor: 15, data: '2026-09-07' },\n  { cliente: 'Elisa', valor: 170, data: '2026-09-08' },\n]\n```\n\n**Saída esperada do top 3** (formato sugerido)\n```ts\n[\n  { cliente: 'Carla', total: 215, pedidos: 2, media: 107.5 },\n  { cliente: 'Ana', total: 170, pedidos: 2, media: 85 },\n  { cliente: 'Bruno', total: 170, pedidos: 2, media: 85 },\n]\n```\n\nResolva em TypeScript **ou** Java. Ao final, explique a complexidade de tempo e de memória.\n\n**Extensões que o entrevistador pode pedir**\n- Considerar só os pedidos de um período (use o campo `data`).\n- Tornar o N do \"top N\" um parâmetro.\n- \"E se fossem 50 milhões de pedidos?\"",
+      "requisitos": [
+        "Função que recebe a lista e retorna, para cada cliente, total gasto, quantidade de pedidos e média por pedido.",
+        "Função (ou parâmetro) que retorna os 3 clientes de maior total, em ordem decrescente.",
+        "Critério de desempate implementado: total igual → nome em ordem alfabética.",
+        "Funcionar com lista vazia (retorna lista vazia) e com menos de 3 clientes.",
+        "Agrupamento em uma única passada (Map/objeto acumulador), sem laços aninhados O(n²).",
+        "Conferir o resultado com o exemplo do enunciado (teste ou `console.log`/`System.out`).",
+        "Explicar a complexidade de tempo e de memória."
+      ],
+      "diferenciais": [
+        "Versão em TypeScript com `reduce` + `Map` e versão em Java com Streams (`groupingBy` + `summarizingDouble`).",
+        "N parametrizável (`topClientes(pedidos, n)`).",
+        "Filtro opcional por período usando o campo `data`.",
+        "Discutir dinheiro sem ponto flutuante (centavos em inteiros ou `BigDecimal`).",
+        "Testes automatizados para o exemplo, o empate e a lista vazia."
+      ],
+      "criterios": [
+        "Fiz perguntas antes de codar (empate, lista vazia, arredondamento da média, formato da saída).",
+        "O resultado do exemplo é Carla (215), Ana (170) e Bruno (170); a Elisa (170) fica de fora pelo desempate.",
+        "As médias estão corretas (Carla 107,5; Ana 85; Bruno 85).",
+        "Lista vazia e lista com 1 cliente não causam erro.",
+        "Agrupamento em O(n) com Map/objeto e ordenação O(k log k) explicada (k = número de clientes).",
+        "A lista de entrada não foi mutada (ex.: `sort` direto no array recebido).",
+        "Código dividido em passos claros (agrupar → calcular → ordenar → cortar) com bons nomes.",
+        "Expliquei em voz alta as escolhas e como escalaria para um volume muito grande (heap de tamanho N ou agregação no banco)."
+      ],
+      "entrega": "Sem entrega formal: o código fica no editor compartilhado. No simulado, resolva em um arquivo `.ts` (rode com `npx tsx arquivo.ts` ou, no Node 24, `node arquivo.mts`) ou `.java` (rode com `java Arquivo.java`) e só depois compare com o gabarito.",
+      "dicas": [
+        "Comece repetindo o problema com suas palavras e calculando à mão o resultado do exemplo: isso revela o empate em 170.",
+        "Estruture em passos: agrupar → calcular média → ordenar → pegar os N primeiros. Faça funcionar primeiro e deixe elegante depois.",
+        "Ordenar sem mutar: `[...lista].sort(...)`. Comparação com desempate: `b.total - a.total || a.cliente.localeCompare(b.cliente)`.",
+        "Em Java, `Collectors.groupingBy(Pedido::cliente, Collectors.summarizingDouble(Pedido::valor))` entrega soma, contagem e média de uma vez.",
+        "Complexidade: agrupar é O(n); ordenar k clientes é O(k log k); para só o top N, um heap de tamanho N deixa em O(k log N).",
+        "Se travar, fale o que está pensando: o entrevistador costuma ajudar quem comunica."
+      ],
+      "gabarito": "**TypeScript** (`reduce` + `Map`):\n```ts\ntype Pedido = { cliente: string; valor: number; data: string }\ntype Resumo = { cliente: string; total: number; pedidos: number; media: number }\n\nexport function resumoPorCliente(pedidos: Pedido[]): Resumo[] {\n  const acumulado = pedidos.reduce((mapa, { cliente, valor }) => {\n    const atual = mapa.get(cliente) ?? { total: 0, pedidos: 0 }\n    return mapa.set(cliente, { total: atual.total + valor, pedidos: atual.pedidos + 1 })\n  }, new Map<string, { total: number; pedidos: number }>())\n\n  return [...acumulado]\n    .map(([cliente, { total, pedidos }]) => ({ cliente, total, pedidos, media: total / pedidos }))\n    .sort((a, b) => b.total - a.total || a.cliente.localeCompare(b.cliente))\n}\n\nexport function topClientes(pedidos: Pedido[], n = 3): Resumo[] {\n  return resumoPorCliente(pedidos).slice(0, n)\n}\n\n// topClientes(pedidos) → Carla 215, Ana 170, Bruno 170\n```\n\n**Java** (Streams; roda com `java RankingPedidos.java`):\n```java\nimport java.util.Comparator;\nimport java.util.List;\nimport java.util.stream.Collectors;\n\npublic class RankingPedidos {\n\n    record Pedido(String cliente, double valor, String data) {}\n    record Resumo(String cliente, double total, long pedidos, double media) {}\n\n    static List<Resumo> resumoPorCliente(List<Pedido> pedidos) {\n        return pedidos.stream()\n            .collect(Collectors.groupingBy(Pedido::cliente, Collectors.summarizingDouble(Pedido::valor)))\n            .entrySet().stream()\n            .map(e -> new Resumo(e.getKey(), e.getValue().getSum(), e.getValue().getCount(), e.getValue().getAverage()))\n            .sorted(Comparator.comparingDouble(Resumo::total).reversed().thenComparing(Resumo::cliente))\n            .toList();\n    }\n\n    static List<Resumo> topClientes(List<Pedido> pedidos, int n) {\n        return resumoPorCliente(pedidos).stream().limit(n).toList();\n    }\n\n    public static void main(String[] args) {\n        List<Pedido> pedidos = List.of(\n            new Pedido(\"Ana\", 120.5, \"2026-09-01\"),\n            new Pedido(\"Bruno\", 80, \"2026-09-02\"),\n            new Pedido(\"Ana\", 49.5, \"2026-09-03\"),\n            new Pedido(\"Carla\", 200, \"2026-09-03\"),\n            new Pedido(\"Bruno\", 90, \"2026-09-05\"),\n            new Pedido(\"Diego\", 30, \"2026-09-06\"),\n            new Pedido(\"Carla\", 15, \"2026-09-07\"),\n            new Pedido(\"Elisa\", 170, \"2026-09-08\"));\n\n        topClientes(pedidos, 3).forEach(System.out::println);\n        System.out.println(topClientes(List.of(), 3));\n    }\n}\n```\n\nSaída do Java:\n```text\nResumo[cliente=Carla, total=215.0, pedidos=2, media=107.5]\nResumo[cliente=Ana, total=170.0, pedidos=2, media=85.0]\nResumo[cliente=Bruno, total=170.0, pedidos=2, media=85.0]\n[]\n```\n\n**Complexidade:** O(n) para agrupar + O(k log k) para ordenar os k clientes; memória O(k). Para \"50 milhões de pedidos\": agregue no banco (`GROUP BY cliente ORDER BY total DESC LIMIT 3`) ou em streaming, mantendo só um heap de tamanho N.\n\n**Observações:** em produção, dinheiro em centavos (inteiros) ou `BigDecimal`. `localeCompare` ordena bem nomes com acento; o `thenComparing(Resumo::cliente)` do Java usa a ordem Unicode (para acentos, use `Collator.getInstance(Locale.of(\"pt\", \"BR\"))`).",
+      "inspiracao": []
+    },
+    {
+      "id": "review-codigo",
+      "titulo": "Code review: encontre os problemas",
+      "area": "comum",
+      "formato": "code-review",
+      "nivel": "intermediário",
+      "tempoSugeridoMin": 40,
+      "stack": [
+        "Java 21",
+        "Spring Boot 3",
+        "Vue 3",
+        "TypeScript"
+      ],
+      "resumo": "Revise um controller Spring Boot e um componente Vue 3 cheios de problemas e escreva comentários de review claros e gentis.",
+      "contexto": "Na Graviola Tech, parte da entrevista é um code review: você recebe um PR de uma pessoa desenvolvedora júnior e comenta como faria no dia a dia. Queremos ver se você identifica riscos de segurança, bugs e problemas de design, e se comunica isso com clareza e respeito.",
+      "enunciado": "Você recebeu o PR abaixo. Escreva comentários de review como faria no GitHub ou GitLab: **onde** (método/linha) → **problema** → **impacto** → **sugestão de correção**. Classifique cada comentário como **bloqueante**, **importante** ou **sugestão**. Não precisa reescrever tudo: foque no que mais importa. Reserve cerca de 20 minutos para cada trecho.\n\n**Trecho A — API Spring Boot**\n```java\n@Entity\n@Table(name = \"clientes\")\npublic class Cliente {\n    @Id @GeneratedValue\n    private Long id;\n    private String nome;\n    private String email;\n    private String senha;\n    private double saldo;\n    private boolean admin;\n    // getters e setters omitidos\n}\n```\n```java\n@RestController\n@RequestMapping(\"/api/clientes\")\npublic class ClienteController {\n\n    @Autowired\n    private ClienteRepository repo;\n\n    @Autowired\n    private EntityManager em;\n\n    @GetMapping(\"/busca\")\n    public List<Cliente> buscar(@RequestParam String nome) {\n        String sql = \"SELECT * FROM clientes WHERE nome LIKE '%\" + nome + \"%'\";\n        return em.createNativeQuery(sql, Cliente.class).getResultList();\n    }\n\n    @PostMapping\n    public Cliente criar(@RequestBody Cliente c) {\n        return repo.save(c);\n    }\n\n    @PostMapping(\"/{id}/transferir\")\n    public ResponseEntity<String> transferir(@PathVariable Long id,\n                                             @RequestParam Long destino,\n                                             @RequestParam double valor) {\n        try {\n            Cliente a = repo.findById(id).get();\n            Cliente b = repo.findById(destino).get();\n            if (a.getSaldo() >= valor) {\n                a.setSaldo(a.getSaldo() - valor);\n                repo.save(a);\n                b.setSaldo(b.getSaldo() + valor);\n                repo.save(b);\n            }\n            return ResponseEntity.ok(\"ok\");\n        } catch (Exception e) {\n            return ResponseEntity.ok(\"erro\");\n        }\n    }\n\n    @DeleteMapping(\"/{id}\")\n    public String del(@PathVariable Long id) {\n        repo.deleteById(id);\n        return \"deletado\";\n    }\n}\n```\n\n**Trecho B — componente Vue 3**\nComponente de avaliações da página de produto. O pai o usa assim: `<ProdutoAvaliacoes :produto-id=\"42\" :quantidade=\"qtd\" />`.\n```vue\n<script setup lang=\"ts\">\nimport { ref, watch, onMounted } from 'vue'\n\nconst props = defineProps<{ produtoId: number; quantidade: number }>()\n\nconst avaliacoes = ref<any[]>([])\nconst media = ref(0)\nconst novoComentario = ref('')\n\nonMounted(async () => {\n  const res = await fetch('/api/produtos/' + props.produtoId + '/avaliacoes')\n  avaliacoes.value = await res.json()\n})\n\nwatch(avaliacoes, (lista) => {\n  let soma = 0\n  lista.forEach((a) => (soma += a.nota))\n  media.value = soma / lista.length\n})\n\nfunction adicionarAoCarrinho() {\n  props.quantidade++\n}\n\nfunction enviar() {\n  avaliacoes.value.push({ autor: 'Você', nota: 5, comentario: novoComentario.value })\n  novoComentario.value = ''\n}\n</script>\n\n<template>\n  <div>\n    <img :src=\"'/img/produtos/' + produtoId + '.jpg'\" />\n    <p>Nota média: {{ media }}</p>\n    <button @click=\"adicionarAoCarrinho\">Adicionar ({{ quantidade }})</button>\n\n    <div v-for=\"a in avaliacoes\">\n      <strong>{{ a.autor }}</strong>\n      <div v-html=\"a.comentario\"></div>\n    </div>\n\n    <input v-model=\"novoComentario\" placeholder=\"Escreva sua avaliação\" />\n    <div class=\"botao\" @click=\"enviar\">Enviar</div>\n  </div>\n</template>\n```",
+      "requisitos": [
+        "Ler os dois trechos inteiros antes de comentar, para entender a intenção do código.",
+        "Escrever cada comentário no formato: onde → problema → impacto → sugestão de correção.",
+        "Classificar cada comentário por severidade (bloqueante, importante, sugestão).",
+        "Encontrar ao menos 4 problemas em cada trecho, começando pelos de segurança e integridade de dados.",
+        "Propor código corrigido para pelo menos um problema de cada trecho.",
+        "Terminar com um resumo do PR (aprovar, aprovar com ressalvas ou pedir mudanças) e o porquê."
+      ],
+      "diferenciais": [
+        "Apontar a condição de corrida: duas transferências simultâneas sobre o mesmo saldo.",
+        "Notar que o `watch` sem `deep` não reage ao `push` e que a média vira `NaN` com lista vazia.",
+        "Sugerir testes que teriam pegado os bugs (ex.: transferência com valor negativo).",
+        "Reconhecer algo positivo no PR antes das críticas.",
+        "Sugerir dividir o PR em partes menores ou adotar um checklist de PR no time."
+      ],
+      "criterios": [
+        "A: apontei SQL injection na busca (`nome` concatenado no SQL) e sugeri parâmetro (`:nome`) ou query method do Spring Data.",
+        "A: apontei que a entidade é exposta na API: a resposta vaza `senha`/`saldo` e o POST aceita qualquer campo (ex.: `\"admin\": true`); sugeri DTOs.",
+        "A: apontei a falta de validação: sem `@Valid`/Bean Validation, e `valor` negativo inverte a transferência (o pagador ganha dinheiro).",
+        "A: apontei lógica de negócio no controller sem `@Transactional` (o débito pode ser gravado sem o crédito) e sugeri um service transacional com `BigDecimal`.",
+        "A: apontei o `catch (Exception)` que engole o erro sem log e os status errados: erro vira 200, saldo insuficiente responde \"ok\", POST sem 201 e DELETE sem 204/404.",
+        "B: apontei `v-for` sem `:key`.",
+        "B: apontei a mutação da prop `quantidade` (usar `emit`/`defineModel`) e o `watch` + `ref` para valor derivado, que deveria ser `computed`.",
+        "B: apontei o `fetch` sem estado de carregamento, sem tratamento de erro e sem checar `response.ok`.",
+        "B: apontei o `v-html` com texto do usuário → XSS, sugerindo interpolação `{{ }}`.",
+        "B: apontei a acessibilidade: imagem sem `alt`, campo sem `label` (placeholder não é rótulo) e `div` clicável no lugar de `button`.",
+        "Comunicação: cada comentário explica o impacto e sugere uma correção concreta, com exemplo quando útil.",
+        "Comunicação: tom gentil e objetivo (fala do código, não da pessoa), com os bloqueantes separados das sugestões."
+      ],
+      "entrega": "Um texto (ou arquivo `review.md`) com os comentários organizados por trecho e severidade e o resumo final. No simulado, escreva tudo antes de abrir o gabarito e depois compare.",
+      "dicas": [
+        "Ordem de prioridade: segurança → perda ou corrupção de dados → bugs → contrato da API (status, DTOs) → legibilidade e estilo.",
+        "Comentário gentil: descreva o código, não a pessoa (\"esta query\" em vez de \"você errou\"), explique o impacto e ofereça um caminho (\"que tal...?\").",
+        "Quando não souber a intenção, pergunte: \"O envio da avaliação deveria ir para a API também?\"",
+        "Procure onde dados vindos do usuário são concatenados (SQL) ou renderizados como HTML (`v-html`).",
+        "Se o tempo acabar, garanta os bloqueantes dos dois trechos antes dos detalhes de estilo."
+      ],
+      "gabarito": "**Trecho A — problemas e correções**\n- **[bloqueante] SQL injection** em `buscar`: `nome = \"' OR 1=1 --\"` retorna todos os clientes, e com `SELECT *` vêm junto senha e saldo. Correção: `findByNomeContainingIgnoreCase(nome)` no repositório (ou `createNativeQuery(\"... WHERE nome LIKE :nome\").setParameter(\"nome\", \"%\" + nome + \"%\")`).\n- **[bloqueante] Entidade exposta**: a resposta devolve `senha` e `saldo`; no POST, qualquer pessoa manda `\"admin\": true`, `\"saldo\": 1000000` ou um `id` existente (mass assignment). Correção: DTOs de entrada e saída.\n- **[bloqueante] Senha em texto puro**: gravada como veio. Correção: `PasswordEncoder` (BCrypt) no service.\n- **[bloqueante] Sem validação**: não há `@Valid` nem restrições no POST. Na transferência, `valor = -500` passa no `if` (saldo >= -500) e **aumenta** o saldo do pagador, tirando do recebedor. Também não impede transferir para si mesmo.\n- **[bloqueante] Sem transação e regra no controller**: são dois `save` em transações separadas; se o segundo falhar, o dinheiro some. Correção: mover para um `@Service` com `@Transactional`, lançando exceção para desfazer tudo.\n- **[importante] `double` para dinheiro**: gera erros de arredondamento. Use `BigDecimal` e coluna `NUMERIC(19,2)`.\n- **[importante] Erro engolido e status errados**: `catch (Exception)` sem log devolve 200 \"erro\"; `Optional.get()` sem checagem vira `NoSuchElementException` (deveria ser 404); saldo insuficiente responde \"ok\" (deveria ser 422); POST deveria ser 201 com `Location`; DELETE deveria ser 204. Detalhe: no Spring Data 3, `deleteById` de um id inexistente não lança exceção, então o código sempre responde \"deletado\".\n- **[importante] Parâmetros de transferência na query string** (`@RequestParam double valor`): prefira um corpo JSON validado.\n- **[sugestão] Injeção por campo** (`@Autowired` em atributo): prefira construtor (facilita testes e imutabilidade). `EntityManager` no controller também mistura camadas.\n- **[sugestão] Nomes**: `c`, `a`, `b`, `del`, `repo` → `cliente`, `origem`, `destino`, `excluir`, `clienteRepository`.\n- **[diferencial] Concorrência**: duas transferências simultâneas leem o mesmo saldo (lost update). Use lock pessimista (`@Lock(LockModeType.PESSIMISTIC_WRITE)`) ou `@Version`. E falta autorização: qualquer pessoa pode transferir a partir de qualquer id.\n\n**Versão corrigida (resumo, imports omitidos)** — compila com Spring Boot 3:\n```java\n// ---------- DTOs ----------\npublic record ClienteRequest(\n        @NotBlank @Size(max = 100) String nome,\n        @NotBlank @Email String email,\n        @NotBlank @Size(min = 8) String senha) {}\n\npublic record ClienteResponse(Long id, String nome, String email) {\n    static ClienteResponse de(Cliente c) {\n        return new ClienteResponse(c.getId(), c.getNome(), c.getEmail());\n    }\n}\n\npublic record TransferenciaRequest(@NotNull Long destinoId, @NotNull @Positive BigDecimal valor) {}\n\n// ---------- Entidade ----------\n@Entity\n@Table(name = \"clientes\")\npublic class Cliente {\n    @Id @GeneratedValue private Long id;\n    private String nome;\n    private String email;\n    private String senhaHash;\n    @Column(precision = 19, scale = 2) private BigDecimal saldo = BigDecimal.ZERO;\n\n    protected Cliente() {}\n\n    public Cliente(String nome, String email, String senhaHash) {\n        this.nome = nome;\n        this.email = email;\n        this.senhaHash = senhaHash;\n    }\n\n    public void debitar(BigDecimal valor) {\n        if (saldo.compareTo(valor) < 0) throw new RegraDeNegocioException(\"Saldo insuficiente\");\n        saldo = saldo.subtract(valor);\n    }\n\n    public void creditar(BigDecimal valor) {\n        saldo = saldo.add(valor);\n    }\n\n    public Long getId() { return id; }\n    public String getNome() { return nome; }\n    public String getEmail() { return email; }\n}\n\n// ---------- Repositório ----------\npublic interface ClienteRepository extends JpaRepository<Cliente, Long> {\n    List<Cliente> findByNomeContainingIgnoreCase(String nome);\n}\n\n// ---------- Service ----------\n@Service\npublic class ClienteService {\n    private final ClienteRepository repositorio;\n    private final PasswordEncoder passwordEncoder;\n\n    public ClienteService(ClienteRepository repositorio, PasswordEncoder passwordEncoder) {\n        this.repositorio = repositorio;\n        this.passwordEncoder = passwordEncoder;\n    }\n\n    @Transactional(readOnly = true)\n    public List<ClienteResponse> buscarPorNome(String nome) {\n        return repositorio.findByNomeContainingIgnoreCase(nome).stream().map(ClienteResponse::de).toList();\n    }\n\n    @Transactional\n    public ClienteResponse criar(ClienteRequest req) {\n        var cliente = new Cliente(req.nome(), req.email(), passwordEncoder.encode(req.senha()));\n        return ClienteResponse.de(repositorio.save(cliente));\n    }\n\n    @Transactional\n    public void transferir(Long origemId, TransferenciaRequest req) {\n        if (origemId.equals(req.destinoId())) {\n            throw new RegraDeNegocioException(\"Origem e destino devem ser diferentes\");\n        }\n        Cliente origem = buscar(origemId);\n        Cliente destino = buscar(req.destinoId());\n        origem.debitar(req.valor());\n        destino.creditar(req.valor());\n        // entidades gerenciadas: o JPA grava as duas alterações no commit (ou nenhuma)\n    }\n\n    @Transactional\n    public void excluir(Long id) {\n        repositorio.delete(buscar(id));\n    }\n\n    private Cliente buscar(Long id) {\n        return repositorio.findById(id)\n                .orElseThrow(() -> new RecursoNaoEncontradoException(\"Cliente \" + id + \" não encontrado\"));\n    }\n}\n\n// ---------- Controller ----------\n@RestController\n@RequestMapping(\"/api/clientes\")\npublic class ClienteController {\n    private final ClienteService service;\n\n    public ClienteController(ClienteService service) {\n        this.service = service;\n    }\n\n    @GetMapping(\"/busca\")\n    public List<ClienteResponse> buscar(@RequestParam String nome) {\n        return service.buscarPorNome(nome);\n    }\n\n    @PostMapping\n    public ResponseEntity<ClienteResponse> criar(@Valid @RequestBody ClienteRequest request) {\n        ClienteResponse criado = service.criar(request);\n        return ResponseEntity.created(URI.create(\"/api/clientes/\" + criado.id())).body(criado);\n    }\n\n    @PostMapping(\"/{id}/transferencias\")\n    public ResponseEntity<Void> transferir(@PathVariable Long id,\n                                           @Valid @RequestBody TransferenciaRequest request) {\n        service.transferir(id, request);\n        return ResponseEntity.noContent().build();\n    }\n\n    @DeleteMapping(\"/{id}\")\n    public ResponseEntity<Void> excluir(@PathVariable Long id) {\n        service.excluir(id);\n        return ResponseEntity.noContent().build();\n    }\n}\n\n// ---------- Tratamento de erros ----------\n@RestControllerAdvice\npublic class TratadorDeErros {\n    @ExceptionHandler(RecursoNaoEncontradoException.class)\n    public ProblemDetail naoEncontrado(RecursoNaoEncontradoException e) {\n        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());\n    }\n\n    @ExceptionHandler(RegraDeNegocioException.class)\n    public ProblemDetail regraDeNegocio(RegraDeNegocioException e) {\n        return ProblemDetail.forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage());\n    }\n}\n```\nAs exceções `RecursoNaoEncontradoException` e `RegraDeNegocioException` são `RuntimeException` simples, e o `PasswordEncoder` vem de um `@Bean` com `new BCryptPasswordEncoder()` (spring-security-crypto). Dados inválidos no `@Valid` já resultam em 400.\n\n**Trecho B — problemas e correções**\n- **[bloqueante] XSS com `v-html`**: comentários de outros usuários viram HTML. Um comentário `<img src=x onerror=\"...\">` executa script no navegador de quem abrir a página. Correção: `{{ a.comentario }}` (o Vue escapa); se precisar de HTML, sanitize (ex.: DOMPurify).\n- **[bloqueante] Mutação de prop**: `props.quantidade++` não funciona (no modo dev o Vue avisa que a prop é somente leitura e o `vue-tsc` acusa erro de tipo). Correção: `emit('update:quantidade', props.quantidade + 1)` com `v-model:quantidade` no pai, ou `defineModel` (Vue 3.4+).\n- **[importante] `v-for` sem `:key`**: o Vue reaproveita elementos de forma errada ao inserir ou remover itens. Use um id estável (`:key=\"a.id\"`), não o índice.\n- **[importante] `watch` que deveria ser `computed`**: a média é um valor derivado. Além disso, `watch` em um `ref` de array sem `deep` **não dispara no `push`**, então a média não atualiza depois de `enviar()`; e com lista vazia vira `NaN` (0/0). Antes de carregar, mostra 0, o que é enganoso.\n- **[importante] `fetch` sem tratamento**: sem loading, sem `try/catch` e sem checar `response.ok` (um 404 ou 500 tenta virar JSON e quebra). Também não recarrega se `produtoId` mudar.\n- **[importante] Acessibilidade**: `img` sem `alt`; `input` só com placeholder (sem `label`); `div` com `@click` não recebe foco nem responde ao Enter. Use `button type=\"submit\"` dentro de um `form`.\n- **[sugestão] Tipos**: `ref<any[]>` → `interface Avaliacao`. O envio só altera a lista local, com nota fixa 5: pergunte se deveria chamar a API.\n\n**Versão corrigida:**\n```vue\n<script setup lang=\"ts\">\nimport { computed, onMounted, ref } from 'vue'\n\ninterface Avaliacao {\n  id: number\n  autor: string\n  nota: number\n  comentario: string\n}\n\nconst props = defineProps<{ produtoId: number; quantidade: number }>()\nconst emit = defineEmits<{ 'update:quantidade': [valor: number] }>()\n\nconst avaliacoes = ref<Avaliacao[]>([])\nconst carregando = ref(false)\nconst erro = ref<string | null>(null)\nconst novoComentario = ref('')\n\nconst media = computed(() => {\n  if (avaliacoes.value.length === 0) return null\n  const soma = avaliacoes.value.reduce((total, a) => total + a.nota, 0)\n  return soma / avaliacoes.value.length\n})\n\nasync function carregar() {\n  carregando.value = true\n  erro.value = null\n  try {\n    const resposta = await fetch(`/api/produtos/${props.produtoId}/avaliacoes`)\n    if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`)\n    avaliacoes.value = await resposta.json()\n  } catch {\n    erro.value = 'Não foi possível carregar as avaliações.'\n  } finally {\n    carregando.value = false\n  }\n}\n\nonMounted(carregar)\n\nfunction adicionarAoCarrinho() {\n  emit('update:quantidade', props.quantidade + 1)\n}\n\nfunction enviarAvaliacao() {\n  const comentario = novoComentario.value.trim()\n  if (!comentario) return\n  // idealmente: POST na API e usar o id devolvido; aqui mantemos o comportamento local do PR\n  avaliacoes.value.push({ id: Date.now(), autor: 'Você', nota: 5, comentario })\n  novoComentario.value = ''\n}\n</script>\n\n<template>\n  <section>\n    <img :src=\"`/img/produtos/${produtoId}.jpg`\" alt=\"Foto do produto\" />\n    <p v-if=\"media !== null\">Nota média: {{ media.toFixed(1) }}</p>\n    <button type=\"button\" @click=\"adicionarAoCarrinho\">Adicionar ao carrinho ({{ quantidade }})</button>\n\n    <p v-if=\"carregando\" role=\"status\">Carregando avaliações…</p>\n    <p v-else-if=\"erro\" role=\"alert\">\n      {{ erro }} <button type=\"button\" @click=\"carregar\">Tentar novamente</button>\n    </p>\n    <p v-else-if=\"avaliacoes.length === 0\">Nenhuma avaliação ainda.</p>\n    <ul v-else>\n      <li v-for=\"a in avaliacoes\" :key=\"a.id\">\n        <strong>{{ a.autor }}</strong>\n        <p>{{ a.comentario }}</p>\n      </li>\n    </ul>\n\n    <form @submit.prevent=\"enviarAvaliacao\">\n      <label for=\"comentario\">Sua avaliação</label>\n      <textarea id=\"comentario\" v-model=\"novoComentario\" required></textarea>\n      <button type=\"submit\">Enviar</button>\n    </form>\n  </section>\n</template>\n```\n\n**Exemplo de comentário bem escrito**\n```text\n[bloqueante] ClienteController.buscar: o `nome` é concatenado direto no SQL.\nImpacto: permite SQL injection (ex.: nome = ' OR 1=1 --) e, com SELECT *, expõe senha e saldo.\nSugestão: usar um query method, que já parametriza:\n  List<Cliente> findByNomeContainingIgnoreCase(String nome);\nPosso ajudar a ajustar os testes se quiser!\n```",
+      "inspiracao": [
+        {
+          "titulo": "Creditas — desafio de refatoração de uma calculadora em JavaScript puro (melhorar código existente)",
+          "url": "https://github.com/Creditas/challenge/tree/master/frontend/individual-assignment"
+        }
+      ]
+    }
+  ]
+}

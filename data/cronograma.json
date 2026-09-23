@@ -1,0 +1,1266 @@
+{
+  "versao": 1,
+  "titulo": "Cronograma de 6 semanas",
+  "descricao": "6 dias de estudo por semana (≈1h45/dia: 30 min de algoritmo + 60 min de estudo/projeto + 15 min de flashcards) e o domingo como descanso ativo. Comece numa segunda-feira para os dias longos caírem no sábado. Depois de cada algoritmo, escreva em 2 frases por que a solução funciona e qual a complexidade.",
+  "semanas": [
+    {
+      "numero": 1,
+      "fase": "Núcleo comum",
+      "titulo": "Fundamentos: lógica, estruturas, Git e HTTP",
+      "objetivo": "Fazer o diagnóstico (pré-teste), criar o hábito diário e dominar a base que cai em qualquer prova: complexidade, hash map, pilha/fila, Git e HTTP.",
+      "dias": [
+        {
+          "titulo": "Diagnóstico e Git essencial",
+          "tarefas": [
+            {
+              "id": "s1d1-rh",
+              "tipo": "estudo",
+              "duracao": 5,
+              "titulo": "Perguntar o formato da prova ao RH/gestor",
+              "descricao": "Pergunte: é prática ou teórica? Qual stack? Quanto tempo? Pode consultar? Terá entrevista técnica ou apresentação do código? Anote a resposta no Diário e ajuste o foco das trilhas."
+            },
+            {
+              "id": "s1d1-diag",
+              "tipo": "simulado",
+              "duracao": 30,
+              "titulo": "Diagnóstico: quiz misto de 20 questões (modo prova)",
+              "descricao": "Sem consultar. Errar agora é bom: o **pré-teste** melhora o aprendizado do que vem depois. No fim, leia as explicações e veja no Painel quais temas aparecem como pontos fracos.",
+              "acao": { "rotulo": "Abrir o quiz diagnóstico", "rota": "#/quiz?modo=prova&qtd=20&tema=misto" }
+            },
+            {
+              "id": "s1d1-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Aquecimento: FizzBuzz e Reverse String",
+              "descricao": "Resolva os dois em Java **e** em TypeScript. FizzBuzz: de 1 a n, \"Fizz\" para múltiplos de 3, \"Buzz\" de 5, \"FizzBuzz\" de ambos. Reverse String: inverta o array de caracteres **no lugar** (two pointers, O(1) de memória extra).",
+              "links": [
+                { "titulo": "LeetCode — Fizz Buzz", "url": "https://leetcode.com/problems/fizz-buzz/" },
+                { "titulo": "LeetCode — Reverse String", "url": "https://leetcode.com/problems/reverse-string/" }
+              ]
+            },
+            {
+              "id": "s1d1-est",
+              "tipo": "estudo",
+              "duracao": 45,
+              "titulo": "Git: commits, branches e merge",
+              "descricao": "Faça a sequência de **Introdução** do Learn Git Branching. Depois, crie um repositório `estudos-prova` no GitHub e faça 3 commits no padrão Conventional Commits (`feat:`, `docs:`, `test:`). Marque na trilha Núcleo Comum → Git o que conseguir explicar.",
+              "links": [
+                { "titulo": "Learn Git Branching (pt-BR)", "url": "https://learngitbranching.js.org/?locale=pt_BR" },
+                { "titulo": "Conventional Commits", "url": "https://www.conventionalcommits.org/pt-br/v1.0.0/" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico Git", "rota": "#/trilhas?trilha=nucleo&topico=nucleo-git" }
+            },
+            {
+              "id": "s1d1-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: primeiros cartões novos",
+              "descricao": "Veja a pergunta, tente responder em voz alta e só então revele. Avalie-se com honestidade: \"Errei\" também é informação.",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Complexidade e hash maps",
+          "tarefas": [
+            {
+              "id": "s1d2-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Two Sum",
+              "descricao": "Dado um array de inteiros e um alvo, retorne os índices de dois números que somam o alvo. Primeiro a solução O(n²) com dois laços; depois O(n) com HashMap (`valor → índice`). **Padrão:** hash map.",
+              "links": [{ "titulo": "LeetCode — Two Sum", "url": "https://leetcode.com/problems/two-sum/" }]
+            },
+            {
+              "id": "s1d2-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Big-O, arrays, strings e hash tables",
+              "descricao": "Estude as complexidades comuns (O(1), O(log n), O(n), O(n log n), O(n²)) e o custo das operações em array e hash table. Pratique: conte a frequência de palavras de um texto em Java (`HashMap`/`merge`) e em TS (`Map`). Marque os itens de lógica e estruturas que dominar.",
+              "links": [
+                { "titulo": "roadmap.sh — Estruturas de dados e algoritmos", "url": "https://roadmap.sh/datastructures-and-algorithms" },
+                { "titulo": "dev.java — Collections", "url": "https://dev.java/learn/api/collections-framework/" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico Estruturas de dados", "rota": "#/trilhas?trilha=nucleo&topico=nucleo-estruturas" }
+            },
+            {
+              "id": "s1d2-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Pilhas, filas e listas",
+          "tarefas": [
+            {
+              "id": "s1d3-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Valid Parentheses",
+              "descricao": "Dada uma string com `()[]{}`, diga se os parênteses estão balanceados. Empilhe as aberturas e confira cada fechamento com o topo. **Padrão:** pilha. Casos de borda: string vazia, só fechamentos, ordem trocada.",
+              "links": [{ "titulo": "LeetCode — Valid Parentheses", "url": "https://leetcode.com/problems/valid-parentheses/" }]
+            },
+            {
+              "id": "s1d3-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Implementar pilha e fila (Java e TS)",
+              "descricao": "Implemente uma pilha e uma fila simples e depois compare com `ArrayDeque` (Java) e com array/`shift` (TS — e por que `shift` é O(n)). Escreva 3 testes para cada uma. Explique em voz alta quando usar lista ligada vs array.",
+              "acao": { "rotulo": "Abrir o tópico Estruturas de dados", "rota": "#/trilhas?trilha=nucleo&topico=nucleo-estruturas" }
+            },
+            {
+              "id": "s1d3-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "HTTP na prática",
+          "tarefas": [
+            {
+              "id": "s1d4-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Valid Anagram",
+              "descricao": "Diga se duas strings são anagramas. Compare: ordenar (O(n log n)) vs contar frequências (O(n)). **Padrão:** contagem com mapa/array de 26 posições.",
+              "links": [{ "titulo": "LeetCode — Valid Anagram", "url": "https://leetcode.com/problems/valid-anagram/" }]
+            },
+            {
+              "id": "s1d4-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Métodos, status codes e headers",
+              "descricao": "Leia a visão geral do HTTP e a lista de status. Depois pratique observando requisições reais no DevTools (aba Rede) e com `curl -i`:\n- `https://viacep.com.br/ws/01001000/json/` (200) e um CEP inexistente (também 200, com `erro` no corpo — por quê isso é ruim?)\n- um `POST` para `https://jsonplaceholder.typicode.com/posts` (201)\nAnote em quais casos você usaria 400, 401, 403, 404, 409 e 422.",
+              "links": [
+                { "titulo": "MDN — Visão geral do HTTP", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Overview" },
+                { "titulo": "MDN — Códigos de status", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico HTTP", "rota": "#/trilhas?trilha=nucleo&topico=nucleo-http" }
+            },
+            {
+              "id": "s1d4-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "REST e desenho de API",
+          "tarefas": [
+            {
+              "id": "s1d5-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Best Time to Buy and Sell Stock",
+              "descricao": "Dado o preço de uma ação por dia, encontre o maior lucro comprando um dia e vendendo depois. Uma passada guardando o menor preço visto até agora: O(n). **Padrão:** varredura com mínimo acumulado.",
+              "links": [{ "titulo": "LeetCode — Best Time to Buy and Sell Stock", "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" }]
+            },
+            {
+              "id": "s1d5-est",
+              "tipo": "estudo",
+              "duracao": 45,
+              "titulo": "Desenhar a API de uma biblioteca (no papel)",
+              "descricao": "Projete a API REST que você vai construir na semana 4: **livros, membros e empréstimos**. Para cada rota defina método, caminho, corpo, status de sucesso e de erro. Ex.: `POST /emprestimos` → 201 + `Location`; livro indisponível → 409; dados inválidos → 400/422. Inclua paginação (`GET /livros?page=0&size=20&sort=titulo`). Guarde esse desenho: é o seu contrato.",
+              "links": [{ "titulo": "roadmap.sh — API Design", "url": "https://roadmap.sh/api-design" }]
+            },
+            {
+              "id": "s1d5-quiz",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Quiz de HTTP (treino)",
+              "acao": { "rotulo": "Abrir quiz de HTTP", "rota": "#/quiz?tema=http&modo=treino&qtd=10" }
+            },
+            {
+              "id": "s1d5-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Git avançado e revisão da semana",
+          "tarefas": [
+            {
+              "id": "s1d6-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Binary Search",
+              "descricao": "Implemente a busca binária em um array ordenado sem olhar referência. Atenção aos limites (`inicio <= fim`, `meio = inicio + (fim - inicio) / 2`). Teste com o alvo no começo, no fim e ausente. **Padrão:** busca binária, O(log n).",
+              "links": [{ "titulo": "LeetCode — Binary Search", "url": "https://leetcode.com/problems/binary-search/" }]
+            },
+            {
+              "id": "s1d6-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Rebase, reset, revert, stash e cherry-pick",
+              "descricao": "Faça os níveis de **rebase** e **\"Movendo trabalho por aí\"** no Learn Git Branching. No seu repositório: crie uma branch `feat/...`, faça commits, simule um conflito e resolva; use `git stash`; desfaça um commit com `revert` e outro com `reset --soft`. Explique a diferença em voz alta.",
+              "links": [
+                { "titulo": "Learn Git Branching (pt-BR)", "url": "https://learngitbranching.js.org/?locale=pt_BR" },
+                { "titulo": "Pro Git — Ramificação", "url": "https://git-scm.com/book/pt-br/v2" }
+              ]
+            },
+            {
+              "id": "s1d6-quiz",
+              "tipo": "revisao",
+              "duracao": 20,
+              "titulo": "Quiz misto da semana (15 questões, treino)",
+              "descricao": "Intercalar temas (interleaving) treina reconhecer qual conceito usar — como na prova.",
+              "acao": { "rotulo": "Abrir quiz misto", "rota": "#/quiz?tema=misto&modo=treino&qtd=15" }
+            },
+            {
+              "id": "s1d6-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards + diário da semana",
+              "descricao": "Faça a fila do dia e registre no Diário o que ficou difícil nesta semana.",
+              "acao": { "rotulo": "Abrir o diário", "rota": "#/diario" }
+            }
+          ]
+        },
+        {
+          "titulo": "Descanso ativo",
+          "tarefas": [
+            {
+              "id": "s1d7-desc",
+              "tipo": "descanso",
+              "duracao": 15,
+              "titulo": "Só a fila de flashcards (10–15 min)",
+              "descricao": "Descansar também é parte do plano. Faça só a revisão do dia para manter a sequência e a repetição espaçada em dia.",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "numero": 2,
+      "fase": "Núcleo comum",
+      "titulo": "POO, SQL, testes e clean code",
+      "objetivo": "Consolidar os temas de entrevista mais frequentes (POO/SOLID, SQL, testes) e fazer o primeiro live coding cronometrado.",
+      "dias": [
+        {
+          "titulo": "POO na prática",
+          "tarefas": [
+            {
+              "id": "s2d1-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Merge Two Sorted Lists",
+              "descricao": "Una duas listas ligadas ordenadas em uma lista ordenada. Use um nó sentinela (dummy) para simplificar. **Padrão:** lista ligada + dois ponteiros.",
+              "links": [{ "titulo": "LeetCode — Merge Two Sorted Lists", "url": "https://leetcode.com/problems/merge-two-sorted-lists/" }]
+            },
+            {
+              "id": "s2d1-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Modelar um domínio de pedidos em Java",
+              "descricao": "Modele `Cliente`, `Pedido`, `ItemPedido` e uma interface `FormaPagamento` com `Pix` e `Cartao`. Mostre encapsulamento (sem setters desnecessários), polimorfismo (cálculo de taxa por forma de pagamento) e composição (pedido **tem** itens). Use `record` onde fizer sentido.",
+              "acao": { "rotulo": "Abrir o tópico POO", "rota": "#/trilhas?trilha=nucleo&topico=nucleo-oop" }
+            },
+            {
+              "id": "s2d1-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "SOLID e padrões de projeto",
+          "tarefas": [
+            {
+              "id": "s2d2-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Maximum Subarray",
+              "descricao": "Encontre a soma máxima de um subarray contíguo. Algoritmo de Kadane: a cada posição, decida se continua o subarray ou recomeça. O(n). **Padrão:** programação dinâmica simples.",
+              "links": [{ "titulo": "LeetCode — Maximum Subarray", "url": "https://leetcode.com/problems/maximum-subarray/" }]
+            },
+            {
+              "id": "s2d2-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Aplicar SOLID e Strategy no domínio de pedidos",
+              "descricao": "Extraia o cálculo de frete para uma interface `CalculadoraFrete` com duas implementações (**Strategy**) e crie uma **Factory** que escolhe a estratégia. Para cada letra do SOLID, escreva 1 frase apontando onde ela aparece (ou é violada) no seu código.",
+              "links": [{ "titulo": "Refactoring Guru — Strategy", "url": "https://refactoring.guru/pt-br/design-patterns" }]
+            },
+            {
+              "id": "s2d2-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "SQL I: consultas e JOINs",
+          "tarefas": [
+            {
+              "id": "s2d3-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Group Anagrams",
+              "descricao": "Agrupe as palavras que são anagramas entre si. Chave do mapa: a palavra com as letras ordenadas (ou a contagem de letras). **Padrão:** hash map com chave derivada.",
+              "links": [{ "titulo": "LeetCode — Group Anagrams", "url": "https://leetcode.com/problems/group-anagrams/" }]
+            },
+            {
+              "id": "s2d3-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "SQLBolt: lições 1 a 12",
+              "descricao": "SELECT, filtros, ordenação, JOINs (INNER e LEFT), NULL e agregações. Para cada lição, escreva a consulta sem olhar a dica primeiro. Anote as dúvidas no Diário.",
+              "links": [{ "titulo": "SQLBolt", "url": "https://sqlbolt.com/" }],
+              "acao": { "rotulo": "Abrir o tópico SQL", "rota": "#/trilhas?trilha=nucleo&topico=nucleo-sql" }
+            },
+            {
+              "id": "s2d3-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "SQL II: modelagem, índices e transações",
+          "tarefas": [
+            {
+              "id": "s2d4-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Climbing Stairs",
+              "descricao": "De quantas formas se sobe n degraus dando 1 ou 2 passos? Escreva a recursão, veja por que ela explode (O(2ⁿ)) e resolva com memoização ou com duas variáveis (O(n)). **Padrão:** recursão → programação dinâmica.",
+              "links": [{ "titulo": "LeetCode — Climbing Stairs", "url": "https://leetcode.com/problems/climbing-stairs/" }]
+            },
+            {
+              "id": "s2d4-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Modelar o banco da biblioteca",
+              "descricao": "Escreva o `CREATE TABLE` de livros, autores (N:N com livros), membros e empréstimos, com PK, FK e restrições (`NOT NULL`, `UNIQUE`). Normalize até a 3FN, crie um índice justificável e escreva a transação de um empréstimo (`BEGIN` … `COMMIT`). Depois, faça as seções **Joins** e **Aggregates** do PostgreSQL Exercises.",
+              "links": [
+                { "titulo": "PostgreSQL Exercises", "url": "https://pgexercises.com/" },
+                { "titulo": "DB Fiddle", "url": "https://www.db-fiddle.com/" }
+              ]
+            },
+            {
+              "id": "s2d4-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Testes: da teoria à prática",
+          "tarefas": [
+            {
+              "id": "s2d5-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Maximum Depth of Binary Tree e Invert Binary Tree",
+              "descricao": "Dois clássicos de árvore com recursão: a profundidade é `1 + max(esquerda, direita)`; inverter é trocar os filhos recursivamente. **Padrão:** DFS recursiva.",
+              "links": [
+                { "titulo": "LeetCode — Maximum Depth of Binary Tree", "url": "https://leetcode.com/problems/maximum-depth-of-binary-tree/" },
+                { "titulo": "LeetCode — Invert Binary Tree", "url": "https://leetcode.com/problems/invert-binary-tree/" }
+              ]
+            },
+            {
+              "id": "s2d5-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Testar o domínio de pedidos (JUnit 5 + AssertJ) e uma função TS (Vitest)",
+              "descricao": "Escreva testes para o cálculo do pedido: caminho feliz, erros (item com quantidade 0, pedido vazio) e **valores limite**. Use AAA, nomes descritivos e `@ParameterizedTest`. Em TS, teste uma função de formatação de preço com Vitest. É o seu diferencial de QA — capriche.",
+              "links": [
+                { "titulo": "JUnit 5 — User Guide", "url": "https://docs.junit.org/5.14.0/user-guide/" },
+                { "titulo": "AssertJ", "url": "https://assertj.github.io/doc/" },
+                { "titulo": "Vitest", "url": "https://vitest.dev/guide/" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico Testes", "rota": "#/trilhas?trilha=nucleo&topico=nucleo-testes" }
+            },
+            {
+              "id": "s2d5-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Clean code e primeiro live coding",
+          "tarefas": [
+            {
+              "id": "s2d6-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Merge Intervals",
+              "descricao": "Junte intervalos sobrepostos. Ordene pelo início e percorra mesclando. O(n log n). **Padrão:** ordenação + varredura.",
+              "links": [{ "titulo": "LeetCode — Merge Intervals", "url": "https://leetcode.com/problems/merge-intervals/" }]
+            },
+            {
+              "id": "s2d6-est",
+              "tipo": "estudo",
+              "duracao": 40,
+              "titulo": "Refatorar o código do domínio de pedidos",
+              "descricao": "Revise o código dos dias 8 a 11 como se fosse um code review: nomes, funções longas, duplicação, números mágicos, exceções engolidas. Refatore com os testes rodando (eles são a sua rede de segurança).",
+              "acao": { "rotulo": "Abrir o tópico Clean code", "rota": "#/trilhas?trilha=nucleo&topico=nucleo-clean" }
+            },
+            {
+              "id": "s2d6-sim",
+              "tipo": "simulado",
+              "duracao": 40,
+              "titulo": "Simulado de live coding: agrupar e ranquear pedidos",
+              "descricao": "Cronometrado, pensando em voz alta (grave o áudio se puder). Primeiro entenda e dê exemplos, depois codifique, depois teste. No fim, autoavalie-se pelos critérios.",
+              "acao": { "rotulo": "Abrir o simulado", "rota": "#/simulado?desafio=live-algoritmo" }
+            },
+            {
+              "id": "s2d6-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards + diário da semana",
+              "acao": { "rotulo": "Abrir o diário", "rota": "#/diario" }
+            }
+          ]
+        },
+        {
+          "titulo": "Descanso ativo",
+          "tarefas": [
+            {
+              "id": "s2d7-desc",
+              "tipo": "descanso",
+              "duracao": 15,
+              "titulo": "Só a fila de flashcards (10–15 min)",
+              "descricao": "Opcional: um quiz misto de 10 questões para ver a evolução em relação ao diagnóstico.",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "numero": 3,
+      "fase": "Projetos",
+      "titulo": "Projeto front: Vue 3 + TypeScript consumindo API pública",
+      "objetivo": "Construir o **Guia de Municípios**, com Vue 3 + TS consumindo a API de localidades do IBGE (e feriados da BrasilAPI):\n- lista de estados com busca;\n- municípios por UF com paginação;\n- detalhes, favoritos (Pinia + localStorage), testes e README.\n\nCommits pequenos, todos os dias.",
+      "dias": [
+        {
+          "titulo": "Setup do projeto front",
+          "tarefas": [
+            {
+              "id": "s3d1-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Valid Palindrome",
+              "descricao": "Diga se uma frase é palíndromo ignorando o que não é letra ou número e as maiúsculas. Dois ponteiros vindo das pontas. **Padrão:** two pointers.",
+              "links": [{ "titulo": "LeetCode — Valid Palindrome", "url": "https://leetcode.com/problems/valid-palindrome/" }]
+            },
+            {
+              "id": "s3d1-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Criar o projeto e tipar a API",
+              "descricao": "`npm create vue@latest` com TypeScript, Router, Pinia, Vitest e ESLint/Prettier. Organize em `views/`, `components/`, `services/`, `stores/` e `types/`. Crie as interfaces `Estado` e `Municipio` a partir de respostas reais da API. Primeiro commit (`chore: setup do projeto`) e esqueleto do README.",
+              "links": [
+                { "titulo": "IBGE — API de localidades", "url": "https://servicodados.ibge.gov.br/api/docs/localidades" },
+                { "titulo": "Estados (JSON)", "url": "https://servicodados.ibge.gov.br/api/v1/localidades/estados" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico Vue Router, Pinia e Vite", "rota": "#/trilhas?trilha=front&topico=front-ecossistema" }
+            },
+            {
+              "id": "s3d1-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Listagem com estados de tela",
+          "tarefas": [
+            {
+              "id": "s3d2-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Move Zeroes",
+              "descricao": "Mova todos os zeros para o fim mantendo a ordem dos demais, **no lugar**. Um ponteiro de escrita e um de leitura. **Padrão:** two pointers in-place.",
+              "links": [{ "titulo": "LeetCode — Move Zeroes", "url": "https://leetcode.com/problems/move-zeroes/" }]
+            },
+            {
+              "id": "s3d2-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Serviço tipado + tela de estados",
+              "descricao": "Crie `services/ibge.ts` com `fetch` tipado, checando `response.ok` e lançando um erro amigável. Na tela de estados, trate os **4 estados**: carregando, erro (com botão \"tentar de novo\"), vazio e sucesso. Componente `CardEstado` com props tipadas.",
+              "acao": { "rotulo": "Abrir o tópico Consumo de APIs", "rota": "#/trilhas?trilha=front&topico=front-api" }
+            },
+            {
+              "id": "s3d2-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Rotas, busca e paginação",
+          "tarefas": [
+            {
+              "id": "s3d3-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Longest Substring Without Repeating Characters",
+              "descricao": "Maior substring sem caracteres repetidos. Janela deslizante com um Set (ou mapa de última posição). O(n). **Padrão:** sliding window.",
+              "links": [{ "titulo": "LeetCode — Longest Substring Without Repeating Characters", "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/" }]
+            },
+            {
+              "id": "s3d3-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Rota /uf/:sigla com busca e paginação",
+              "descricao": "Liste os municípios da UF escolhida (`/localidades/estados/{UF}/municipios`). Busca com **debounce** (300 ms), paginação no cliente (20 por página) e filtros refletidos na URL (`?busca=&pagina=`), para que recarregar a página mantenha o estado.",
+              "links": [{ "titulo": "Municípios de SP (JSON)", "url": "https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/municipios" }]
+            },
+            {
+              "id": "s3d3-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Estado global e detalhes",
+          "tarefas": [
+            {
+              "id": "s3d4-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Product of Array Except Self",
+              "descricao": "Para cada posição, o produto de todos os outros elementos, sem divisão e em O(n). Produtos de prefixo e de sufixo. **Padrão:** prefix/suffix.",
+              "links": [{ "titulo": "LeetCode — Product of Array Except Self", "url": "https://leetcode.com/problems/product-of-array-except-self/" }]
+            },
+            {
+              "id": "s3d4-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Detalhe do município, favoritos e feriados",
+              "descricao": "Página `/municipio/:id` com micro e mesorregião. Store Pinia de favoritos persistida no `localStorage` (use `storeToRefs` nos componentes). Uma página extra com os feriados nacionais do ano, vindos da BrasilAPI (`/api/feriados/v1/{ano}`).",
+              "links": [{ "titulo": "BrasilAPI — documentação", "url": "https://brasilapi.com.br/docs" }]
+            },
+            {
+              "id": "s3d4-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Testes e acessibilidade",
+          "tarefas": [
+            {
+              "id": "s3d5-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Min Stack",
+              "descricao": "Projete uma pilha com `push`, `pop`, `top` e `getMin` em O(1). Guarde o mínimo junto de cada elemento (ou numa segunda pilha). **Padrão:** design de estrutura.",
+              "links": [{ "titulo": "LeetCode — Min Stack", "url": "https://leetcode.com/problems/min-stack/" }]
+            },
+            {
+              "id": "s3d5-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Testes (Vitest + Vue Test Utils) e acessibilidade",
+              "descricao": "Teste o `CardEstado` (props e evento), a store de favoritos e o serviço com `fetch` mockado (sucesso **e** erro). Depois rode o Lighthouse: labels, foco visível, contraste, `alt`. Confira o layout em 320px.",
+              "links": [
+                { "titulo": "Vue Test Utils", "url": "https://test-utils.vuejs.org/guide/" },
+                { "titulo": "Vue — Guia de testes", "url": "https://vuejs.org/guide/scaling-up/testing.html" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico Testes no front", "rota": "#/trilhas?trilha=front&topico=front-testes" }
+            },
+            {
+              "id": "s3d5-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Polimento, README e autoavaliação",
+          "tarefas": [
+            {
+              "id": "s3d6-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Number of Islands",
+              "descricao": "Conte as ilhas (grupos de 1 conectados) numa grade. Para cada 1 não visitado, faça BFS ou DFS marcando os vizinhos. **Padrão:** busca em grafo/grade.",
+              "links": [{ "titulo": "LeetCode — Number of Islands", "url": "https://leetcode.com/problems/number-of-islands/" }]
+            },
+            {
+              "id": "s3d6-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "README completo e revisão do projeto",
+              "descricao": "README com: sobre, stack, **como rodar** (teste num clone limpo!), como rodar os testes, decisões técnicas e \"o que eu faria com mais tempo\". Revise o histórico de commits. Depois, abra o desafio **Catálogo de Pokémon** na página Simulado e avalie seu projeto pelos critérios dele (sem cronômetro).",
+              "acao": { "rotulo": "Ver os critérios de um desafio de front", "rota": "#/simulado?desafio=front-catalogo" }
+            },
+            {
+              "id": "s3d6-quiz",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Quiz de Vue (treino)",
+              "acao": { "rotulo": "Abrir quiz de Vue", "rota": "#/quiz?tema=vue&modo=treino&qtd=10" }
+            },
+            {
+              "id": "s3d6-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards + diário da semana",
+              "acao": { "rotulo": "Abrir o diário", "rota": "#/diario" }
+            }
+          ]
+        },
+        {
+          "titulo": "Descanso ativo",
+          "tarefas": [
+            {
+              "id": "s3d7-desc",
+              "tipo": "descanso",
+              "duracao": 15,
+              "titulo": "Só a fila de flashcards (10–15 min)",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "numero": 4,
+      "fase": "Projetos",
+      "titulo": "Projeto back: API REST com Spring Boot",
+      "objetivo": "Construir a **API da Biblioteca** que você desenhou no dia 5, com Java 21, Spring Boot 3, PostgreSQL e Flyway:\n- livros, membros e empréstimos;\n- validação, erros com `ProblemDetail` e regras de negócio com `@Transactional`;\n- testes (JUnit 5, Mockito, AssertJ, MockMvc, Testcontainers) e Swagger.\n\nNo sábado, uma telinha Vue consumindo a própria API (fullstack).",
+      "dias": [
+        {
+          "titulo": "Setup da API",
+          "tarefas": [
+            {
+              "id": "s4d1-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Reverse Linked List",
+              "descricao": "Inverta uma lista ligada — versão iterativa (três ponteiros) e recursiva. **Padrão:** manipulação de ponteiros.",
+              "links": [{ "titulo": "LeetCode — Reverse Linked List", "url": "https://leetcode.com/problems/reverse-linked-list/" }]
+            },
+            {
+              "id": "s4d1-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Spring Initializr, PostgreSQL e CRUD de livros",
+              "descricao": "Gere o projeto (Java 21, Maven, Web, Data JPA, Validation, PostgreSQL, Flyway, Actuator). Suba o Postgres com `docker compose`. Crie a migration `V1__criar_livros.sql` e deixe `spring.jpa.hibernate.ddl-auto=validate`. Implemente o CRUD de livros com DTOs em `record`.",
+              "links": [
+                { "titulo": "Spring Initializr", "url": "https://start.spring.io/" },
+                { "titulo": "Accessing Data with JPA", "url": "https://spring.io/guides/gs/accessing-data-jpa/" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico Persistência", "rota": "#/trilhas?trilha=back&topico=back-jpa" }
+            },
+            {
+              "id": "s4d1-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Validação e tratamento de erros",
+          "tarefas": [
+            {
+              "id": "s4d2-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Linked List Cycle",
+              "descricao": "Descubra se uma lista ligada tem ciclo. Tartaruga e lebre (Floyd): um ponteiro anda 1, outro anda 2; se se encontrarem, há ciclo. O(1) de memória. **Padrão:** fast & slow pointers.",
+              "links": [{ "titulo": "LeetCode — Linked List Cycle", "url": "https://leetcode.com/problems/linked-list-cycle/" }]
+            },
+            {
+              "id": "s4d2-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Bean Validation, ProblemDetail e status corretos",
+              "descricao": "Valide os DTOs (`@Valid`, `@NotBlank`, `@Positive`, `@Size`). Centralize os erros num `@RestControllerAdvice` devolvendo `ProblemDetail`. Garanta 201 + `Location` no POST, 204 no DELETE e 404 para id inexistente. Teste tudo com `curl -i` ou Insomnia.",
+              "links": [
+                { "titulo": "Validating Form Input", "url": "https://spring.io/guides/gs/validating-form-input/" },
+                { "titulo": "Building REST services with Spring", "url": "https://spring.io/guides/tutorials/rest/" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico APIs REST", "rota": "#/trilhas?trilha=back&topico=back-rest" }
+            },
+            {
+              "id": "s4d2-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Relacionamentos e regras de negócio",
+          "tarefas": [
+            {
+              "id": "s4d3-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Top K Frequent Elements",
+              "descricao": "Os k elementos mais frequentes. Conte com HashMap e depois use um heap de tamanho k (ou buckets por frequência, O(n)). **Padrão:** hash + heap.",
+              "links": [{ "titulo": "LeetCode — Top K Frequent Elements", "url": "https://leetcode.com/problems/top-k-frequent-elements/" }]
+            },
+            {
+              "id": "s4d3-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Membros, empréstimos e regras com @Transactional",
+              "descricao": "Crie `Membro` e `Emprestimo` (`@ManyToOne`) com as migrations. Regras no **service**:\n- no máximo 3 empréstimos ativos por membro;\n- livro indisponível → 409;\n- devolução calcula multa por atraso.\n\nUse `@Transactional` e pagine `GET /livros` com `Pageable`.",
+              "acao": { "rotulo": "Abrir o tópico Arquitetura", "rota": "#/trilhas?trilha=back&topico=back-arquitetura" }
+            },
+            {
+              "id": "s4d3-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Testes da API",
+          "tarefas": [
+            {
+              "id": "s4d4-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Kth Largest Element in an Array",
+              "descricao": "O k-ésimo maior elemento. Em Java, `PriorityQueue` (min-heap) de tamanho k: O(n log k). Compare com ordenar (O(n log n)). **Padrão:** heap.",
+              "links": [{ "titulo": "LeetCode — Kth Largest Element in an Array", "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/" }]
+            },
+            {
+              "id": "s4d4-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Unitários, MockMvc e Testcontainers",
+              "descricao": "Testes unitários do service de empréstimos (JUnit 5 + Mockito + AssertJ) cobrindo **cada regra e cada erro**. `@WebMvcTest` + MockMvc para status e validação do controller. Um teste de integração com PostgreSQL real via Testcontainers.",
+              "links": [
+                { "titulo": "Testing the Web Layer", "url": "https://spring.io/guides/gs/testing-web/" },
+                { "titulo": "Testcontainers — Guias", "url": "https://testcontainers.com/guides/" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico Testes no back", "rota": "#/trilhas?trilha=back&topico=back-testes" }
+            },
+            {
+              "id": "s4d4-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Documentação, perfis e Docker",
+          "tarefas": [
+            {
+              "id": "s4d5-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Daily Temperatures",
+              "descricao": "Para cada dia, quantos dias até uma temperatura maior. Pilha de índices em ordem decrescente de temperatura. O(n). **Padrão:** pilha monotônica.",
+              "links": [{ "titulo": "LeetCode — Daily Temperatures", "url": "https://leetcode.com/problems/daily-temperatures/" }]
+            },
+            {
+              "id": "s4d5-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Swagger, profiles, Dockerfile e README",
+              "descricao": "Adicione o springdoc (Swagger UI), os profiles `dev`/`test` e um Dockerfile multi-stage. Faça o `docker compose up` subir API + banco. No README: como rodar, como testar, os endpoints e as decisões.",
+              "links": [
+                { "titulo": "springdoc-openapi", "url": "https://springdoc.org/" },
+                { "titulo": "Docker — Guia para Java", "url": "https://docs.docker.com/guides/java/" }
+              ],
+              "acao": { "rotulo": "Abrir o tópico Docker", "rota": "#/trilhas?trilha=back&topico=back-docker" }
+            },
+            {
+              "id": "s4d5-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Integração fullstack",
+          "tarefas": [
+            {
+              "id": "s4d6-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Validate Binary Search Tree",
+              "descricao": "Diga se uma árvore é BST válida. Passe o intervalo permitido (mín, máx) na recursão — comparar só com os filhos diretos é o erro clássico. **Padrão:** DFS com limites.",
+              "links": [{ "titulo": "LeetCode — Validate Binary Search Tree", "url": "https://leetcode.com/problems/validate-binary-search-tree/" }]
+            },
+            {
+              "id": "s4d6-proj",
+              "tipo": "projeto",
+              "duracao": 60,
+              "titulo": "Tela Vue consumindo a sua API",
+              "descricao": "Crie uma tela Vue que lista e cadastra livros na sua API. Configure o CORS no Spring para a origem do front e use `VITE_API_URL`. Mostre no front as mensagens de validação que vêm do `ProblemDetail`.",
+              "acao": { "rotulo": "Abrir o tópico Integração", "rota": "#/trilhas?trilha=fullstack&topico=full-integracao" }
+            },
+            {
+              "id": "s4d6-quiz",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Quiz de Spring e SQL (treino)",
+              "acao": { "rotulo": "Abrir quiz de Spring", "rota": "#/quiz?tema=spring&modo=treino&qtd=10" }
+            },
+            {
+              "id": "s4d6-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards + diário da semana",
+              "acao": { "rotulo": "Abrir o diário", "rota": "#/diario" }
+            }
+          ]
+        },
+        {
+          "titulo": "Descanso ativo",
+          "tarefas": [
+            {
+              "id": "s4d7-desc",
+              "tipo": "descanso",
+              "duracao": 15,
+              "titulo": "Só a fila de flashcards (10–15 min)",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "numero": 5,
+      "fase": "Simulados",
+      "titulo": "Simulados I: os formatos da prova",
+      "objetivo": "Treinar cada formato em condições reais: sem consulta a soluções, com tempo e no editor que você usaria. O ciclo é **simular → corrigir pelos critérios → reforçar os pontos fracos**. Se já souber o formato da sua prova, dê mais peso a ele.",
+      "dias": [
+        {
+          "titulo": "Prova teórica cronometrada",
+          "tarefas": [
+            {
+              "id": "s5d1-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Live coding: Roman to Integer (25 min, em voz alta)",
+              "descricao": "Converta um número romano para inteiro. Regra: se o símbolo atual é menor que o próximo, subtraia. Cronometre 25 min e **fale** o raciocínio o tempo todo, como numa entrevista.",
+              "links": [{ "titulo": "LeetCode — Roman to Integer", "url": "https://leetcode.com/problems/roman-to-integer/" }]
+            },
+            {
+              "id": "s5d1-sim",
+              "tipo": "simulado",
+              "duracao": 60,
+              "titulo": "Prova teórica: 20 questões mistas (modo prova) + revisão",
+              "descricao": "30 min de prova (1,5 min por questão), sem consulta. Depois, 30 min lendo as explicações e usando **Criar flashcards dos erros**. Compare com o diagnóstico do Dia 1.",
+              "acao": { "rotulo": "Abrir a prova teórica", "rota": "#/quiz?modo=prova&qtd=20&tema=misto" }
+            },
+            {
+              "id": "s5d1-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Simulado de SQL",
+          "tarefas": [
+            {
+              "id": "s5d2-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Longest Common Prefix",
+              "descricao": "Maior prefixo comum entre as strings de um array. Compare coluna a coluna, ou ordene e compare só a primeira com a última. **Padrão:** strings.",
+              "links": [{ "titulo": "LeetCode — Longest Common Prefix", "url": "https://leetcode.com/problems/longest-common-prefix/" }]
+            },
+            {
+              "id": "s5d2-sim",
+              "tipo": "simulado",
+              "duracao": 60,
+              "titulo": "Simulado: consultas SQL de um e-commerce",
+              "descricao": "Monte o schema do enunciado no DB Fiddle e responda as perguntas no tempo. Só abra o gabarito depois da autoavaliação.",
+              "acao": { "rotulo": "Abrir o simulado de SQL", "rota": "#/simulado?desafio=sql-ecommerce" }
+            },
+            {
+              "id": "s5d2-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Simulado de front (90 min)",
+          "tarefas": [
+            {
+              "id": "s5d3-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Happy Number",
+              "descricao": "Um número é \"feliz\" se, somando os quadrados dos dígitos repetidamente, chega a 1. Detecte ciclos com um Set (ou fast/slow). **Padrão:** detecção de ciclo.",
+              "links": [{ "titulo": "LeetCode — Happy Number", "url": "https://leetcode.com/problems/happy-number/" }]
+            },
+            {
+              "id": "s5d3-sim",
+              "tipo": "simulado",
+              "duracao": 90,
+              "titulo": "Simulado: Buscador de CEP com histórico",
+              "descricao": "Leia tudo, planeje 5 min e entregue o **núcleo funcionando + README** antes dos diferenciais. Commits pequenos durante o simulado.",
+              "acao": { "rotulo": "Abrir o simulado de front", "rota": "#/simulado?desafio=front-cep" }
+            },
+            {
+              "id": "s5d3-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Revisão pós-simulado",
+          "tarefas": [
+            {
+              "id": "s5d4-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "3Sum",
+              "descricao": "Todos os trios distintos que somam zero. Ordene e, para cada elemento, use dois ponteiros no restante, pulando os repetidos. O(n²). **Padrão:** ordenação + two pointers.",
+              "links": [{ "titulo": "LeetCode — 3Sum", "url": "https://leetcode.com/problems/3sum/" }]
+            },
+            {
+              "id": "s5d4-est",
+              "tipo": "revisao",
+              "duracao": 60,
+              "titulo": "Corrigir o Buscador de CEP pelos critérios",
+              "descricao": "Veja os critérios que você **não** marcou na autoavaliação de ontem e resolva um por um: testes que faltaram, tratamento de erro, acessibilidade, README. Esta é a prática deliberada: feedback → correção focada.",
+              "acao": { "rotulo": "Ver o histórico de simulados", "rota": "#/simulado" }
+            },
+            {
+              "id": "s5d4-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Java puro cronometrado",
+          "tarefas": [
+            {
+              "id": "s5d5-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Evaluate Reverse Polish Notation",
+              "descricao": "Avalie uma expressão em notação polonesa reversa (`[\"2\",\"1\",\"+\",\"3\",\"*\"]` → 9). Empilhe números; ao ver um operador, desempilhe dois e empilhe o resultado. **Padrão:** pilha.",
+              "links": [{ "titulo": "LeetCode — Evaluate Reverse Polish Notation", "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/" }]
+            },
+            {
+              "id": "s5d5-sim",
+              "tipo": "simulado",
+              "duracao": 90,
+              "titulo": "Simulado: relatório de vendas a partir de CSV (Java puro)",
+              "descricao": "Sem framework: leitura de arquivo, Streams, tratamento de linhas inválidas e testes JUnit 5.",
+              "acao": { "rotulo": "Abrir o simulado", "rota": "#/simulado?desafio=back-csv" }
+            },
+            {
+              "id": "s5d5-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Simulado longo de back-end",
+          "tarefas": [
+            {
+              "id": "s5d6-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Refazer 2 problemas que você errou (sem olhar a solução)",
+              "descricao": "Escolha dois problemas das semanas 1 a 4 em que travou. Refazer depois de alguns dias (espaçamento) mostra se você aprendeu o padrão ou só lembrava da resposta."
+            },
+            {
+              "id": "s5d6-sim",
+              "tipo": "simulado",
+              "duracao": 150,
+              "titulo": "Simulado: API de transações e estatísticas (estilo vaga júnior)",
+              "descricao": "Siga os nomes de endpoints e campos **exatamente** como pedido e teste também os casos de erro — é assim que avaliadores reais corrigem.",
+              "acao": { "rotulo": "Abrir o simulado de back", "rota": "#/simulado?desafio=back-transacoes" }
+            },
+            {
+              "id": "s5d6-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards + diário da semana",
+              "acao": { "rotulo": "Abrir o diário", "rota": "#/diario" }
+            }
+          ]
+        },
+        {
+          "titulo": "Descanso ativo",
+          "tarefas": [
+            {
+              "id": "s5d7-desc",
+              "tipo": "descanso",
+              "duracao": 15,
+              "titulo": "Só a fila de flashcards (10–15 min)",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "numero": 6,
+      "fase": "Simulados",
+      "titulo": "Simulados II e reta final",
+      "objetivo": "Entrevista e code review, segunda prova teórica, foco nos pontos fracos e um simulado final completo. Na última semana, **não comece assuntos novos**: consolide.",
+      "dias": [
+        {
+          "titulo": "Code review e entrevista técnica",
+          "tarefas": [
+            {
+              "id": "s6d1-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Container With Most Water",
+              "descricao": "Duas linhas que formam o recipiente com mais água. Dois ponteiros nas pontas; mova sempre o menor. O(n). **Padrão:** two pointers.",
+              "links": [{ "titulo": "LeetCode — Container With Most Water", "url": "https://leetcode.com/problems/container-with-most-water/" }]
+            },
+            {
+              "id": "s6d1-sim",
+              "tipo": "simulado",
+              "duracao": 40,
+              "titulo": "Simulado: code review — encontre os problemas",
+              "descricao": "Liste os problemas, o impacto de cada um e como corrigir, com a gentileza de um bom revisor.",
+              "acao": { "rotulo": "Abrir o simulado de code review", "rota": "#/simulado?desafio=review-codigo" }
+            },
+            {
+              "id": "s6d1-ent",
+              "tipo": "estudo",
+              "duracao": 30,
+              "titulo": "Entrevista simulada e histórias STAR",
+              "descricao": "Use 10 flashcards de Java, Spring e HTTP como perguntas de entrevista e responda **em voz alta** antes de revelar. Depois escreva 3 histórias do estágio no método STAR (Situação, Tarefa, Ação, Resultado).",
+              "acao": { "rotulo": "Abrir o tópico Entrevista técnica", "rota": "#/trilhas?trilha=fullstack&topico=full-comunicacao" }
+            },
+            {
+              "id": "s6d1-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Live coding com TDD",
+          "tarefas": [
+            {
+              "id": "s6d2-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Binary Tree Level Order Traversal",
+              "descricao": "Percorra a árvore nível por nível. Fila com o tamanho do nível atual. **Padrão:** BFS.",
+              "links": [{ "titulo": "LeetCode — Binary Tree Level Order Traversal", "url": "https://leetcode.com/problems/binary-tree-level-order-traversal/" }]
+            },
+            {
+              "id": "s6d2-sim",
+              "tipo": "simulado",
+              "duracao": 45,
+              "titulo": "Simulado: validador de senha com TDD",
+              "descricao": "Teste primeiro, depois o código mínimo, depois refatore — em voz alta, como num pair programming.",
+              "acao": { "rotulo": "Abrir o simulado de live coding", "rota": "#/simulado?desafio=live-senha" }
+            },
+            {
+              "id": "s6d2-pos",
+              "tipo": "revisao",
+              "duracao": 30,
+              "titulo": "Corrigir a API de transações pelos critérios",
+              "descricao": "Volte ao simulado de sábado e resolva os critérios não atendidos (testes de erro, status, README).",
+              "acao": { "rotulo": "Ver o histórico de simulados", "rota": "#/simulado" }
+            },
+            {
+              "id": "s6d2-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Prova teórica 2",
+          "tarefas": [
+            {
+              "id": "s6d3-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Search Insert Position",
+              "descricao": "Posição de um alvo num array ordenado (ou onde ele seria inserido) em O(log n). Busca binária retornando `inicio` no fim do laço. **Padrão:** variação de busca binária.",
+              "links": [{ "titulo": "LeetCode — Search Insert Position", "url": "https://leetcode.com/problems/search-insert-position/" }]
+            },
+            {
+              "id": "s6d3-sim",
+              "tipo": "simulado",
+              "duracao": 60,
+              "titulo": "Prova teórica: 30 questões mistas (modo prova) + revisão",
+              "descricao": "45 min de prova, sem consulta, e 15 min revisando os erros. Compare com as duas provas anteriores no histórico do quiz.",
+              "acao": { "rotulo": "Abrir a prova teórica", "rota": "#/quiz?modo=prova&qtd=30&tema=misto" }
+            },
+            {
+              "id": "s6d3-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Ataque aos pontos fracos",
+          "tarefas": [
+            {
+              "id": "s6d4-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Rotate Array",
+              "descricao": "Rotacione o array k posições para a direita, no lugar. Truque: inverta tudo, depois as duas partes. Lembre de `k % n`. **Padrão:** manipulação de array.",
+              "links": [{ "titulo": "LeetCode — Rotate Array", "url": "https://leetcode.com/problems/rotate-array/" }]
+            },
+            {
+              "id": "s6d4-est",
+              "tipo": "estudo",
+              "duracao": 60,
+              "titulo": "Os 2 temas mais fracos do quiz",
+              "descricao": "No Painel, veja os pontos fracos. Para cada um dos 2 piores:\n- quiz do tema (treino);\n- flashcards filtrados pelo tema;\n- releia o tópico da trilha e refaça os itens do checklist.",
+              "acao": { "rotulo": "Ver pontos fracos no Painel", "rota": "#/dashboard" }
+            },
+            {
+              "id": "s6d4-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Flashcards: fila do dia",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Live coding final e preparo do ambiente",
+          "tarefas": [
+            {
+              "id": "s6d5-alg",
+              "tipo": "algoritmo",
+              "duracao": 30,
+              "titulo": "Live coding surpresa: Majority Element",
+              "descricao": "Problema novo em 25 min, em voz alta. Encontre o elemento que aparece mais de n/2 vezes. Comece com HashMap (O(n) de memória) e, se der tempo, mostre o Boyer-Moore (O(1) de memória).",
+              "links": [{ "titulo": "LeetCode — Majority Element", "url": "https://leetcode.com/problems/majority-element/" }]
+            },
+            {
+              "id": "s6d5-est",
+              "tipo": "estudo",
+              "duracao": 45,
+              "titulo": "Preparar o ambiente da prova",
+              "descricao": "Deixe tudo pronto para não perder tempo no dia:\n- JDK 21, Maven, Node e Docker funcionando;\n- IDE configurada;\n- projetos-base prontos (Vue com Router/Pinia/Vitest e Spring com Web/JPA/Validation/Flyway);\n- um checklist de README.\n\nFaça um `git clone` limpo e rode os dois."
+            },
+            {
+              "id": "s6d5-rev",
+              "tipo": "revisao",
+              "duracao": 20,
+              "titulo": "Flashcards: fila do dia + cartões atrasados",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            }
+          ]
+        },
+        {
+          "titulo": "Simulado final completo",
+          "tarefas": [
+            {
+              "id": "s6d6-aq",
+              "tipo": "algoritmo",
+              "duracao": 15,
+              "titulo": "Aquecimento: um problema que você já domina",
+              "descricao": "15 min, só para aquecer o raciocínio antes do simulado."
+            },
+            {
+              "id": "s6d6-sim",
+              "tipo": "simulado",
+              "duracao": 240,
+              "titulo": "Simulado final: clientes e contatos (fullstack)",
+              "descricao": "4 horas, condições reais. Se a sua prova for só de uma área, troque pelo desafio correspondente:\n- front: **Explorador de usuários do GitHub**;\n- back: **API de transferências simplificada**.\n\nNo fim, autoavaliação honesta e diário.",
+              "acao": { "rotulo": "Abrir o simulado final", "rota": "#/simulado?desafio=full-contatos" }
+            },
+            {
+              "id": "s6d6-rev",
+              "tipo": "revisao",
+              "duracao": 15,
+              "titulo": "Diário: o que levar para a prova",
+              "descricao": "Anote os 3 aprendizados mais importantes das 6 semanas e os cuidados para o dia da prova.",
+              "acao": { "rotulo": "Abrir o diário", "rota": "#/diario" }
+            }
+          ]
+        },
+        {
+          "titulo": "Descanso e checklist do dia da prova",
+          "tarefas": [
+            {
+              "id": "s6d7-desc",
+              "tipo": "descanso",
+              "duracao": 15,
+              "titulo": "Descanso ativo: só a fila de flashcards",
+              "acao": { "rotulo": "Abrir flashcards", "rota": "#/flashcards" }
+            },
+            {
+              "id": "s6d7-check",
+              "tipo": "descanso",
+              "duracao": 10,
+              "titulo": "Checklist do dia da prova",
+              "descricao": "- Durma bem; a revisão da véspera deve ser leve.\n- Leia o enunciado **inteiro** duas vezes antes de codar e anote dúvidas; pergunte se puder.\n- Siga nomes de rotas, campos e instruções de entrega à risca.\n- Entregue primeiro o núcleo funcionando + README; depois os diferenciais.\n- Commits pequenos e frequentes.\n- No live coding: pense em voz alta e aceite as dicas.\n- Se travar: explique o que tentaria e siga. Entregar incompleto com explicação é melhor que não entregar."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="524" viewBox="0 0 880 524" role="img" aria-labelledby="titulo desc">
+<title id="titulo">138 links gratuitos em 14 categorias</title>
+<desc id="desc">Front-end (HTML, CSS, JS, TS): 17; Roadmaps e trilhas: 14; Spring: 13; HTTP, REST e APIs públicas: 13; Vue e ecossistema: 11; Testes: 11; Prática de algoritmos: 10; Desafios técnicos reais: 10; Carreira e comunidade BR: 9; SQL e bancos de dados: 7; Git: 7; Java: 6; Clean code e arquitetura: 5; Docker e DevOps básico: 5.</desc>
+<style>
+svg{--bg:#ffffff;--bg2:#f3f3ef;--borda:#e1e0d9;--tinta:#111110;--tinta2:#4a4945;--suave:#676660;--grade:#e1e0d9;--base:#c3c2b7;--acento:#256abf;--acentoSuave:#e5eefa;--acentoTexto:#184f95;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#008300;--o1:#184f95;--o2:#3987e5;--o3:#86b6ef;--neutro:#c3c2b7}
+text{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;fill:var(--tinta)}
+.cartao{fill:var(--bg);stroke:var(--borda)}
+.t2{fill:var(--tinta2)} .suave{fill:var(--suave)} .acento{fill:var(--acento)}
+.titulo{font-size:17px;font-weight:650} .sub{font-size:13px;fill:var(--tinta2)} .rot{font-size:13px}
+.val{font-size:12.5px;font-variant-numeric:tabular-nums;fill:var(--tinta2)} .mini{font-size:12px;fill:var(--suave)}
+.grade{stroke:var(--grade);stroke-width:1} .base{stroke:var(--base);stroke-width:1}
+.s1{fill:var(--s1)} .s2{fill:var(--s2)} .s3{fill:var(--s3)} .s4{fill:var(--s4)} .s5{fill:var(--s5)} .s6{fill:var(--s6)}
+.o1{fill:var(--o1)} .o2{fill:var(--o2)} .o3{fill:var(--o3)} .neutro{fill:var(--neutro)}
+.bom{fill:#0ca30c} .critico{fill:#d03b3b} .aviso{fill:#fab219}
+.cresce{transform-box:fill-box;transform-origin:left center;animation:cresce .9s cubic-bezier(.2,.7,.2,1) both}
+.surge{animation:surge .6s ease-out both}
+@keyframes cresce{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes surge{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+<rect class="cartao" x="0.5" y="0.5" width="879" height="523" rx="16"/>
+
+<text class="titulo" x="24" y="38">138 links gratuitos em 14 categorias</text>
+<text class="sub" x="24" y="60">88 em inglês, 49 em português, 1 em português de Portugal — verificados em 23/09/2026.</text>
+<rect class="s1" x="24" y="74" width="12" height="12" rx="3"/><text class="rot t2" x="42" y="84">Inglês</text><rect class="s2" x="101.96000000000001" y="74" width="12" height="12" rx="3"/><text class="rot t2" x="119.96000000000001" y="84">Português</text><rect class="s3" x="204.36" y="74" width="12" height="12" rx="3"/><text class="rot t2" x="222.36" y="84">Português (PT)</text>
+<line class="grade" x1="250" y1="94" x2="250" y2="460"/><text class="mini" x="250" y="476" text-anchor="middle">0</text><line class="grade" x1="390" y1="94" x2="390" y2="460"/><text class="mini" x="390" y="476" text-anchor="middle">5</text><line class="grade" x1="530" y1="94" x2="530" y2="460"/><text class="mini" x="530" y="476" text-anchor="middle">10</text><line class="grade" x1="670" y1="94" x2="670" y2="460"/><text class="mini" x="670" y="476" text-anchor="middle">15</text><line class="grade" x1="810" y1="94" x2="810" y2="460"/><text class="mini" x="810" y="476" text-anchor="middle">20</text>
+<text class="rot" x="236" y="115" text-anchor="end">Front-end (HTML, CSS, JS, TS)</text><rect class="s1 cresce" x="250" y="103" width="138" height="14" rx="2" style="animation-delay:0ms"><title>Inglês: 5</title></rect><rect class="s2 cresce" x="390" y="103" width="334" height="14" rx="2" style="animation-delay:0ms"><title>Português: 12</title></rect><text class="val" x="732" y="115">17</text>
+<text class="rot" x="236" y="141" text-anchor="end">Roadmaps e trilhas</text><rect class="s1 cresce" x="250" y="129" width="334" height="14" rx="2" style="animation-delay:45ms"><title>Inglês: 12</title></rect><rect class="s2 cresce" x="586" y="129" width="54" height="14" rx="2" style="animation-delay:45ms"><title>Português: 2</title></rect><text class="val" x="648" y="141">14</text>
+<text class="rot" x="236" y="167" text-anchor="end">Spring</text><rect class="s1 cresce" x="250" y="155" width="362" height="14" rx="2" style="animation-delay:90ms"><title>Inglês: 13</title></rect><text class="val" x="620" y="167">13</text>
+<text class="rot" x="236" y="193" text-anchor="end">HTTP, REST e APIs públicas</text><rect class="s1 cresce" x="250" y="181" width="110" height="14" rx="2" style="animation-delay:135ms"><title>Inglês: 4</title></rect><rect class="s2 cresce" x="362" y="181" width="250" height="14" rx="2" style="animation-delay:135ms"><title>Português: 9</title></rect><text class="val" x="620" y="193">13</text>
+<text class="rot" x="236" y="219" text-anchor="end">Vue e ecossistema</text><rect class="s1 cresce" x="250" y="207" width="278" height="14" rx="2" style="animation-delay:180ms"><title>Inglês: 10</title></rect><rect class="s3 cresce" x="530" y="207" width="26" height="14" rx="2" style="animation-delay:180ms"><title>Português (PT): 1</title></rect><text class="val" x="564" y="219">11</text>
+<text class="rot" x="236" y="245" text-anchor="end">Testes</text><rect class="s1 cresce" x="250" y="233" width="306" height="14" rx="2" style="animation-delay:225ms"><title>Inglês: 11</title></rect><text class="val" x="564" y="245">11</text>
+<text class="rot" x="236" y="271" text-anchor="end">Prática de algoritmos</text><rect class="s1 cresce" x="250" y="259" width="250" height="14" rx="2" style="animation-delay:270ms"><title>Inglês: 9</title></rect><rect class="s2 cresce" x="502" y="259" width="26" height="14" rx="2" style="animation-delay:270ms"><title>Português: 1</title></rect><text class="val" x="536" y="271">10</text>
+<text class="rot" x="236" y="297" text-anchor="end">Desafios técnicos reais</text><rect class="s1 cresce" x="250" y="285" width="82" height="14" rx="2" style="animation-delay:315ms"><title>Inglês: 3</title></rect><rect class="s2 cresce" x="334" y="285" width="194" height="14" rx="2" style="animation-delay:315ms"><title>Português: 7</title></rect><text class="val" x="536" y="297">10</text>
+<text class="rot" x="236" y="323" text-anchor="end">Carreira e comunidade BR</text><rect class="s2 cresce" x="250" y="311" width="250" height="14" rx="2" style="animation-delay:360ms"><title>Português: 9</title></rect><text class="val" x="508" y="323">9</text>
+<text class="rot" x="236" y="349" text-anchor="end">SQL e bancos de dados</text><rect class="s1 cresce" x="250" y="337" width="166" height="14" rx="2" style="animation-delay:405ms"><title>Inglês: 6</title></rect><rect class="s2 cresce" x="418" y="337" width="26" height="14" rx="2" style="animation-delay:405ms"><title>Português: 1</title></rect><text class="val" x="452" y="349">7</text>
+<text class="rot" x="236" y="375" text-anchor="end">Git</text><rect class="s1 cresce" x="250" y="363" width="54" height="14" rx="2" style="animation-delay:450ms"><title>Inglês: 2</title></rect><rect class="s2 cresce" x="306" y="363" width="138" height="14" rx="2" style="animation-delay:450ms"><title>Português: 5</title></rect><text class="val" x="452" y="375">7</text>
+<text class="rot" x="236" y="401" text-anchor="end">Java</text><rect class="s1 cresce" x="250" y="389" width="138" height="14" rx="2" style="animation-delay:495ms"><title>Inglês: 5</title></rect><rect class="s2 cresce" x="390" y="389" width="26" height="14" rx="2" style="animation-delay:495ms"><title>Português: 1</title></rect><text class="val" x="424" y="401">6</text>
+<text class="rot" x="236" y="427" text-anchor="end">Clean code e arquitetura</text><rect class="s1 cresce" x="250" y="415" width="82" height="14" rx="2" style="animation-delay:540ms"><title>Inglês: 3</title></rect><rect class="s2 cresce" x="334" y="415" width="54" height="14" rx="2" style="animation-delay:540ms"><title>Português: 2</title></rect><text class="val" x="396" y="427">5</text>
+<text class="rot" x="236" y="453" text-anchor="end">Docker e DevOps básico</text><rect class="s1 cresce" x="250" y="441" width="138" height="14" rx="2" style="animation-delay:585ms"><title>Inglês: 5</title></rect><text class="val" x="396" y="453">5</text>
+<text class="mini" x="24" y="508">Fonte: data/recursos.json (links por categoria e campo &quot;idioma&quot;).</text>
+</svg>

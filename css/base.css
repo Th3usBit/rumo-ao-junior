@@ -1,0 +1,394 @@
+/* =========================================================
+   base.css — tokens de design (tema claro/escuro), reset,
+   tipografia, foco visível e utilitários.
+   ========================================================= */
+
+/* ---------- Tokens: tema claro (padrão) ---------- */
+:root {
+  color-scheme: light;
+
+  /* Superfícies */
+  --bg: #f4f4f1;
+  --surface: #ffffff;
+  --surface-2: #f3f3ef;
+  --surface-3: #e9e8e2;
+  --border: #e1e0d9;
+  --border-strong: #c3c2b7;
+  --sombra: 0 1px 2px rgba(17, 17, 16, 0.06), 0 2px 8px rgba(17, 17, 16, 0.04);
+  --sombra-alta: 0 12px 32px rgba(17, 17, 16, 0.16);
+
+  /* Texto */
+  --text: #111110;
+  --text-2: #4a4945;
+  --muted: #676660;
+
+  /* Destaque (azul) */
+  --accent: #256abf;          /* texto/links sobre superfícies claras */
+  --accent-bg: #256abf;       /* fundo de botão primário (texto branco) */
+  --accent-bg-hover: #1c5cab;
+  --accent-soft: #e5eefa;     /* fundo de item selecionado */
+  --accent-soft-text: #184f95;
+  --on-accent: #ffffff;
+
+  /* Gráficos (paleta validada — série 1 e trilho do medidor) */
+  --chart-1: #2a78d6;
+  --chart-track: #cde2fb;
+  --chart-grid: #e1e0d9;
+  --chart-base: #c3c2b7;
+
+  /* Status (sempre acompanhados de ícone + texto) */
+  --good: #0ca30c;
+  --good-text: #006300;
+  --good-soft: #e3f4e3;
+  --warning: #fab219;
+  --warning-text: #7a4f00;
+  --warning-soft: #fdf1d6;
+  --critical: #d03b3b;
+  --critical-text: #b0292b;
+  --critical-soft: #fbe6e6;
+
+  /* Sequência (ícone de chama) */
+  --streak: #eb6834;
+
+  /* Foco visível */
+  --foco: #256abf;
+
+  /* Tipografia */
+  --fonte: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fonte-mono: "Cascadia Code", "Cascadia Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+
+  /* Escalas */
+  --raio-p: 6px;
+  --raio: 10px;
+  --raio-g: 16px;
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 0.75rem;
+  --esp-4: 1rem;
+  --esp-5: 1.5rem;
+  --esp-6: 2rem;
+  --esp-7: 3rem;
+
+  --transicao: 160ms ease;
+  --largura-lateral: 248px;
+  --largura-conteudo: 1120px;
+}
+
+/* ---------- Tokens: tema escuro ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0f0f0e;
+    --surface: #1a1a19;
+    --surface-2: #222220;
+    --surface-3: #2c2c2a;
+    --border: #2f2f2c;
+    --border-strong: #4a4944;
+    --sombra: none;
+    --sombra-alta: 0 16px 40px rgba(0, 0, 0, 0.55);
+    --text: #f4f4f1;
+    --text-2: #c3c2b7;
+    --muted: #9c9a91;
+    --accent: #6da7ec;
+    --accent-bg: #256abf;
+    --accent-bg-hover: #1c5cab;
+    --accent-soft: #16263d;
+    --accent-soft-text: #9ec5f4;
+    --on-accent: #ffffff;
+    --chart-1: #3987e5;
+    --chart-track: #1b3150;
+    --chart-grid: #2c2c2a;
+    --chart-base: #383835;
+    --good: #0ca30c;
+    --good-text: #3bbf3b;
+    --good-soft: #13280f;
+    --warning: #fab219;
+    --warning-text: #fab219;
+    --warning-soft: #2e2410;
+    --critical: #d03b3b;
+    --critical-text: #ef7b7b;
+    --critical-soft: #331616;
+    --streak: #f07a45;
+    --foco: #9ec5f4;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f0f0e;
+  --surface: #1a1a19;
+  --surface-2: #222220;
+  --surface-3: #2c2c2a;
+  --border: #2f2f2c;
+  --border-strong: #4a4944;
+  --sombra: none;
+  --sombra-alta: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --text: #f4f4f1;
+  --text-2: #c3c2b7;
+  --muted: #9c9a91;
+  --accent: #6da7ec;
+  --accent-bg: #256abf;
+  --accent-bg-hover: #1c5cab;
+  --accent-soft: #16263d;
+  --accent-soft-text: #9ec5f4;
+  --on-accent: #ffffff;
+  --chart-1: #3987e5;
+  --chart-track: #1b3150;
+  --chart-grid: #2c2c2a;
+  --chart-base: #383835;
+  --good: #0ca30c;
+  --good-text: #3bbf3b;
+  --good-soft: #13280f;
+  --warning: #fab219;
+  --warning-text: #fab219;
+  --warning-soft: #2e2410;
+  --critical: #d03b3b;
+  --critical-text: #ef7b7b;
+  --critical-soft: #331616;
+  --streak: #f07a45;
+  --foco: #9ec5f4;
+}
+
+/* ---------- Reset leve ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--fonte);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+svg {
+  flex-shrink: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  line-height: 1.25;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(1.5rem, 1.2rem + 1vw, 1.95rem); }
+h2 { font-size: 1.2rem; }
+h3 { font-size: 1.05rem; }
+h4 { font-size: 0.95rem; }
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* ---------- Foco visível ---------- */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Títulos que recebem foco por script ao trocar de página (tabindex="-1")
+   não são interativos: o leitor de tela anuncia, mas não precisam de contorno. */
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible {
+  outline: none;
+}
+
+/* ---------- Código ---------- */
+code,
+kbd,
+pre {
+  font-family: var(--fonte-mono);
+  font-size: 0.9em;
+}
+
+:not(pre) > code {
+  background: var(--surface-3);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+
+pre.codigo {
+  position: relative;
+  max-width: 100%;
+  margin: var(--esp-3) 0;
+  padding: var(--esp-4);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--raio);
+  overflow-x: auto;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  tab-size: 2;
+}
+
+pre.codigo[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.35rem;
+  right: 0.6rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--fonte);
+}
+
+kbd {
+  display: inline-block;
+  padding: 0.05em 0.4em;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface);
+  font-size: 0.78em;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+
+/* Conteúdo vindo do mini-markdown */
+.md > * + * {
+  margin-top: var(--esp-2);
+}
+
+.md ul {
+  display: grid;
+  gap: 0.2rem;
+}
+
+/* ---------- Utilitários ---------- */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.muted { color: var(--muted); }
+.texto-2 { color: var(--text-2); }
+.pequeno { font-size: 0.875rem; }
+.mini { font-size: 0.8rem; }
+.negrito { font-weight: 650; }
+.numeros { font-variant-numeric: tabular-nums; }
+.centro { text-align: center; }
+.quebra { overflow-wrap: anywhere; }
+
+.pilha { display: grid; gap: var(--esp-4); grid-template-columns: minmax(0, 1fr); }
+.pilha-p { display: grid; gap: var(--esp-2); grid-template-columns: minmax(0, 1fr); }
+.pilha-g { display: grid; gap: var(--esp-5); grid-template-columns: minmax(0, 1fr); }
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-2);
+}
+
+.linha-g {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-4);
+}
+
+.entre {
+  justify-content: space-between;
+}
+
+.cresce { flex: 1 1 auto; min-width: 0; }
+
+.grade-2,
+.grade-3,
+.grade-4 {
+  display: grid;
+  gap: var(--esp-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 720px) {
+  .grade-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grade-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grade-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1100px) {
+  .grade-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grade-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* ---------- Movimento reduzido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

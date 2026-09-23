@@ -1,0 +1,188 @@
+{
+  "painel-visao-geral": {
+    "largura": 1280,
+    "altura": 800,
+    "escala": 1.5,
+    "kb": 133
+  },
+  "painel-detalhes": {
+    "largura": 1024,
+    "altura": 723,
+    "escala": 1.5,
+    "kb": 90
+  },
+  "painel-comecar": {
+    "largura": 1024,
+    "altura": 372,
+    "escala": 1.5,
+    "kb": 62
+  },
+  "trilhas": {
+    "largura": 1024,
+    "altura": 1214,
+    "escala": 1.5,
+    "kb": 174
+  },
+  "cronograma-topo": {
+    "largura": 1024,
+    "altura": 367,
+    "escala": 1.5,
+    "kb": 51
+  },
+  "cronograma-dia": {
+    "largura": 1024,
+    "altura": 688,
+    "escala": 1.5,
+    "kb": 92
+  },
+  "flashcards-pergunta": {
+    "largura": 1024,
+    "altura": 780,
+    "escala": 1.5,
+    "kb": 91
+  },
+  "flashcards-resposta": {
+    "largura": 1024,
+    "altura": 545,
+    "escala": 1.5,
+    "kb": 76
+  },
+  "flashcards-lista": {
+    "largura": 1024,
+    "altura": 577,
+    "escala": 1.5,
+    "kb": 94
+  },
+  "flashcards-novo": {
+    "largura": 632,
+    "altura": 686,
+    "escala": 1.5,
+    "kb": 57
+  },
+  "quiz-configurar": {
+    "largura": 1024,
+    "altura": 431,
+    "escala": 1.5,
+    "kb": 46
+  },
+  "quiz-desempenho": {
+    "largura": 1024,
+    "altura": 654,
+    "escala": 1.5,
+    "kb": 72
+  },
+  "quiz-correcao": {
+    "largura": 1024,
+    "altura": 713,
+    "escala": 1.5,
+    "kb": 97
+  },
+  "quiz-prova": {
+    "largura": 1024,
+    "altura": 652,
+    "escala": 1.5,
+    "kb": 56
+  },
+  "quiz-resultado": {
+    "largura": 1024,
+    "altura": 579,
+    "escala": 1.5,
+    "kb": 57
+  },
+  "simulado-lista": {
+    "largura": 1024,
+    "altura": 412,
+    "escala": 1.5,
+    "kb": 95
+  },
+  "simulado-desafio": {
+    "largura": 974,
+    "altura": 999,
+    "escala": 1.5,
+    "kb": 199
+  },
+  "simulado-iniciar": {
+    "largura": 1024,
+    "altura": 273,
+    "escala": 1.5,
+    "kb": 30
+  },
+  "simulado-rodando": {
+    "largura": 1280,
+    "altura": 960,
+    "escala": 1.5,
+    "kb": 193
+  },
+  "simulado-avaliacao": {
+    "largura": 974,
+    "altura": 1171,
+    "escala": 1.5,
+    "kb": 209
+  },
+  "pomodoro": {
+    "largura": 1024,
+    "altura": 664,
+    "escala": 1.5,
+    "kb": 59
+  },
+  "pomodoro-registro": {
+    "largura": 1024,
+    "altura": 547,
+    "escala": 1.5,
+    "kb": 63
+  },
+  "diario": {
+    "largura": 1024,
+    "altura": 1050,
+    "escala": 1.5,
+    "kb": 97
+  },
+  "recursos": {
+    "largura": 1024,
+    "altura": 458,
+    "escala": 1.5,
+    "kb": 79
+  },
+  "ajustes": {
+    "largura": 1024,
+    "altura": 785,
+    "escala": 1.5,
+    "kb": 92
+  },
+  "ajustes-dados": {
+    "largura": 1024,
+    "altura": 757,
+    "escala": 1.5,
+    "kb": 68
+  },
+  "celular-painel": {
+    "largura": 390,
+    "altura": 844,
+    "escala": 2,
+    "kb": 60
+  },
+  "celular-menu": {
+    "largura": 390,
+    "altura": 844,
+    "escala": 2,
+    "kb": 36
+  },
+  "tema-escuro": {
+    "largura": 1280,
+    "altura": 800,
+    "escala": 1.5,
+    "kb": 137
+  },
+  "erro-json": {
+    "largura": 1008,
+    "altura": 148,
+    "escala": 1.5,
+    "kb": 27
+  },
+  "aviso-file": {
+    "largura": 1008,
+    "altura": 302,
+    "escala": 1.5,
+    "kb": 54
+  }
+}

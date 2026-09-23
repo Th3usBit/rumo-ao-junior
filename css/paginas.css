@@ -1,0 +1,598 @@
+/* =========================================================
+   paginas.css — estilos específicos de cada página.
+   ========================================================= */
+
+/* ---------- Cronograma ---------- */
+.dias {
+  display: grid;
+  gap: var(--esp-3);
+}
+
+.dia {
+  display: grid;
+  gap: var(--esp-2);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.dia-hoje {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), var(--sombra);
+}
+
+.dia-cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--esp-2);
+}
+
+.tarefas {
+  gap: var(--esp-1);
+}
+
+.tarefa {
+  border-top: 1px solid var(--border);
+  padding-top: var(--esp-1);
+}
+
+.tarefa:first-child {
+  border-top: 0;
+}
+
+.tarefa-detalhes {
+  display: grid;
+  gap: var(--esp-2);
+  padding: 0 var(--esp-2) var(--esp-2) calc(1.25rem + var(--esp-3) + 0.5rem);
+}
+
+.tarefa.feita .tarefa-detalhes .md {
+  color: var(--muted);
+}
+
+/* ---------- Trilhas ---------- */
+.filtros .campo {
+  min-width: 12rem;
+}
+
+.topico > summary {
+  align-items: center;
+}
+
+.topico-resumo {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.topico-titulo {
+  font-size: 1rem;
+}
+
+.topico-medidor {
+  width: 7rem;
+  flex-shrink: 0;
+}
+
+.topico-grade h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+@media (max-width: 560px) {
+  .topico-medidor {
+    display: none;
+  }
+}
+
+/* ---------- Flashcards ---------- */
+.sessao-progresso {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: var(--esp-3);
+}
+
+.flashcard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--esp-4);
+  padding: var(--esp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--raio-g);
+  box-shadow: var(--sombra);
+  animation: aparecer 220ms ease;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.flashcard-face {
+  min-height: 7rem;
+  display: grid;
+  align-content: center;
+}
+
+.flashcard-pergunta {
+  font-size: 1.2rem;
+  font-weight: 550;
+  line-height: 1.5;
+}
+
+.flashcard-resposta {
+  padding: var(--esp-4);
+  border-radius: var(--raio);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  animation: aparecer 220ms ease;
+}
+
+.rotulo-resposta {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--esp-2);
+}
+
+.flashcard-acoes {
+  display: grid;
+  justify-items: center;
+  gap: var(--esp-3);
+  padding-top: var(--esp-2);
+}
+
+.avaliacao {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--esp-2);
+}
+
+.botao-nota {
+  flex-direction: column;
+  gap: 0.2rem;
+  min-height: 3.6rem;
+  white-space: normal;
+  border-top-width: 4px;
+}
+
+.botao-nota .nota-rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.botao-nota .nota-intervalo {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.nota-errei { border-top-color: var(--critical); }
+.nota-dificil { border-top-color: var(--warning); }
+.nota-bom { border-top-color: var(--chart-1); }
+.nota-facil { border-top-color: var(--good); }
+
+@media (max-width: 560px) {
+  .avaliacao {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.h-grupo {
+  font-size: 1rem;
+  margin-top: var(--esp-3);
+}
+
+.cartao-lista > summary {
+  font-weight: 500;
+}
+
+.cartao-lista > summary .md,
+.cartao-lista > summary p {
+  display: inline;
+}
+
+/* ---------- Quiz ---------- */
+.quiz-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--esp-4);
+}
+
+.quiz-enunciado {
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.alternativas {
+  display: grid;
+  gap: var(--esp-2);
+}
+
+.alternativa {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--esp-3);
+  padding: var(--esp-3) var(--esp-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--raio);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color var(--transicao), background var(--transicao);
+}
+
+.alternativa:hover {
+  border-color: var(--accent);
+}
+
+.alternativa input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.alternativa:has(input:focus-visible) {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.alternativa .letra {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-2);
+}
+
+.alternativa .texto-alt {
+  flex: 1;
+  min-width: 0;
+  padding-top: 0.15rem;
+  overflow-wrap: anywhere;
+}
+
+.alternativa.marcada {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.alternativa.marcada .letra {
+  background: var(--accent-bg);
+  border-color: var(--accent-bg);
+  color: var(--on-accent);
+}
+
+.alternativa.correta {
+  border-color: var(--good);
+  background: var(--good-soft);
+}
+
+.alternativa.errada {
+  border-color: var(--critical);
+  background: var(--critical-soft);
+}
+
+.alternativa input:disabled {
+  cursor: default;
+}
+
+.alternativa:has(input:disabled) {
+  cursor: default;
+}
+
+.alternativa .marcador {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 650;
+}
+
+.alternativa.correta .marcador { color: var(--good-text); }
+.alternativa.errada .marcador { color: var(--critical-text); }
+
+.navegador-questoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-1);
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--border);
+}
+
+.navegador-questoes .btn {
+  min-width: 2.25rem;
+}
+
+.navegador-questoes .respondida {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-soft-text);
+}
+
+.navegador-questoes .atual {
+  outline: 2px solid var(--text);
+  outline-offset: 1px;
+}
+
+.resultado-topo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-5);
+  align-items: flex-start;
+}
+
+.resultado-topo .indicador-card {
+  min-width: 12rem;
+}
+
+.texto-bom { color: var(--good-text); display: inline-flex; }
+.texto-erro { color: var(--critical-text); display: inline-flex; }
+
+.cronometro-quiz {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+}
+
+/* ---------- Simulado ---------- */
+.lista-desafios {
+  align-items: stretch;
+}
+
+.desafio-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+}
+
+.desafio-card h3 {
+  font-size: 1.05rem;
+}
+
+blockquote.contexto {
+  margin: 0;
+  padding: var(--esp-3) var(--esp-4);
+  border-left: 4px solid var(--accent);
+  background: var(--surface-2);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  color: var(--text-2);
+  font-style: italic;
+}
+
+.lista-md {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.desafio-detalhe h3,
+.simulado-grade h3 {
+  font-size: 1rem;
+}
+
+.simulado-ativo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--esp-3);
+}
+
+.cronometro-grande {
+  text-align: center;
+  font-size: clamp(3rem, 2rem + 5vw, 5.5rem);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.simulado-grade {
+  align-items: start;
+}
+
+@media (min-width: 1100px) {
+  .simulado-grade {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  }
+}
+
+.zona-perigo {
+  border-color: color-mix(in srgb, var(--critical) 50%, var(--border));
+}
+
+/* ---------- Pomodoro ---------- */
+.pomodoro-grade {
+  align-items: start;
+}
+
+.timer-card {
+  display: grid;
+  justify-items: center;
+  gap: var(--esp-4);
+  text-align: center;
+}
+
+.timer-card .campo {
+  width: 100%;
+  text-align: left;
+}
+
+.fases .aba {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.fases .aba[aria-pressed="true"] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--sombra);
+}
+
+.fases .aba:disabled {
+  opacity: 0.5;
+}
+
+.relogio-anel {
+  position: relative;
+  width: min(240px, 70vw);
+  aspect-ratio: 1;
+}
+
+.relogio-anel svg {
+  width: 100%;
+  height: 100%;
+}
+
+.relogio-centro {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.2rem;
+}
+
+.relogio-tempo {
+  font-size: clamp(2.6rem, 2rem + 2vw, 3.3rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.relogio-fase {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  font-weight: 600;
+}
+
+.fase-pausa .anel .progresso,
+.fase-pausaLonga .anel .progresso {
+  stroke: var(--good);
+}
+
+.ciclos {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ciclo {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  border: 2px solid var(--chart-1);
+}
+
+.ciclo.feito {
+  background: var(--chart-1);
+}
+
+.mini-indicadores .valor {
+  font-size: 1.5rem;
+}
+
+/* ---------- Diário ---------- */
+.entrada-diario {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--esp-3);
+}
+
+.diario-campos {
+  margin: 0;
+  display: grid;
+  gap: var(--esp-3);
+}
+
+.diario-campos dt {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.diario-campos dd {
+  margin: 0.15rem 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Recursos ---------- */
+.lista-recursos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-recursos > li {
+  display: flex;
+}
+
+.recurso {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  width: 100%;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color var(--transicao), transform var(--transicao);
+}
+
+.recurso:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.recurso svg {
+  color: var(--muted);
+}
+
+.recurso-titulo {
+  font-size: 0.975rem;
+}
+
+.categoria-recursos {
+  scroll-margin-top: 5rem;
+}
+
+.categoria-recursos h2:focus {
+  outline: none;
+}
+
+.indice-categorias .chip {
+  font-size: 0.8rem;
+  min-height: 1.9rem;
+}
+
+/* ---------- Impressão ---------- */
+@media print {
+  .lateral,
+  .topo,
+  .toasts,
+  .rodape-app {
+    display: none !important;
+  }
+
+  .app {
+    display: block;
+  }
+
+  .card {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}

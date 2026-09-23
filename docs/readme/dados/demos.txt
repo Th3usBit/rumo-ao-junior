@@ -1,0 +1,8 @@
+demo-primeiro-dia.svg: 5 quadros, 405 KB
+demo-flashcards.svg: 6 quadros, 430 KB
+demo-quiz.svg: 5 quadros, 379 KB
+demo-simulado.svg: 7 quadros, 774 KB
+demo-pomodoro.svg: 5 quadros, 331 KB
+demo-tour.svg: 5 quadros, 390 KB
+demo-tema.svg: 3 quadros, 242 KB
+demo-celular.svg: 4 quadros, 319 KB

@@ -1,0 +1,5 @@
+node_modules/
+testes/test-results/
+testes/playwright-report/
+testes/blob-report/
+Untitled-*.md

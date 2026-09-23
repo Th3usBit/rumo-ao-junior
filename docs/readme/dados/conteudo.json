@@ -1,0 +1,341 @@
+{
+  "numeros": {
+    "paginas": 10,
+    "flashcards": 241,
+    "temas": 11,
+    "questoes": 130,
+    "desafios": 17,
+    "gabaritos": 6,
+    "semanas": 6,
+    "dias": 42,
+    "tarefas": 124,
+    "tarefas-com-acao": 79,
+    "dias-1h45": 24,
+    "horas-plano": "71h40",
+    "trilhas": 4,
+    "topicos": 32,
+    "itens": 225,
+    "itens-progresso": 349,
+    "links": 138,
+    "categorias": 14,
+    "links-verificados-em": "23/09/2026",
+    "novos-por-dia": 15,
+    "sm2-bom": "1, 6, 15, 38, 95",
+    "testes-total": 159,
+    "testes-aprovados": 156,
+    "testes-pulados": 3,
+    "testes-falharam": 0,
+    "testes-projetos": 3,
+    "testes-data": "23/09/2026",
+    "testes-duracao": "5 min"
+  },
+  "trilhas": [
+    {
+      "id": "nucleo",
+      "nome": "Núcleo Comum",
+      "topicos": 8,
+      "prioridade": {
+        "alta": 7,
+        "media": 1,
+        "baixa": 0
+      },
+      "itens": 65,
+      "links": 31
+    },
+    {
+      "id": "front",
+      "nome": "Front-end",
+      "topicos": 10,
+      "prioridade": {
+        "alta": 8,
+        "media": 1,
+        "baixa": 1
+      },
+      "itens": 72,
+      "links": 36
+    },
+    {
+      "id": "back",
+      "nome": "Back-end",
+      "topicos": 8,
+      "prioridade": {
+        "alta": 5,
+        "media": 3,
+        "baixa": 0
+      },
+      "itens": 56,
+      "links": 31
+    },
+    {
+      "id": "fullstack",
+      "nome": "Fullstack",
+      "topicos": 6,
+      "prioridade": {
+        "alta": 3,
+        "media": 3,
+        "baixa": 0
+      },
+      "itens": 32,
+      "links": 20
+    }
+  ],
+  "cronograma": {
+    "semanas": [
+      {
+        "numero": 1,
+        "titulo": "Fundamentos: lógica, estruturas, Git e HTTP",
+        "dias": 7,
+        "tarefas": 23,
+        "porTipo": {
+          "algoritmo": 180,
+          "estudo": 335,
+          "projeto": 0,
+          "revisao": 125,
+          "simulado": 30,
+          "descanso": 15
+        },
+        "total": 685
+      },
+      {
+        "numero": 2,
+        "titulo": "POO, SQL, testes e clean code",
+        "dias": 7,
+        "tarefas": 20,
+        "porTipo": {
+          "algoritmo": 180,
+          "estudo": 340,
+          "projeto": 0,
+          "revisao": 90,
+          "simulado": 40,
+          "descanso": 15
+        },
+        "total": 665
+      },
+      {
+        "numero": 3,
+        "titulo": "Projeto front: Vue 3 + TypeScript consumindo API pública",
+        "dias": 7,
+        "tarefas": 20,
+        "porTipo": {
+          "algoritmo": 180,
+          "estudo": 0,
+          "projeto": 360,
+          "revisao": 105,
+          "simulado": 0,
+          "descanso": 15
+        },
+        "total": 660
+      },
+      {
+        "numero": 4,
+        "titulo": "Projeto back: API REST com Spring Boot",
+        "dias": 7,
+        "tarefas": 20,
+        "porTipo": {
+          "algoritmo": 180,
+          "estudo": 0,
+          "projeto": 360,
+          "revisao": 105,
+          "simulado": 0,
+          "descanso": 15
+        },
+        "total": 660
+      },
+      {
+        "numero": 5,
+        "titulo": "Simulados I: os formatos da prova",
+        "dias": 7,
+        "tarefas": 19,
+        "porTipo": {
+          "algoritmo": 180,
+          "estudo": 0,
+          "projeto": 0,
+          "revisao": 150,
+          "simulado": 450,
+          "descanso": 15
+        },
+        "total": 795
+      },
+      {
+        "numero": 6,
+        "titulo": "Simulados II e reta final",
+        "dias": 7,
+        "tarefas": 22,
+        "porTipo": {
+          "algoritmo": 165,
+          "estudo": 135,
+          "projeto": 0,
+          "revisao": 125,
+          "simulado": 385,
+          "descanso": 25
+        },
+        "total": 835
+      }
+    ],
+    "totalDias": 42,
+    "totalTarefas": 124,
+    "totalMin": 4300
+  },
+  "temas": [
+    {
+      "id": "js-ts",
+      "nome": "JavaScript e TypeScript",
+      "cartoes": 23,
+      "questoes": 14
+    },
+    {
+      "id": "vue",
+      "nome": "Vue 3",
+      "cartoes": 20,
+      "questoes": 11
+    },
+    {
+      "id": "html-css",
+      "nome": "HTML e CSS",
+      "cartoes": 17,
+      "questoes": 10
+    },
+    {
+      "id": "java",
+      "nome": "Java",
+      "cartoes": 23,
+      "questoes": 11
+    },
+    {
+      "id": "spring",
+      "nome": "Spring Boot",
+      "cartoes": 29,
+      "questoes": 14
+    },
+    {
+      "id": "sql",
+      "nome": "SQL e Bancos de Dados",
+      "cartoes": 21,
+      "questoes": 12
+    },
+    {
+      "id": "git",
+      "nome": "Git",
+      "cartoes": 18,
+      "questoes": 12
+    },
+    {
+      "id": "http",
+      "nome": "HTTP e REST",
+      "cartoes": 22,
+      "questoes": 10
+    },
+    {
+      "id": "oop",
+      "nome": "POO, SOLID e Clean Code",
+      "cartoes": 21,
+      "questoes": 11
+    },
+    {
+      "id": "testes",
+      "nome": "Testes",
+      "cartoes": 27,
+      "questoes": 14
+    },
+    {
+      "id": "algoritmos",
+      "nome": "Algoritmos e Estruturas de Dados",
+      "cartoes": 20,
+      "questoes": 11
+    }
+  ],
+  "sm2": [
+    {
+      "nome": "Sempre Fácil",
+      "notas": [
+        5
+      ],
+      "dias": [
+        1,
+        7,
+        24,
+        74
+      ],
+      "intervalos": [
+        1,
+        6,
+        17,
+        50
+      ]
+    },
+    {
+      "nome": "Sempre Bom",
+      "notas": [
+        4
+      ],
+      "dias": [
+        1,
+        7,
+        22,
+        60,
+        155
+      ],
+      "intervalos": [
+        1,
+        6,
+        15,
+        38,
+        95
+      ]
+    },
+    {
+      "nome": "Sempre Difícil",
+      "notas": [
+        3
+      ],
+      "dias": [
+        1,
+        7,
+        20,
+        46,
+        93,
+        172
+      ],
+      "intervalos": [
+        1,
+        6,
+        13,
+        26,
+        47,
+        79
+      ]
+    },
+    {
+      "nome": "Bom, com um Errei",
+      "notas": [
+        4,
+        4,
+        4,
+        1,
+        4
+      ],
+      "dias": [
+        1,
+        7,
+        22,
+        23,
+        24,
+        30,
+        45,
+        83,
+        178
+      ],
+      "intervalos": [
+        1,
+        6,
+        15,
+        1,
+        1,
+        6,
+        15,
+        38,
+        95
+      ]
+    }
+  ]
+}

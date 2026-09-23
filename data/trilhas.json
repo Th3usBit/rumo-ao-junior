@@ -1,0 +1,696 @@
+{
+  "versao": 1,
+  "trilhas": [
+    {
+      "id": "nucleo",
+      "nome": "Núcleo Comum",
+      "descricao": "O que cai em **qualquer** prova técnica, seja front, back ou fullstack: lógica e estruturas de dados, POO, Git, SQL, HTTP/REST, testes e clean code. É o foco das semanas 1 e 2.",
+      "topicos": [
+        {
+          "id": "nucleo-logica",
+          "titulo": "Lógica e algoritmos",
+          "prioridade": "alta",
+          "descricao": "Base do live coding e das provas online (HackerRank, Codility). Mais do que decorar soluções, treine o **processo**: entender o problema, montar exemplos, propor uma solução ingênua, otimizar e testar — pensando em voz alta.",
+          "links": [
+            { "titulo": "NeetCode — Roadmap por padrões", "url": "https://neetcode.io/roadmap", "idioma": "en" },
+            { "titulo": "NeetCode 150", "url": "https://neetcode.io/practice/practice/neetcode150", "idioma": "en" },
+            { "titulo": "LeetCode — Two Sum (formato dos problemas)", "url": "https://leetcode.com/problems/two-sum/", "idioma": "en" },
+            { "titulo": "beecrowd (juiz online brasileiro)", "url": "https://judge.beecrowd.com/pt/", "idioma": "pt-BR" },
+            { "titulo": "Exercism — trilha de Java", "url": "https://exercism.org/tracks/java", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "log-01", "texto": "Resolver sem consultar problemas de laço e condição (FizzBuzz, inverter string, palíndromo)" },
+            { "id": "log-02", "texto": "Dizer a complexidade de um trecho: O(1), O(log n), O(n), O(n log n), O(n²)" },
+            { "id": "log-03", "texto": "Trocar um O(n²) por O(n) usando HashMap/Set (ex.: Two Sum)" },
+            { "id": "log-04", "texto": "Aplicar **two pointers** e **sliding window** em arrays e strings" },
+            { "id": "log-05", "texto": "Escrever busca binária sem erro de limite (off-by-one)" },
+            { "id": "log-06", "texto": "Escrever recursão com caso base e reconhecer quando memoizar" },
+            { "id": "log-07", "texto": "Resolver um problema novo em 30 min pensando em voz alta" },
+            { "id": "log-08", "texto": "Testar a própria solução com casos de borda (vazio, 1 elemento, repetidos, negativos)" }
+          ]
+        },
+        {
+          "id": "nucleo-estruturas",
+          "titulo": "Estruturas de dados",
+          "prioridade": "alta",
+          "descricao": "Saber qual estrutura usar em cada situação — e o custo de cada operação — é o que separa uma solução O(n²) de uma O(n). Conheça também as classes equivalentes em Java e em JavaScript.",
+          "links": [
+            { "titulo": "roadmap.sh — Estruturas de dados e algoritmos", "url": "https://roadmap.sh/datastructures-and-algorithms", "idioma": "en" },
+            { "titulo": "dev.java — Collections Framework", "url": "https://dev.java/learn/api/collections-framework/", "idioma": "en" },
+            { "titulo": "javascript.info — Map, Set e estruturas", "url": "https://javascript.info/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "est-01", "texto": "Comparar array e lista ligada (acesso, inserção, remoção)" },
+            { "id": "est-02", "texto": "Usar pilha e fila (parênteses balanceados, BFS)" },
+            { "id": "est-03", "texto": "Explicar hash table: O(1) médio, colisões e por que `hashCode` importa" },
+            { "id": "est-04", "texto": "Percorrer árvore binária (pré, em e pós-ordem) e explicar uma BST" },
+            { "id": "est-05", "texto": "Usar heap / fila de prioridade para \"top K\"" },
+            { "id": "est-06", "texto": "Representar grafo com lista de adjacência e fazer BFS/DFS" },
+            { "id": "est-07", "texto": "Conhecer as equivalências: `ArrayList`, `LinkedList`, `ArrayDeque`, `HashMap`, `HashSet`, `TreeMap`, `PriorityQueue` ↔ `Array`, `Map`, `Set`" }
+          ]
+        },
+        {
+          "id": "nucleo-oop",
+          "titulo": "Programação orientada a objetos e SOLID",
+          "prioridade": "alta",
+          "descricao": "Pergunta clássica de entrevista Java. Tenha um exemplo **seu** para cada pilar e para cada letra do SOLID — de preferência tirado de um projeto do estágio.",
+          "links": [
+            { "titulo": "dev.java — Programação orientada a objetos", "url": "https://dev.java/learn/oop/", "idioma": "en" },
+            { "titulo": "Refactoring Guru — Padrões de projeto", "url": "https://refactoring.guru/pt-br/design-patterns", "idioma": "pt-BR" },
+            { "titulo": "Curso em Vídeo — Java POO", "url": "https://www.cursoemvideo.com/curso/java-poo/", "idioma": "pt-BR" }
+          ],
+          "checklist": [
+            { "id": "oop-01", "texto": "Explicar encapsulamento, herança, polimorfismo e abstração com exemplos" },
+            { "id": "oop-02", "texto": "Diferenciar interface e classe abstrata (e quando usar cada uma)" },
+            { "id": "oop-03", "texto": "Justificar composição em vez de herança" },
+            { "id": "oop-04", "texto": "Diferenciar sobrecarga (overload) e sobrescrita (override)" },
+            { "id": "oop-05", "texto": "Explicar cada letra do SOLID com um exemplo de código" },
+            { "id": "oop-06", "texto": "Implementar `equals` e `hashCode` corretamente (ou usar `record`)" },
+            { "id": "oop-07", "texto": "Aplicar Strategy, Factory e Builder em um exemplo pequeno" },
+            { "id": "oop-08", "texto": "Explicar baixo acoplamento e alta coesão" }
+          ]
+        },
+        {
+          "id": "nucleo-git",
+          "titulo": "Git e GitHub",
+          "prioridade": "alta",
+          "descricao": "O avaliador lê o seu histórico de commits. Commits pequenos, mensagens claras (Conventional Commits, como nos projetos da empresa) e PRs bem descritos contam pontos.",
+          "links": [
+            { "titulo": "Learn Git Branching (pt-BR)", "url": "https://learngitbranching.js.org/?locale=pt_BR", "idioma": "pt-BR" },
+            { "titulo": "Pro Git — livro oficial", "url": "https://git-scm.com/book/pt-br/v2", "idioma": "pt-BR" },
+            { "titulo": "Folha de dicas de Git (GitHub)", "url": "https://training.github.com/downloads/pt_BR/github-git-cheat-sheet/", "idioma": "pt-BR" },
+            { "titulo": "Conventional Commits", "url": "https://www.conventionalcommits.org/pt-br/v1.0.0/", "idioma": "pt-BR" }
+          ],
+          "checklist": [
+            { "id": "git-01", "texto": "Explicar working tree, staging area e commit" },
+            { "id": "git-02", "texto": "Criar branch, fazer merge e resolver um conflito sozinho" },
+            { "id": "git-03", "texto": "Explicar merge vs rebase (e por que não fazer rebase de branch compartilhada)" },
+            { "id": "git-04", "texto": "Diferenciar `fetch` e `pull`; `reset` e `revert`" },
+            { "id": "git-05", "texto": "Usar `stash`, `cherry-pick` e `commit --amend`" },
+            { "id": "git-06", "texto": "Escrever commits pequenos no padrão Conventional Commits" },
+            { "id": "git-07", "texto": "Abrir um PR com descrição clara e responder a um code review" },
+            { "id": "git-08", "texto": "Configurar `.gitignore` e nunca versionar segredos (`.env`)" }
+          ]
+        },
+        {
+          "id": "nucleo-sql",
+          "titulo": "SQL e modelagem de dados",
+          "prioridade": "alta",
+          "descricao": "Aparece em prova teórica, em desafio prático e em entrevista. Treine escrevendo consultas de verdade — um playground no navegador resolve.",
+          "links": [
+            { "titulo": "SQLBolt — lições interativas", "url": "https://sqlbolt.com/", "idioma": "en" },
+            { "titulo": "SQLZoo", "url": "https://sqlzoo.net/wiki/SQL_Tutorial", "idioma": "en" },
+            { "titulo": "PostgreSQL Exercises", "url": "https://pgexercises.com/", "idioma": "en" },
+            { "titulo": "PostgreSQL — Tutorial oficial", "url": "https://www.postgresql.org/docs/current/tutorial.html", "idioma": "en" },
+            { "titulo": "DB Fiddle (playground)", "url": "https://www.db-fiddle.com/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "sql-01", "texto": "Escrever SELECT com WHERE, ORDER BY, LIMIT/OFFSET" },
+            { "id": "sql-02", "texto": "Usar INNER e LEFT JOIN — inclusive para achar \"registros sem correspondência\"" },
+            { "id": "sql-03", "texto": "Agrupar com GROUP BY e filtrar grupos com HAVING" },
+            { "id": "sql-04", "texto": "Lidar com NULL: `IS NULL`, `COALESCE`, `COUNT(*)` vs `COUNT(coluna)`" },
+            { "id": "sql-05", "texto": "Escrever subquery e saber quando trocar por JOIN" },
+            { "id": "sql-06", "texto": "Modelar relações 1:N e N:N com chaves primárias e estrangeiras" },
+            { "id": "sql-07", "texto": "Explicar normalização até a 3ª forma normal" },
+            { "id": "sql-08", "texto": "Explicar índices: quando ajudam e qual o custo" },
+            { "id": "sql-09", "texto": "Explicar transações e ACID" },
+            { "id": "sql-10", "texto": "Prevenir SQL injection com consultas parametrizadas" }
+          ]
+        },
+        {
+          "id": "nucleo-http",
+          "titulo": "HTTP e APIs REST",
+          "prioridade": "alta",
+          "descricao": "Front consome, back expõe: os dois lados precisam dominar métodos, status codes e headers. Nos desafios, **usar o status certo** é critério de avaliação.",
+          "links": [
+            { "titulo": "MDN — Visão geral do HTTP", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Overview", "idioma": "pt-BR" },
+            { "titulo": "MDN — Códigos de status", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status", "idioma": "pt-BR" },
+            { "titulo": "MDN — Métodos HTTP", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods", "idioma": "pt-BR" },
+            { "titulo": "MDN — CORS", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/CORS", "idioma": "pt-BR" },
+            { "titulo": "roadmap.sh — API Design", "url": "https://roadmap.sh/api-design", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "http-01", "texto": "Explicar GET, POST, PUT, PATCH e DELETE — e quais são seguros e idempotentes" },
+            { "id": "http-02", "texto": "Escolher o status certo: 200, 201, 204, 400, 401, 403, 404, 409, 422, 500" },
+            { "id": "http-03", "texto": "Usar os headers `Content-Type`, `Accept`, `Authorization`, `Location` e `Cache-Control`" },
+            { "id": "http-04", "texto": "Modelar recursos REST (substantivos no plural, sub-recursos, filtros por query)" },
+            { "id": "http-05", "texto": "Implementar/consumir paginação, filtro e ordenação" },
+            { "id": "http-06", "texto": "Explicar CORS e a requisição de preflight (OPTIONS)" },
+            { "id": "http-07", "texto": "Explicar autenticação stateless com JWT (o que vai no token e o que não vai)" },
+            { "id": "http-08", "texto": "Descrever o que acontece ao digitar uma URL (DNS, TCP/TLS, requisição, resposta)" }
+          ]
+        },
+        {
+          "id": "nucleo-testes",
+          "titulo": "Testes automatizados",
+          "prioridade": "alta",
+          "descricao": "**Seu diferencial**, vindo de QA. Muitos candidatos júnior entregam sem testes ou testam só o caminho feliz — o desafio do Itaú avisa que isso \"não é muito efetivo\".",
+          "links": [
+            { "titulo": "Martin Fowler — Test Pyramid", "url": "https://martinfowler.com/bliki/TestPyramid.html", "idioma": "en" },
+            { "titulo": "The Practical Test Pyramid", "url": "https://martinfowler.com/articles/practical-test-pyramid.html", "idioma": "en" },
+            { "titulo": "roadmap.sh — QA", "url": "https://roadmap.sh/qa", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "tst-01", "texto": "Explicar a pirâmide de testes (unitário, integração, E2E) e o custo de cada nível" },
+            { "id": "tst-02", "texto": "Escrever testes no padrão AAA (Arrange-Act-Assert) / Given-When-Then" },
+            { "id": "tst-03", "texto": "Diferenciar mock, stub, spy e fake" },
+            { "id": "tst-04", "texto": "Derivar casos por valor limite e partição de equivalência" },
+            { "id": "tst-05", "texto": "Testar caminhos de erro, não só o caminho feliz" },
+            { "id": "tst-06", "texto": "Fazer um exercício completo com TDD (red → green → refactor)" },
+            { "id": "tst-07", "texto": "Explicar o que a cobertura de código mede — e o que ela não garante" },
+            { "id": "tst-08", "texto": "Evitar testes frágeis (flaky): tempo, ordem, dependências externas" }
+          ]
+        },
+        {
+          "id": "nucleo-clean",
+          "titulo": "Clean code e boas práticas",
+          "prioridade": "media",
+          "descricao": "\"Código limpo e organizado\" é critério básico em quase todo desafio. O avaliador precisa entender o seu código sem você ao lado.",
+          "links": [
+            { "titulo": "Refactoring Guru — Refatoração e code smells", "url": "https://refactoring.guru/pt-br/refactoring", "idioma": "en" },
+            { "titulo": "roadmap.sh — Code Review Pyramid", "url": "https://roadmap.sh/code-review", "idioma": "en" },
+            { "titulo": "The Twelve-Factor App", "url": "https://12factor.net/pt_br/", "idioma": "pt-BR" }
+          ],
+          "checklist": [
+            { "id": "cln-01", "texto": "Dar nomes que revelam intenção (sem `data`, `aux`, `x2`)" },
+            { "id": "cln-02", "texto": "Escrever funções pequenas, com uma responsabilidade cada" },
+            { "id": "cln-03", "texto": "Aplicar DRY, KISS e YAGNI sem exagerar na abstração" },
+            { "id": "cln-04", "texto": "Tratar erros sem engolir exceções (`catch` vazio é um code smell)" },
+            { "id": "cln-05", "texto": "Trocar números mágicos por constantes com nome" },
+            { "id": "cln-06", "texto": "Reconhecer code smells: método longo, classe \"deus\", duplicação" },
+            { "id": "cln-07", "texto": "Dar e receber feedback de code review com gentileza e objetividade" },
+            { "id": "cln-08", "texto": "Escrever um README que permite rodar o projeto sem ajuda" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "front",
+      "nome": "Front-end",
+      "descricao": "Vue 3 + TypeScript, como nos seus projetos (Composition API com `<script setup>`, Vite, Pinia, Vue Router, `fetch`, Vitest). Nas provas de front júnior, as funcionalidades mais pedidas são: consumir API, listar com busca/filtro, rotas, estado, formulários, responsividade e acessibilidade.",
+      "topicos": [
+        {
+          "id": "front-html",
+          "titulo": "HTML semântico e acessibilidade",
+          "prioridade": "alta",
+          "descricao": "Desafios de front citam explicitamente \"HTML da maneira mais semântica possível\" e \"preocupação com acessibilidade\". É barato de fazer e o avaliador percebe.",
+          "links": [
+            { "titulo": "MDN — HTML", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTML", "idioma": "pt-BR" },
+            { "titulo": "MDN — Acessibilidade", "url": "https://developer.mozilla.org/pt-BR/docs/Web/Accessibility", "idioma": "pt-BR" },
+            { "titulo": "web.dev — Learn Accessibility", "url": "https://web.dev/learn/accessibility", "idioma": "en" },
+            { "titulo": "Guia WCAG (pt-BR)", "url": "https://guia-wcag.com/", "idioma": "pt-BR" }
+          ],
+          "checklist": [
+            { "id": "fhtml-01", "texto": "Estruturar a página com `header`, `nav`, `main`, `section`, `article` e `footer` (e um `h1`)" },
+            { "id": "fhtml-02", "texto": "Criar formulários acessíveis: `label for`, `fieldset/legend`, erro ligado com `aria-describedby`" },
+            { "id": "fhtml-03", "texto": "Usar `alt` descritivo (e `alt=\"\"` em imagem decorativa)" },
+            { "id": "fhtml-04", "texto": "Garantir navegação por teclado e foco visível" },
+            { "id": "fhtml-05", "texto": "Aplicar a primeira regra do ARIA: prefira o elemento nativo" },
+            { "id": "fhtml-06", "texto": "Checar contraste mínimo (WCAG AA: 4,5:1 para texto)" },
+            { "id": "fhtml-07", "texto": "Auditar uma página com Lighthouse ou axe e corrigir os problemas" }
+          ]
+        },
+        {
+          "id": "front-css",
+          "titulo": "CSS: layout e responsividade",
+          "prioridade": "alta",
+          "descricao": "Layout responsivo \"a partir de 320px\" e mobile first aparecem em vários desafios. Nos projetos da empresa você usa Tailwind — mas a prova pode pedir CSS puro, então domine a base.",
+          "links": [
+            { "titulo": "web.dev — Aprenda CSS (pt-BR)", "url": "https://web.dev/learn/css?hl=pt-br", "idioma": "pt-BR" },
+            { "titulo": "CSS-Tricks — Guia de Flexbox", "url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/", "idioma": "en" },
+            { "titulo": "CSS-Tricks — Guia de Grid", "url": "https://css-tricks.com/complete-guide-css-grid-layout/", "idioma": "en" },
+            { "titulo": "Flexbox Froggy", "url": "https://flexboxfroggy.com/#pt-br", "idioma": "pt-BR" },
+            { "titulo": "Grid Garden", "url": "https://cssgridgarden.com/#pt-br", "idioma": "pt-BR" }
+          ],
+          "checklist": [
+            { "id": "fcss-01", "texto": "Explicar box model e `box-sizing: border-box`" },
+            { "id": "fcss-02", "texto": "Calcular especificidade e entender a cascata" },
+            { "id": "fcss-03", "texto": "Montar layouts com Flexbox (eixos, `justify-content`, `align-items`, `gap`)" },
+            { "id": "fcss-04", "texto": "Montar grades com Grid (`grid-template-columns`, `repeat(auto-fit, minmax())`)" },
+            { "id": "fcss-05", "texto": "Usar `position` (relative, absolute, fixed, sticky) e entender `z-index`" },
+            { "id": "fcss-06", "texto": "Escolher unidades: `rem`, `%`, `vh`, `clamp()`" },
+            { "id": "fcss-07", "texto": "Escrever CSS mobile first com media queries" },
+            { "id": "fcss-08", "texto": "Usar variáveis CSS (custom properties) para tema claro/escuro" }
+          ]
+        },
+        {
+          "id": "front-js",
+          "titulo": "JavaScript moderno",
+          "prioridade": "alta",
+          "descricao": "Perguntas de entrevista de front adoram closures, `this`, event loop e promises. Rode os exemplos no console do navegador em vez de só ler.",
+          "links": [
+            { "titulo": "MDN — Guia JavaScript", "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide", "idioma": "pt-BR" },
+            { "titulo": "javascript.info", "url": "https://javascript.info/", "idioma": "en" },
+            { "titulo": "MDN — Fetch API", "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API", "idioma": "pt-BR" }
+          ],
+          "checklist": [
+            { "id": "fjs-01", "texto": "Explicar `let`/`const`/`var`, escopo e hoisting (TDZ)" },
+            { "id": "fjs-02", "texto": "Explicar e usar closures" },
+            { "id": "fjs-03", "texto": "Explicar `this` e a diferença para arrow functions" },
+            { "id": "fjs-04", "texto": "Usar `map`, `filter`, `reduce`, `find` e `some` com fluência" },
+            { "id": "fjs-05", "texto": "Usar desestruturação, spread e rest" },
+            { "id": "fjs-06", "texto": "Usar Promises e `async/await` com `try/catch`" },
+            { "id": "fjs-07", "texto": "Explicar o event loop (microtasks vs macrotasks)" },
+            { "id": "fjs-08", "texto": "Usar `fetch` checando `response.ok` (ele não rejeita em 4xx/5xx)" },
+            { "id": "fjs-09", "texto": "Usar delegação de eventos no DOM" }
+          ]
+        },
+        {
+          "id": "front-ts",
+          "titulo": "TypeScript",
+          "prioridade": "alta",
+          "descricao": "Tipar bem as respostas da API e as props dos componentes mostra maturidade. Evite `any` — use `unknown` e faça narrowing.",
+          "links": [
+            { "titulo": "TypeScript Handbook", "url": "https://www.typescriptlang.org/docs/handbook/intro.html", "idioma": "en" },
+            { "titulo": "TypeScript em 5 minutos (pt)", "url": "https://www.typescriptlang.org/pt/docs/handbook/typescript-in-5-minutes.html", "idioma": "pt-BR" },
+            { "titulo": "Vue — Usando com TypeScript", "url": "https://vuejs.org/guide/typescript/overview.html", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fts-01", "texto": "Diferenciar `interface` e `type`" },
+            { "id": "fts-02", "texto": "Usar union, literal types e narrowing (`typeof`, `in`, discriminantes)" },
+            { "id": "fts-03", "texto": "Escrever funções e tipos genéricos" },
+            { "id": "fts-04", "texto": "Diferenciar `unknown`, `any` e `never`" },
+            { "id": "fts-05", "texto": "Usar `Partial`, `Pick`, `Omit`, `Record` e `Readonly`" },
+            { "id": "fts-06", "texto": "Tipar a resposta de uma API (DTO) e o serviço que a consome" },
+            { "id": "fts-07", "texto": "Tipar props e emits no Vue (`defineProps<...>()`, `defineEmits<...>()`)" }
+          ]
+        },
+        {
+          "id": "front-vue",
+          "titulo": "Vue 3 com Composition API",
+          "prioridade": "alta",
+          "descricao": "Seu dia a dia. Garanta que você consegue **explicar** a reatividade, não só usar. A documentação oficial não tem tradução em pt-BR (a pt.vuejs.org é português europeu).",
+          "links": [
+            { "titulo": "Vue 3 — Guia oficial", "url": "https://vuejs.org/guide/introduction.html", "idioma": "en" },
+            { "titulo": "Vue 3 — Tutorial interativo", "url": "https://vuejs.org/tutorial/", "idioma": "en" },
+            { "titulo": "Vue 3 em português (pt-PT)", "url": "https://pt.vuejs.org/guide/introduction.html", "idioma": "pt-PT" },
+            { "titulo": "roadmap.sh — Vue", "url": "https://roadmap.sh/vue", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fvue-01", "texto": "Explicar `ref` vs `reactive` (e por que desestruturar `reactive` perde reatividade)" },
+            { "id": "fvue-02", "texto": "Escolher entre `computed`, `watch` e `watchEffect`" },
+            { "id": "fvue-03", "texto": "Usar `v-if` vs `v-show` e `v-for` com `key` estável" },
+            { "id": "fvue-04", "texto": "Comunicar componentes com props, emits e `defineModel`" },
+            { "id": "fvue-05", "texto": "Usar slots (padrão e nomeados)" },
+            { "id": "fvue-06", "texto": "Usar `onMounted`/`onUnmounted` e limpar efeitos (timers, listeners)" },
+            { "id": "fvue-07", "texto": "Extrair lógica reutilizável em composables (`useAlgo()`)" },
+            { "id": "fvue-08", "texto": "Usar `provide`/`inject` e `nextTick`" }
+          ]
+        },
+        {
+          "id": "front-ecossistema",
+          "titulo": "Vue Router, Pinia e Vite",
+          "prioridade": "alta",
+          "descricao": "Rotas, estado global e build. Criar um projeto do zero com `npm create vue@latest` e colocar para rodar rápido é o primeiro passo de qualquer desafio.",
+          "links": [
+            { "titulo": "Vue Router", "url": "https://router.vuejs.org/guide/", "idioma": "en" },
+            { "titulo": "Pinia", "url": "https://pinia.vuejs.org/introduction.html", "idioma": "en" },
+            { "titulo": "Vite", "url": "https://vite.dev/guide/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "feco-01", "texto": "Criar projeto com `npm create vue@latest` (TS, Router, Pinia, Vitest)" },
+            { "id": "feco-02", "texto": "Criar rota dinâmica (`/itens/:id`) e usar `useRoute`/`useRouter`" },
+            { "id": "feco-03", "texto": "Proteger rota com navigation guard" },
+            { "id": "feco-04", "texto": "Carregar rotas sob demanda (lazy loading)" },
+            { "id": "feco-05", "texto": "Criar store Pinia (state, getters, actions) e usar `storeToRefs`" },
+            { "id": "feco-06", "texto": "Persistir parte do estado no `localStorage`" },
+            { "id": "feco-07", "texto": "Usar variáveis de ambiente do Vite (`import.meta.env.VITE_...`)" },
+            { "id": "feco-08", "texto": "Gerar build de produção e publicar um site estático" }
+          ]
+        },
+        {
+          "id": "front-api",
+          "titulo": "Consumo de APIs e estados de tela",
+          "prioridade": "alta",
+          "descricao": "O coração dos desafios de front: buscar dados, mostrar carregando, erro e vazio, filtrar e paginar. Pratique com APIs públicas brasileiras sem chave.",
+          "links": [
+            { "titulo": "MDN — Fetch API", "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API", "idioma": "pt-BR" },
+            { "titulo": "BrasilAPI", "url": "https://brasilapi.com.br/docs", "idioma": "pt-BR" },
+            { "titulo": "ViaCEP", "url": "https://viacep.com.br/", "idioma": "pt-BR" },
+            { "titulo": "PokeAPI", "url": "https://pokeapi.co/docs/v2", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fapi-01", "texto": "Criar uma camada de serviço tipada que encapsula o `fetch`" },
+            { "id": "fapi-02", "texto": "Tratar os estados carregando, erro, vazio e sucesso em toda tela" },
+            { "id": "fapi-03", "texto": "Tratar 4xx/5xx e falha de rede com mensagem útil ao usuário" },
+            { "id": "fapi-04", "texto": "Aplicar debounce em campo de busca" },
+            { "id": "fapi-05", "texto": "Implementar paginação consumindo a API" },
+            { "id": "fapi-06", "texto": "Cancelar requisições obsoletas com `AbortController`" },
+            { "id": "fapi-07", "texto": "Refletir filtros e página na URL (query params)" }
+          ]
+        },
+        {
+          "id": "front-testes",
+          "titulo": "Testes no front",
+          "prioridade": "alta",
+          "descricao": "Vitest + Vue Test Utils + Playwright — exatamente o que os projetos da empresa usam. Testes no front ainda são raros em entregas júnior: é ponto extra garantido.",
+          "links": [
+            { "titulo": "Vue — Guia de testes", "url": "https://vuejs.org/guide/scaling-up/testing.html", "idioma": "en" },
+            { "titulo": "Vitest", "url": "https://vitest.dev/guide/", "idioma": "en" },
+            { "titulo": "Vue Test Utils", "url": "https://test-utils.vuejs.org/guide/", "idioma": "en" },
+            { "titulo": "Testing Library — Vue", "url": "https://testing-library.com/docs/vue-testing-library/intro/", "idioma": "en" },
+            { "titulo": "Playwright", "url": "https://playwright.dev/docs/intro", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "ftst-01", "texto": "Escrever testes com `describe`/`it`/`expect` e `vi.fn()`" },
+            { "id": "ftst-02", "texto": "Montar componente com `mount`, passar props, disparar eventos e checar `emitted()`" },
+            { "id": "ftst-03", "texto": "Testar uma store Pinia (`setActivePinia(createPinia())`)" },
+            { "id": "ftst-04", "texto": "Mockar a API (`vi.mock` ou MSW) e testar o estado de erro" },
+            { "id": "ftst-05", "texto": "Buscar elementos por papel/rótulo (`getByRole`) em vez de classes CSS" },
+            { "id": "ftst-06", "texto": "Escrever um teste E2E com Playwright (fluxo feliz + um de erro)" },
+            { "id": "ftst-07", "texto": "Rodar `vue-tsc` e os testes no CI" }
+          ]
+        },
+        {
+          "id": "front-angular",
+          "titulo": "Angular moderno (se a vaga envolver)",
+          "prioridade": "media",
+          "descricao": "Um dos projetos em que você trabalhou (o bm75) tem o front em **Angular**, não Vue. Se a efetivação for para esse time, reserve um tempo para o básico do Angular moderno — os conceitos (componentes, DI, rotas, formulários) se transferem do Vue e do Spring.",
+          "links": [
+            { "titulo": "Angular — Visão geral (angular.dev)", "url": "https://angular.dev/overview", "idioma": "en" },
+            { "titulo": "Angular — Signals", "url": "https://angular.dev/guide/signals", "idioma": "en" },
+            { "titulo": "roadmap.sh — Angular", "url": "https://roadmap.sh/angular", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fang-01", "texto": "Explicar componentes standalone vs `NgModule`" },
+            { "id": "fang-02", "texto": "Usar o controle de fluxo novo (`@if`, `@for`) e reconhecer o legado (`*ngIf`, `*ngFor`)" },
+            { "id": "fang-03", "texto": "Usar signals (`signal`, `computed`, `effect`)" },
+            { "id": "fang-04", "texto": "Criar serviço e injetar dependência (`inject()` ou construtor)" },
+            { "id": "fang-05", "texto": "Consumir API com `HttpClient` e RxJS (`Observable`, `pipe`, `map`)" },
+            { "id": "fang-06", "texto": "Criar formulário reativo com validação" }
+          ]
+        },
+        {
+          "id": "front-performance",
+          "titulo": "Performance e qualidade",
+          "prioridade": "baixa",
+          "descricao": "Raramente é critério principal para júnior, mas saber o básico ajuda na entrevista.",
+          "links": [
+            { "titulo": "web.dev — Learn", "url": "https://web.dev/learn", "idioma": "en" },
+            { "titulo": "roadmap.sh — Frontend", "url": "https://roadmap.sh/frontend", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fperf-01", "texto": "Explicar em alto nível LCP, CLS e INP (Core Web Vitals)" },
+            { "id": "fperf-02", "texto": "Aplicar lazy loading em imagens e rotas" },
+            { "id": "fperf-03", "texto": "Evitar watchers e re-renderizações desnecessárias" },
+            { "id": "fperf-04", "texto": "Configurar ESLint + Prettier no projeto" },
+            { "id": "fperf-05", "texto": "Rodar o Lighthouse e explicar as principais recomendações" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "back",
+      "nome": "Back-end",
+      "descricao": "Java 21 + Spring Boot 3.x, como nos seus projetos (Web, Data JPA, Validation, Security com JWT, PostgreSQL + Flyway, JUnit 5 + AssertJ + Mockito + Testcontainers). Nos desafios de back júnior, os pontos mais cobrados são: REST bem feito, validação, status corretos, regra de negócio em camadas, transação e testes (inclusive de erro).",
+      "topicos": [
+        {
+          "id": "back-java",
+          "titulo": "Java essencial",
+          "prioridade": "alta",
+          "descricao": "Perguntas clássicas: `==` vs `equals`, `equals`/`hashCode`, `ArrayList` vs `LinkedList`, exceções checked vs unchecked. Use os recursos do Java 21 que você já usa no trabalho (records, `var`, switch expression).",
+          "links": [
+            { "titulo": "dev.java — Learn", "url": "https://dev.java/learn/", "idioma": "en" },
+            { "titulo": "dev.java — Exceptions", "url": "https://dev.java/learn/exceptions/", "idioma": "en" },
+            { "titulo": "roadmap.sh — Java", "url": "https://roadmap.sh/java", "idioma": "en" },
+            { "titulo": "Baeldung", "url": "https://www.baeldung.com/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "bjava-01", "texto": "Explicar primitivos vs wrappers (autoboxing e cache de `Integer`)" },
+            { "id": "bjava-02", "texto": "Explicar `==` vs `equals` e o contrato `equals`/`hashCode`" },
+            { "id": "bjava-03", "texto": "Explicar a imutabilidade de `String` e quando usar `StringBuilder`" },
+            { "id": "bjava-04", "texto": "Escolher entre `List`, `Set` e `Map` (e suas implementações)" },
+            { "id": "bjava-05", "texto": "Diferenciar exceções checked e unchecked; usar try-with-resources" },
+            { "id": "bjava-06", "texto": "Usar Streams (`map`, `filter`, `collect`, `groupingBy`) e `Optional`" },
+            { "id": "bjava-07", "texto": "Usar `record` para DTOs imutáveis" },
+            { "id": "bjava-08", "texto": "Usar generics e interfaces funcionais com lambdas" },
+            { "id": "bjava-09", "texto": "Usar `var`, switch expression, text blocks e pattern matching (Java 17/21)" }
+          ]
+        },
+        {
+          "id": "back-spring",
+          "titulo": "Spring Boot: fundamentos",
+          "prioridade": "alta",
+          "descricao": "Entenda o que o Spring faz por você: inversão de controle, injeção de dependência e auto-configuração. Pergunta comum: \"quais os benefícios do Spring Boot?\"",
+          "links": [
+            { "titulo": "Spring Guides", "url": "https://spring.io/guides/", "idioma": "en" },
+            { "titulo": "Building a RESTful Web Service", "url": "https://spring.io/guides/gs/rest-service/", "idioma": "en" },
+            { "titulo": "Spring Initializr", "url": "https://start.spring.io/", "idioma": "en" },
+            { "titulo": "Spring Boot 3.5 — documentação", "url": "https://docs.spring.io/spring-boot/3.5/index.html", "idioma": "en" },
+            { "titulo": "Spring Academy — REST API com Spring Boot", "url": "https://spring.academy/courses/building-a-rest-api-with-spring-boot", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "bspr-01", "texto": "Explicar IoC e injeção de dependência (prefira injeção por construtor)" },
+            { "id": "bspr-02", "texto": "Diferenciar `@Component`, `@Service`, `@Repository` e `@RestController`" },
+            { "id": "bspr-03", "texto": "Explicar auto-configuração e starters" },
+            { "id": "bspr-04", "texto": "Configurar `application.yml`, profiles e variáveis de ambiente" },
+            { "id": "bspr-05", "texto": "Gerar um projeto no Spring Initializr com Web, JPA, Validation, PostgreSQL e Flyway" },
+            { "id": "bspr-06", "texto": "Organizar o código em camadas (controller → service → repository) ou por feature" },
+            { "id": "bspr-07", "texto": "Expor health check com Actuator" }
+          ]
+        },
+        {
+          "id": "back-rest",
+          "titulo": "APIs REST com Spring MVC",
+          "prioridade": "alta",
+          "descricao": "Siga o enunciado **à risca**: nomes de rotas e campos exatos, status pedidos (ex.: 201, 422, 400). Testes automáticos do avaliador falham com `/createUser` quando o pedido era `/create-user`.",
+          "links": [
+            { "titulo": "Validating Form Input", "url": "https://spring.io/guides/gs/validating-form-input/", "idioma": "en" },
+            { "titulo": "Building REST services with Spring", "url": "https://spring.io/guides/tutorials/rest/", "idioma": "en" },
+            { "titulo": "springdoc-openapi (Swagger)", "url": "https://springdoc.org/", "idioma": "en" },
+            { "titulo": "Baeldung — REST with Spring", "url": "https://www.baeldung.com/rest-with-spring-series", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "brest-01", "texto": "Usar `@GetMapping`/`@PostMapping`…, `@PathVariable`, `@RequestParam` e `@RequestBody`" },
+            { "id": "brest-02", "texto": "Separar DTOs (records) das entidades" },
+            { "id": "brest-03", "texto": "Responder com `ResponseEntity` e status corretos (201 + `Location`, 204, 404)" },
+            { "id": "brest-04", "texto": "Validar entrada com Bean Validation (`@Valid`, `@NotBlank`, `@Positive`)" },
+            { "id": "brest-05", "texto": "Centralizar erros com `@RestControllerAdvice` e `ProblemDetail`" },
+            { "id": "brest-06", "texto": "Paginar com `Pageable` e ordenar via query params" },
+            { "id": "brest-07", "texto": "Documentar a API com OpenAPI/Swagger (springdoc)" }
+          ]
+        },
+        {
+          "id": "back-jpa",
+          "titulo": "Persistência: JPA, PostgreSQL e Flyway",
+          "prioridade": "alta",
+          "descricao": "Como nos seus projetos: migrations versionadas com Flyway e `ddl-auto=validate` (o Hibernate não altera o schema). Saiba explicar o problema N+1 — é pergunta frequente.",
+          "links": [
+            { "titulo": "Accessing Data with JPA", "url": "https://spring.io/guides/gs/accessing-data-jpa/", "idioma": "en" },
+            { "titulo": "Spring Data JPA — Referência", "url": "https://docs.spring.io/spring-data/jpa/reference/", "idioma": "en" },
+            { "titulo": "PostgreSQL — Tutorial", "url": "https://www.postgresql.org/docs/current/tutorial.html", "idioma": "en" },
+            { "titulo": "Docker Compose", "url": "https://docs.docker.com/compose/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "bjpa-01", "texto": "Mapear entidades (`@Entity`, `@Id`, `@GeneratedValue`, `@Column`)" },
+            { "id": "bjpa-02", "texto": "Mapear relacionamentos (`@ManyToOne`, `@OneToMany` com `mappedBy`)" },
+            { "id": "bjpa-03", "texto": "Usar `JpaRepository`, derived queries e `@Query`" },
+            { "id": "bjpa-04", "texto": "Explicar LAZY vs EAGER e resolver N+1 (`JOIN FETCH`, `@EntityGraph`)" },
+            { "id": "bjpa-05", "texto": "Usar `@Transactional` no service e explicar o rollback" },
+            { "id": "bjpa-06", "texto": "Criar migrations com Flyway e usar `ddl-auto=validate`" },
+            { "id": "bjpa-07", "texto": "Explicar por que desligar o open-in-view" },
+            { "id": "bjpa-08", "texto": "Subir o PostgreSQL com Docker Compose para desenvolvimento" }
+          ]
+        },
+        {
+          "id": "back-testes",
+          "titulo": "Testes no back",
+          "prioridade": "alta",
+          "descricao": "\"Quantidade e qualidade dos testes\" é critério explícito em desafios de back. Cubra regra de negócio (unitário), camada web (MockMvc) e banco (Testcontainers) — a mesma stack dos projetos da empresa.",
+          "links": [
+            { "titulo": "Testing the Web Layer", "url": "https://spring.io/guides/gs/testing-web/", "idioma": "en" },
+            { "titulo": "Spring Boot — Testes", "url": "https://docs.spring.io/spring-boot/reference/testing/index.html", "idioma": "en" },
+            { "titulo": "JUnit 5 — User Guide", "url": "https://docs.junit.org/5.14.0/user-guide/", "idioma": "en" },
+            { "titulo": "AssertJ", "url": "https://assertj.github.io/doc/", "idioma": "en" },
+            { "titulo": "Testcontainers — Guias", "url": "https://testcontainers.com/guides/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "btst-01", "texto": "Testar um service com JUnit 5 + Mockito (`@ExtendWith(MockitoExtension.class)`)" },
+            { "id": "btst-02", "texto": "Escrever asserções fluentes com AssertJ (`assertThat(...)`)" },
+            { "id": "btst-03", "texto": "Testar controller com `@WebMvcTest` + MockMvc (status, JSON, validação)" },
+            { "id": "btst-04", "texto": "Testar repositório com `@DataJpaTest`" },
+            { "id": "btst-05", "texto": "Rodar teste de integração com PostgreSQL real via Testcontainers" },
+            { "id": "btst-06", "texto": "Usar `@ParameterizedTest` para vários casos de entrada" },
+            { "id": "btst-07", "texto": "Testar os erros: 404, 400/422 e regra de negócio violada" }
+          ]
+        },
+        {
+          "id": "back-seguranca",
+          "titulo": "Segurança e autenticação",
+          "prioridade": "media",
+          "descricao": "Os projetos da empresa usam Spring Security com OAuth2 Resource Server (JWT). Para júnior, o essencial é explicar o fluxo e não cometer erros básicos (senha em texto puro, segredo no Git, SQL concatenado).",
+          "links": [
+            { "titulo": "Spring Security — Referência", "url": "https://docs.spring.io/spring-security/reference/index.html", "idioma": "en" },
+            { "titulo": "MDN — CORS", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/CORS", "idioma": "pt-BR" },
+            { "titulo": "The Twelve-Factor App — Configurações", "url": "https://12factor.net/pt_br/config", "idioma": "pt-BR" }
+          ],
+          "checklist": [
+            { "id": "bseg-01", "texto": "Diferenciar autenticação e autorização" },
+            { "id": "bseg-02", "texto": "Explicar a cadeia de filtros do Spring Security e o `SecurityFilterChain`" },
+            { "id": "bseg-03", "texto": "Validar JWT com OAuth2 Resource Server" },
+            { "id": "bseg-04", "texto": "Explicar 401 vs 403" },
+            { "id": "bseg-05", "texto": "Guardar senhas com hash (BCrypt), nunca em texto puro" },
+            { "id": "bseg-06", "texto": "Configurar CORS no back para a origem do front" },
+            { "id": "bseg-07", "texto": "Manter segredos em variáveis de ambiente, fora do Git" }
+          ]
+        },
+        {
+          "id": "back-docker",
+          "titulo": "Docker, logs e observabilidade básica",
+          "prioridade": "media",
+          "descricao": "\"Container, logs e healthcheck\" aparecem como diferenciais. Um `docker compose up` que sobe tudo facilita muito a vida do avaliador.",
+          "links": [
+            { "titulo": "Docker — Get started", "url": "https://docs.docker.com/get-started/", "idioma": "en" },
+            { "titulo": "Docker — Guia para Java", "url": "https://docs.docker.com/guides/java/", "idioma": "en" },
+            { "titulo": "roadmap.sh — Docker", "url": "https://roadmap.sh/docker", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "bdoc-01", "texto": "Escrever um Dockerfile multi-stage para uma app Spring" },
+            { "id": "bdoc-02", "texto": "Subir API + PostgreSQL com docker compose" },
+            { "id": "bdoc-03", "texto": "Configurar a app por variáveis de ambiente e profiles" },
+            { "id": "bdoc-04", "texto": "Registrar logs úteis com SLF4J (níveis e contexto, sem dados sensíveis)" },
+            { "id": "bdoc-05", "texto": "Expor métricas e health com Actuator e usar healthcheck no compose" }
+          ]
+        },
+        {
+          "id": "back-arquitetura",
+          "titulo": "Arquitetura e integrações",
+          "prioridade": "media",
+          "descricao": "Onde fica a regra de negócio? Como lidar com um serviço externo que falha? São perguntas que diferenciam quem só segue tutorial de quem entende o porquê.",
+          "links": [
+            { "titulo": "The Twelve-Factor App", "url": "https://12factor.net/pt_br/", "idioma": "pt-BR" },
+            { "titulo": "Martin Fowler — bliki", "url": "https://martinfowler.com/bliki/", "idioma": "en" },
+            { "titulo": "roadmap.sh — Backend", "url": "https://roadmap.sh/backend", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "barq-01", "texto": "Explicar camadas vs organização por feature (e escolher uma com justificativa)" },
+            { "id": "barq-02", "texto": "Manter a regra de negócio no service, não no controller" },
+            { "id": "barq-03", "texto": "Mapear DTO ↔ entidade (manual ou com MapStruct)" },
+            { "id": "barq-04", "texto": "Explicar contract-first com OpenAPI (como no estudia-v3)" },
+            { "id": "barq-05", "texto": "Tratar concorrência em operações críticas (ex.: saldo, estoque)" },
+            { "id": "barq-06", "texto": "Chamar serviço externo com timeout, retry e tratamento de falha" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fullstack",
+      "nome": "Fullstack",
+      "descricao": "Fullstack = trilha **Front** + trilha **Back** + a integração entre eles. Esta trilha cobre o que liga as pontas: contrato da API, CORS, autenticação ponta a ponta, projeto que roda com um comando, deploy e a apresentação do seu trabalho.",
+      "topicos": [
+        {
+          "id": "full-integracao",
+          "titulo": "Integração front ↔ back",
+          "prioridade": "alta",
+          "descricao": "Defina o contrato antes de codar os dois lados. Erro clássico de desafio fullstack: o front quebra porque a API devolve um formato diferente do esperado — ou o avaliador esbarra em CORS.",
+          "links": [
+            { "titulo": "MDN — CORS", "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/CORS", "idioma": "pt-BR" },
+            { "titulo": "springdoc-openapi", "url": "https://springdoc.org/", "idioma": "en" },
+            { "titulo": "Vite — Guia", "url": "https://vite.dev/guide/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fint-01", "texto": "Escrever o contrato da API (endpoints, DTOs e formato de erro) antes de codar" },
+            { "id": "fint-02", "texto": "Configurar CORS no Spring para a origem do front" },
+            { "id": "fint-03", "texto": "Gerar ou escrever os tipos TS a partir do contrato (ex.: openapi-typescript)" },
+            { "id": "fint-04", "texto": "Mostrar no front mensagens úteis a partir do erro da API (`ProblemDetail`)" },
+            { "id": "fint-05", "texto": "Configurar a URL da API por variável de ambiente (`VITE_API_URL`)" },
+            { "id": "fint-06", "texto": "Usar o proxy do Vite em desenvolvimento" }
+          ]
+        },
+        {
+          "id": "full-auth",
+          "titulo": "Autenticação ponta a ponta",
+          "prioridade": "media",
+          "descricao": "Login com JWT atravessando as duas pontas. Saiba explicar os prós e contras de onde guardar o token.",
+          "links": [
+            { "titulo": "Spring Security — Referência", "url": "https://docs.spring.io/spring-security/reference/index.html", "idioma": "en" },
+            { "titulo": "Vue Router — Guia", "url": "https://router.vuejs.org/guide/", "idioma": "en" },
+            { "titulo": "roadmap.sh — API Design", "url": "https://roadmap.sh/api-design", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "faut-01", "texto": "Implementar login: o back emite o JWT e o front envia `Authorization: Bearer ...`" },
+            { "id": "faut-02", "texto": "Comparar guardar o token em memória, `localStorage` ou cookie `httpOnly`" },
+            { "id": "faut-03", "texto": "Proteger rotas no Vue Router e redirecionar para o login em 401" },
+            { "id": "faut-04", "texto": "Tratar logout e expiração do token" },
+            { "id": "faut-05", "texto": "Autorizar por papel (roles/escopos) no back" }
+          ]
+        },
+        {
+          "id": "full-projeto",
+          "titulo": "Estrutura do projeto e README",
+          "prioridade": "alta",
+          "descricao": "\"Precisamos conseguir rodar o projeto apenas lendo a documentação.\" Teste o seu README clonando o repositório numa pasta limpa.",
+          "links": [
+            { "titulo": "Docker Compose", "url": "https://docs.docker.com/compose/", "idioma": "en" },
+            { "titulo": "roadmap.sh — Full Stack", "url": "https://roadmap.sh/full-stack", "idioma": "en" },
+            { "titulo": "Desafio fullstack júnior (CustomerX)", "url": "https://github.com/CustomerX-CX/desafio-fullstack-junior", "idioma": "pt-BR" }
+          ],
+          "checklist": [
+            { "id": "fprj-01", "texto": "Organizar o repositório (monorepo `/frontend` + `/backend` ou dois repositórios)" },
+            { "id": "fprj-02", "texto": "Escrever README com: sobre, stack, como rodar, variáveis, testes e decisões" },
+            { "id": "fprj-03", "texto": "Incluir no README \"o que eu faria com mais tempo\"" },
+            { "id": "fprj-04", "texto": "Subir tudo com um comando (`docker compose up`)" },
+            { "id": "fprj-05", "texto": "Fornecer dados de exemplo (seed) para o avaliador testar" }
+          ]
+        },
+        {
+          "id": "full-deploy",
+          "titulo": "Deploy e CI",
+          "prioridade": "media",
+          "descricao": "Aplicação publicada e pipeline de CI aparecem como diferencial. Os projetos da empresa usam GitHub Actions.",
+          "links": [
+            { "titulo": "GitHub Skills", "url": "https://learn.github.com/skills", "idioma": "en" },
+            { "titulo": "Docker — Get started", "url": "https://docs.docker.com/get-started/", "idioma": "en" },
+            { "titulo": "Docker — Guia para Vue.js", "url": "https://docs.docker.com/guides/vuejs/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fdep-01", "texto": "Gerar o build do front e publicar como site estático" },
+            { "id": "fdep-02", "texto": "Empacotar a API (jar ou imagem Docker)" },
+            { "id": "fdep-03", "texto": "Criar um workflow de CI no GitHub Actions (instalar, testar, build)" },
+            { "id": "fdep-04", "texto": "Guardar segredos do CI em secrets, nunca no código" },
+            { "id": "fdep-05", "texto": "Fazer um smoke test na aplicação publicada" }
+          ]
+        },
+        {
+          "id": "full-e2e",
+          "titulo": "Testes ponta a ponta",
+          "prioridade": "media",
+          "descricao": "Um teste E2E cobrindo o fluxo principal prova que as pontas conversam. Com sua experiência em QA, é natural para você.",
+          "links": [
+            { "titulo": "Playwright", "url": "https://playwright.dev/docs/intro", "idioma": "en" },
+            { "titulo": "Testcontainers", "url": "https://testcontainers.com/", "idioma": "en" },
+            { "titulo": "Cypress", "url": "https://docs.cypress.io/", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fe2e-01", "texto": "Escrever um E2E do fluxo principal (cadastrar → listar → editar → excluir)" },
+            { "id": "fe2e-02", "texto": "Isolar os dados de teste (banco próprio de teste)" },
+            { "id": "fe2e-03", "texto": "Testar a integração da API com o banco real (Testcontainers)" },
+            { "id": "fe2e-04", "texto": "Rodar os testes E2E no CI" }
+          ]
+        },
+        {
+          "id": "full-comunicacao",
+          "titulo": "Entrevista técnica e apresentação",
+          "prioridade": "alta",
+          "descricao": "Na efetivação, **como você explica** suas decisões pesa tanto quanto o código. Entrevistadores dizem avaliar mais \"a capacidade de colaborar, como a pessoa formula soluções e a capacidade de entender requisitos\".",
+          "links": [
+            { "titulo": "João Marcus — Dicas de um entrevistador técnico", "url": "https://joaomarcuslf.com/posts/dicas-de-um-entrevistador-tecnico", "idioma": "pt-BR" },
+            { "titulo": "Lucas Santos — Sobre entrevistas técnicas", "url": "https://blog.lsantos.dev/entrevistas-tecnicas/", "idioma": "pt-BR" },
+            { "titulo": "Processo seletivo pra Dev Júnior: o que ninguém te conta", "url": "https://dev.to/lukasdesouza/processo-seletivo-pra-dev-junior-o-que-ninguem-te-conta-2ejj", "idioma": "pt-BR" },
+            { "titulo": "roadmap.sh — Perguntas de entrevista (backend)", "url": "https://roadmap.sh/questions/backend", "idioma": "en" },
+            { "titulo": "roadmap.sh — Perguntas de entrevista (frontend)", "url": "https://roadmap.sh/questions/frontend", "idioma": "en" }
+          ],
+          "checklist": [
+            { "id": "fcom-01", "texto": "Perguntar ao RH/gestor o formato da prova (prática/teórica, stack, tempo, consulta)" },
+            { "id": "fcom-02", "texto": "Apresentar um projeto em 2 minutos (problema, solução, stack, decisões)" },
+            { "id": "fcom-03", "texto": "Justificar escolhas técnicas com trade-offs (\"escolhi X porque…, o custo é…\")" },
+            { "id": "fcom-04", "texto": "Preparar 3 histórias do estágio no método STAR (Situação, Tarefa, Ação, Resultado)" },
+            { "id": "fcom-05", "texto": "Pensar em voz alta durante um live coding" },
+            { "id": "fcom-06", "texto": "Responder \"não sei, mas eu investigaria assim…\" em vez de inventar" },
+            { "id": "fcom-07", "texto": "Preparar perguntas para fazer ao final (time, processo, expectativas para o júnior)" }
+          ]
+        }
+      ]
+    }
+  ]
+}

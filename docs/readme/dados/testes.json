@@ -1,0 +1,110 @@
+{
+  "geradoEm": "2026-09-23T19:39:21.125Z",
+  "duracaoSeg": 278,
+  "total": 159,
+  "aprovados": 156,
+  "pulados": 3,
+  "falharam": 0,
+  "instaveis": 0,
+  "projetos": [
+    "desktop",
+    "celular",
+    "escuro"
+  ],
+  "porProjeto": {
+    "desktop": {
+      "total": 92,
+      "aprovados": 91,
+      "pulados": 1,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "celular": {
+      "total": 41,
+      "aprovados": 39,
+      "pulados": 2,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "escuro": {
+      "total": 26,
+      "aprovados": 26,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    }
+  },
+  "porArquivo": {
+    "e2e/acessibilidade.spec.ts": {
+      "total": 48,
+      "aprovados": 46,
+      "pulados": 2,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/dados.spec.ts": {
+      "total": 5,
+      "aprovados": 5,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/manual.spec.ts": {
+      "total": 24,
+      "aprovados": 24,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/navegacao.spec.ts": {
+      "total": 14,
+      "aprovados": 13,
+      "pulados": 1,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/plano.spec.ts": {
+      "total": 12,
+      "aprovados": 12,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/pratica.spec.ts": {
+      "total": 12,
+      "aprovados": 12,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/readme.spec.ts": {
+      "total": 3,
+      "aprovados": 3,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/responsivo.spec.ts": {
+      "total": 16,
+      "aprovados": 16,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/rotina.spec.ts": {
+      "total": 19,
+      "aprovados": 19,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    },
+    "e2e/visual.spec.ts": {
+      "total": 6,
+      "aprovados": 6,
+      "pulados": 0,
+      "falharam": 0,
+      "instaveis": 0
+    }
+  },
+  "falhas": []
+}

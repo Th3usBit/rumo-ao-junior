@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="516" viewBox="0 0 880 516" role="img" aria-labelledby="titulo desc">
+<title id="titulo">159 testes de ponta a ponta</title>
+<desc id="desc">Execução de 23/09/2026: 156 aprovados, 3 pulados. Acessibilidade (axe-core): 48 testes, 46 aprovados; Manual de uso: 24 testes, 24 aprovados; Simulado, Pomodoro, Diário e mais: 19 testes, 19 aprovados; Responsividade: 16 testes, 16 aprovados; Navegação: 14 testes, 13 aprovados; Painel, Trilhas e Cronograma: 12 testes, 12 aprovados; Flashcards e Quiz: 12 testes, 12 aprovados; Capturas de cada tela: 6 testes, 6 aprovados; JSON editado à mão: 5 testes, 5 aprovados; README em dia com os dados: 3 testes, 3 aprovados.</desc>
+<style>
+svg{--bg:#1a1a19;--bg2:#222220;--borda:#2f2f2c;--tinta:#f4f4f1;--tinta2:#c3c2b7;--suave:#9c9a91;--grade:#2c2c2a;--base:#383835;--acento:#6da7ec;--acentoSuave:#16263d;--acentoTexto:#9ec5f4;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300;--o1:#86b6ef;--o2:#3987e5;--o3:#1c5cab;--neutro:#5a5954}
+text{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;fill:var(--tinta)}
+.cartao{fill:var(--bg);stroke:var(--borda)}
+.t2{fill:var(--tinta2)} .suave{fill:var(--suave)} .acento{fill:var(--acento)}
+.titulo{font-size:17px;font-weight:650} .sub{font-size:13px;fill:var(--tinta2)} .rot{font-size:13px}
+.val{font-size:12.5px;font-variant-numeric:tabular-nums;fill:var(--tinta2)} .mini{font-size:12px;fill:var(--suave)}
+.grade{stroke:var(--grade);stroke-width:1} .base{stroke:var(--base);stroke-width:1}
+.s1{fill:var(--s1)} .s2{fill:var(--s2)} .s3{fill:var(--s3)} .s4{fill:var(--s4)} .s5{fill:var(--s5)} .s6{fill:var(--s6)}
+.o1{fill:var(--o1)} .o2{fill:var(--o2)} .o3{fill:var(--o3)} .neutro{fill:var(--neutro)}
+.bom{fill:#0ca30c} .critico{fill:#d03b3b} .aviso{fill:#fab219}
+.cresce{transform-box:fill-box;transform-origin:left center;animation:cresce .9s cubic-bezier(.2,.7,.2,1) both}
+.surge{animation:surge .6s ease-out both}
+@keyframes cresce{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes surge{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+<rect class="cartao" x="0.5" y="0.5" width="879" height="515" rx="16"/>
+
+<text class="titulo" x="24" y="38">159 testes de ponta a ponta em 3 projetos</text>
+<text class="sub" x="24" y="60">Execução real em 23/09/2026: 156 aprovados, 3 pulados (5 min). Projetos: desktop, celular, escuro.</text>
+<rect class="bom" x="24" y="74" width="12" height="12" rx="3"/><text class="rot t2" x="42" y="84">Aprovado</text><rect class="neutro" x="121.46000000000001" y="74" width="12" height="12" rx="3"/><text class="rot t2" x="139.46" y="84">Pulado</text>
+<text class="rot" x="24" y="112">Acessibilidade (axe-core)</text><text class="mini" x="24" y="128">e2e/acessibilidade.spec.ts</text><rect class="bom cresce" x="290" y="106" width="400.5" height="14" rx="2" style="animation-delay:0ms"><title>Aprovado: 46</title></rect><rect class="neutro cresce" x="692.5" y="106" width="15.5" height="14" rx="2" style="animation-delay:0ms"><title>Pulado: 2</title></rect><text class="val" x="716" y="118">46 ✓ · 2 pulados</text>
+<text class="rot" x="24" y="150">Manual de uso</text><text class="mini" x="24" y="166">e2e/manual.spec.ts</text><rect class="bom cresce" x="290" y="144" width="208" height="14" rx="2" style="animation-delay:60ms"><title>Aprovado: 24</title></rect><text class="val" x="506" y="156">24 ✓</text>
+<text class="rot" x="24" y="188">Simulado, Pomodoro, Diário e mais</text><text class="mini" x="24" y="204">e2e/rotina.spec.ts</text><rect class="bom cresce" x="290" y="182" width="164.25" height="14" rx="2" style="animation-delay:120ms"><title>Aprovado: 19</title></rect><text class="val" x="462.25" y="194">19 ✓</text>
+<text class="rot" x="24" y="226">Responsividade</text><text class="mini" x="24" y="242">e2e/responsivo.spec.ts</text><rect class="bom cresce" x="290" y="220" width="138" height="14" rx="2" style="animation-delay:180ms"><title>Aprovado: 16</title></rect><text class="val" x="436" y="232">16 ✓</text>
+<text class="rot" x="24" y="264">Navegação</text><text class="mini" x="24" y="280">e2e/navegacao.spec.ts</text><rect class="bom cresce" x="290" y="258" width="111.74999999999999" height="14" rx="2" style="animation-delay:240ms"><title>Aprovado: 13</title></rect><rect class="neutro cresce" x="403.75" y="258" width="6.75" height="14" rx="2" style="animation-delay:240ms"><title>Pulado: 1</title></rect><text class="val" x="418.5" y="270">13 ✓ · 1 pulado</text>
+<text class="rot" x="24" y="302">Painel, Trilhas e Cronograma</text><text class="mini" x="24" y="318">e2e/plano.spec.ts</text><rect class="bom cresce" x="290" y="296" width="103" height="14" rx="2" style="animation-delay:300ms"><title>Aprovado: 12</title></rect><text class="val" x="401" y="308">12 ✓</text>
+<text class="rot" x="24" y="340">Flashcards e Quiz</text><text class="mini" x="24" y="356">e2e/pratica.spec.ts</text><rect class="bom cresce" x="290" y="334" width="103" height="14" rx="2" style="animation-delay:360ms"><title>Aprovado: 12</title></rect><text class="val" x="401" y="346">12 ✓</text>
+<text class="rot" x="24" y="378">Capturas de cada tela</text><text class="mini" x="24" y="394">e2e/visual.spec.ts</text><rect class="bom cresce" x="290" y="372" width="50.5" height="14" rx="2" style="animation-delay:420ms"><title>Aprovado: 6</title></rect><text class="val" x="348.5" y="384">6 ✓</text>
+<text class="rot" x="24" y="416">JSON editado à mão</text><text class="mini" x="24" y="432">e2e/dados.spec.ts</text><rect class="bom cresce" x="290" y="410" width="41.75" height="14" rx="2" style="animation-delay:480ms"><title>Aprovado: 5</title></rect><text class="val" x="339.75" y="422">5 ✓</text>
+<text class="rot" x="24" y="454">README em dia com os dados</text><text class="mini" x="24" y="470">e2e/readme.spec.ts</text><rect class="bom cresce" x="290" y="448" width="24.25" height="14" rx="2" style="animation-delay:540ms"><title>Aprovado: 3</title></rect><text class="val" x="322.25" y="460">3 ✓</text>
+<text class="mini" x="24" y="500">Fonte: docs/readme/dados/testes.json, gravado por testes/readme/resumo-testes.mjs a partir do relatório do Playwright.</text>
+</svg>

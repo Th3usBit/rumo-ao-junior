@@ -1,8 +1,8 @@
 {
-  "geradoEm": "2026-09-23T19:39:21.125Z",
-  "duracaoSeg": 278,
-  "total": 159,
-  "aprovados": 156,
+  "geradoEm": "2026-11-11T21:15:57.458Z",
+  "duracaoSeg": 389,
+  "total": 160,
+  "aprovados": 157,
   "pulados": 3,
   "falharam": 0,
   "instaveis": 0,
@@ -13,8 +13,8 @@
   ],
   "porProjeto": {
     "desktop": {
-      "total": 92,
-      "aprovados": 91,
+      "total": 93,
+      "aprovados": 92,
       "pulados": 1,
       "falharam": 0,
       "instaveis": 0
@@ -92,8 +92,8 @@
       "instaveis": 0
     },
     "e2e/rotina.spec.ts": {
-      "total": 19,
-      "aprovados": 19,
+      "total": 20,
+      "aprovados": 20,
       "pulados": 0,
       "falharam": 0,
       "instaveis": 0

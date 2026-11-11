@@ -944,7 +944,8 @@ const DOCUMENTOS = ['README.md', 'docs/tecnico.md'];
 function processarDocumentos() {
   const t = tabelas();
   const docs = DOCUMENTOS.map((rel) => {
-    const atual = readFileSync(resolve(RAIZ, rel), 'utf8');
+    // checkout no Windows (core.autocrlf) traz CRLF; o gerador trabalha em LF, como no start.bat
+    const atual = readFileSync(resolve(RAIZ, rel), 'utf8').replace(/\r\n/g, '\n');
     return { rel, atual, ...blocosReadme(atual, t, NUMEROS) };
   });
   const faltando = docs[0].faltando.filter((f) => docs.every((d) => d.faltando.includes(f)));

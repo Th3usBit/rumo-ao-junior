@@ -281,6 +281,10 @@ async function iniciar() {
   carregarEstado();
   aplicarTema();
   montarMenu();
+  // O botao de tema ja funciona antes dos dados chegarem: aplicar o tema nao pode esperar o fetch.
+  assinar((_estado, motivo) => {
+    if (motivo === 'tema' || motivo === 'importacao' || motivo === 'reset' || motivo === 'externo') aplicarTema();
+  });
 
   quandoFalharSalvar(() => {
     toast('Não foi possível salvar seu progresso (armazenamento cheio ou bloqueado). Exporte um backup!', { tipo: 'erro', duracao: 10000 });
@@ -289,8 +293,7 @@ async function iniciar() {
   const { dados, erros, avisos } = await carregarDados();
   Object.assign(contexto, { dados, erros, avisos });
 
-  assinar((_estado, motivo) => {
-    if (motivo === 'tema' || motivo === 'importacao' || motivo === 'reset' || motivo === 'externo') aplicarTema();
+  assinar(() => {
     atualizarContadores();
     atualizarIndicadores();
   });

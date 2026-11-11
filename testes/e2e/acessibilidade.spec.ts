@@ -14,6 +14,8 @@ async function verificar(page, contexto: string) {
 test.describe('Acessibilidade (axe-core)', () => {
   for (const rota of ROTAS) {
     test(`página ${rota} sem violações WCAG 2.1 AA (com dados)`, async ({ page }) => {
+      // a lista abre todos os cartões: sozinho leva ~15 s, com a suíte em paralelo passa de 45 s
+      test.slow(rota === 'flashcards?aba=lista');
       await semearEstado(page, estadoDeExemplo());
       await abrir(page, rota);
       await page.locator('details').evaluateAll((els) => els.forEach((d) => ((d as HTMLDetailsElement).open = true)));
@@ -22,6 +24,7 @@ test.describe('Acessibilidade (axe-core)', () => {
   }
 
   test('estados interativos: flashcard revelado, questão respondida, simulado rodando e diálogo aberto', async ({ page }) => {
+    test.slow(); // seis análises do axe em sequência
     await abrir(page, 'flashcards');
     await page.getByRole('button', { name: /Mostrar resposta/ }).click();
     await verificar(page, 'flashcard revelado');

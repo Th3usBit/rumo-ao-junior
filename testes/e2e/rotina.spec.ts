@@ -257,6 +257,23 @@ test.describe('Ajustes e backup', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   });
 
+  test('o botão de tema funciona antes de os dados terminarem de carregar', async ({ page }) => {
+    // segura os data/*.json até depois do clique, como numa conexão lenta
+    let liberar: () => void = () => {};
+    const portao = new Promise<void>((r) => (liberar = r));
+    await page.route('**/data/*.json', async (rota) => {
+      await portao;
+      await rota.continue();
+    });
+    await page.goto('/#/dashboard');
+    await page.getByRole('button', { name: 'Mudar para o tema escuro' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.getByRole('button', { name: 'Mudar para o tema claro' })).toBeVisible();
+    liberar();
+    await expect(page.locator('main h1')).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  });
+
   test('plano: data da prova e limite de flashcards novos', async ({ page }) => {
     await abrir(page, 'ajustes');
     await page.getByLabel('Data da prova (opcional)').fill('2026-10-08');

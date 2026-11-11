@@ -21,13 +21,13 @@
     "links-verificados-em": "23/09/2026",
     "novos-por-dia": 15,
     "sm2-bom": "1, 6, 15, 38, 95",
-    "testes-total": 159,
-    "testes-aprovados": 156,
+    "testes-total": 160,
+    "testes-aprovados": 157,
     "testes-pulados": 3,
     "testes-falharam": 0,
     "testes-projetos": 3,
-    "testes-data": "23/09/2026",
-    "testes-duracao": "5 min"
+    "testes-data": "11/11/2026",
+    "testes-duracao": "6 min"
   },
   "trilhas": [
     {

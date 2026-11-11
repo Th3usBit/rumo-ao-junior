@@ -302,7 +302,7 @@ flowchart TD
 
 ## Qualidade: testes e acessibilidade
 
-A pasta `testes/` tem uma suíte de ponta a ponta com **Playwright**, que roda no Google Chrome já instalado. Na última execução, em <!-- n:testes-data -->23/09/2026<!-- /n -->, foram <!-- n:testes-total -->159<!-- /n --> testes em <!-- n:testes-projetos -->3<!-- /n --> projetos (desktop, celular e tema escuro): <!-- n:testes-aprovados -->156<!-- /n --> aprovados, <!-- n:testes-pulados -->3<!-- /n --> pulados de propósito (valem só para um tipo de tela) e <!-- n:testes-falharam -->0<!-- /n --> com falha, em <!-- n:testes-duracao -->5 min<!-- /n -->.
+A pasta `testes/` tem uma suíte de ponta a ponta com **Playwright**, que roda no Google Chrome já instalado. Na última execução, em <!-- n:testes-data -->11/11/2026<!-- /n -->, foram <!-- n:testes-total -->160<!-- /n --> testes em <!-- n:testes-projetos -->3<!-- /n --> projetos (desktop, celular e tema escuro): <!-- n:testes-aprovados -->157<!-- /n --> aprovados, <!-- n:testes-pulados -->3<!-- /n --> pulados de propósito (valem só para um tipo de tela) e <!-- n:testes-falharam -->0<!-- /n --> com falha, em <!-- n:testes-duracao -->6 min<!-- /n -->.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./readme/grafico-testes-escuro.svg">
@@ -319,7 +319,7 @@ A pasta `testes/` tem uma suíte de ponta a ponta com **Playwright**, que roda n
 |---|---|---:|---:|---:|---:|
 | `e2e/acessibilidade.spec.ts` | Acessibilidade (axe-core) | 48 | 46 | 2 | 0 |
 | `e2e/manual.spec.ts` | Manual de uso | 24 | 24 | 0 | 0 |
-| `e2e/rotina.spec.ts` | Simulado, Pomodoro, Diário e mais | 19 | 19 | 0 | 0 |
+| `e2e/rotina.spec.ts` | Simulado, Pomodoro, Diário e mais | 20 | 20 | 0 | 0 |
 | `e2e/responsivo.spec.ts` | Responsividade | 16 | 16 | 0 | 0 |
 | `e2e/navegacao.spec.ts` | Navegação | 14 | 13 | 1 | 0 |
 | `e2e/plano.spec.ts` | Painel, Trilhas e Cronograma | 12 | 12 | 0 | 0 |
@@ -327,7 +327,7 @@ A pasta `testes/` tem uma suíte de ponta a ponta com **Playwright**, que roda n
 | `e2e/visual.spec.ts` | Capturas de cada tela | 6 | 6 | 0 | 0 |
 | `e2e/dados.spec.ts` | JSON editado à mão | 5 | 5 | 0 | 0 |
 | `e2e/readme.spec.ts` | README em dia com os dados | 3 | 3 | 0 | 0 |
-| **Total** | desktop, celular, escuro | **159** | **156** | **3** | **0** |
+| **Total** | desktop, celular, escuro | **160** | **157** | **3** | **0** |
 <!-- /gerado:testes -->
 
 </details>

@@ -339,7 +339,7 @@ function banner() {
     return `<g class="surge" style="animation-delay:${300 + i * 110}ms"><rect class="chip" x="${x}" y="${236 + linha * 38}" width="${w}" height="28" rx="14"/>` +
       `<text class="chip-t" x="${x + w / 2}" y="${255 + linha * 38}" text-anchor="middle">${esc(c)}</text></g>`;
   }).join('');
-  const tagline = ['Sistema de estudo local para a prova de', 'efetivação de Dev Júnior — front-end, back-end', 'ou fullstack, na stack Vue 3 + TS e Spring Boot.'];
+  const tagline = ['Sistema de estudo para a prova de', 'efetivação de Dev Júnior — front-end, back-end', 'ou fullstack, na stack Vue 3 + TS e Spring Boot.'];
   const extra = `
 .carta{fill:var(--bg);stroke:var(--borda);stroke-width:1.5}
 .face{transform-box:fill-box;transform-origin:center;animation-duration:${CICLO}s;animation-iteration-count:${VOLTAS};animation-timing-function:linear;opacity:0}
@@ -848,6 +848,16 @@ function selo(nome, rotulo, valor, cor) {
   gravar(`selos/${nome}.svg`, s);
 }
 
+function botaoAbrir() {
+  const texto = 'Abrir o app online';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="66" viewBox="0 0 360 66" role="img" aria-label="${texto}">
+<title>${texto}</title>
+<rect y="5" width="360" height="61" rx="10" fill="#184f95"/><rect width="360" height="60" rx="10" fill="${CLARO.acento}"/>
+<text x="180" y="39" text-anchor="middle" font-family='${FONTE}' font-size="25" font-weight="700" fill="#fff">${texto}</text>
+</svg>
+`;
+}
+
 // =====================================================================
 // Tabelas do README (entre marcadores)
 // =====================================================================
@@ -929,22 +939,34 @@ const NUMEROS = {
   } : {})
 };
 
+// Os marcadores ficam em dois arquivos: cada um precisa aparecer em pelo menos um deles.
+const DOCUMENTOS = ['README.md', 'docs/tecnico.md'];
+function processarDocumentos() {
+  const t = tabelas();
+  const docs = DOCUMENTOS.map((rel) => {
+    const atual = readFileSync(resolve(RAIZ, rel), 'utf8');
+    return { rel, atual, ...blocosReadme(atual, t, NUMEROS) };
+  });
+  const faltando = docs[0].faltando.filter((f) => docs.every((d) => d.faltando.includes(f)));
+  return { docs, faltando };
+}
+
 if (CONFERIR) {
-  // Só compara: falha se o README estiver diferente do que os dados geram hoje.
-  const atual = readFileSync(resolve(RAIZ, 'README.md'), 'utf8');
-  const { md, faltando } = blocosReadme(atual, tabelas(), NUMEROS);
-  const problemas = [...faltando.map((f) => `marcador ausente: <!-- ${f} -->`)];
-  if (md !== atual) {
+  // Só compara: falha se a documentação estiver diferente do que os dados geram hoje.
+  const { docs, faltando } = processarDocumentos();
+  const problemas = faltando.map((f) => `marcador ausente: <!-- ${f} -->`);
+  for (const { rel, atual, md } of docs) {
+    if (md === atual) continue;
     const a = atual.split('\n');
     const b = md.split('\n');
     const i = a.findIndex((l, k) => l !== b[k]);
-    problemas.push(`README.md desatualizado a partir da linha ${i + 1}: "${a[i]?.slice(0, 90)}" deveria ser "${b[i]?.slice(0, 90)}"`);
+    problemas.push(`${rel} desatualizado a partir da linha ${i + 1}: "${a[i]?.slice(0, 90)}" deveria ser "${b[i]?.slice(0, 90)}"`);
   }
   if (problemas.length) {
-    console.error('README.md não bate com os dados:\n  ' + problemas.join('\n  ') + '\nRode "npm run readme:graficos" dentro de testes/.');
+    console.error('A documentação não bate com os dados:\n  ' + problemas.join('\n  ') + '\nRode "npm run readme:graficos" dentro de testes/.');
     process.exit(1);
   }
-  console.log('README.md está de acordo com os dados.');
+  console.log('A documentação está de acordo com os dados.');
   process.exit(0);
 }
 
@@ -959,10 +981,12 @@ gravarTemas('grafico-recursos', graficoRecursos);
 gravarTemas('grafico-trilhas', graficoTrilhas);
 gravarTemas('grafico-sm2', graficoSm2);
 gravar('terminal-start.svg', terminal());
+gravar('botao-abrir.svg', botaoAbrir());
 if (testes) {
   gravarTemas('grafico-testes', graficoTestes);
   const ok = testes.falharam === 0;
-  selo('testes', 'testes', ok ? `${testes.aprovados} aprovados` : `${testes.falharam} falhando`, ok ? '#1f7a1f' : '#b0292b');
+  const textoOk = testes.pulados ? `${testes.aprovados} aprovados · ${testes.pulados} pulados` : `${testes.aprovados} aprovados`;
+  selo('testes', 'testes', ok ? textoOk : `${testes.falharam} falhando`, ok ? '#1f7a1f' : '#b0292b');
   const a11y = testes.porArquivo['e2e/acessibilidade.spec.ts'];
   if (a11y) selo('acessibilidade', 'acessibilidade', a11y.falharam ? 'axe: falhas' : 'WCAG 2.2 AA (axe)', a11y.falharam ? '#b0292b' : '#184f95');
 } else {
@@ -985,9 +1009,8 @@ const conteudo = {
 };
 writeFileSync(resolve(SAIDA, 'dados/conteudo.json'), JSON.stringify(conteudo, null, 2) + '\n');
 
-const caminhoReadme = resolve(RAIZ, 'README.md');
-const { md, faltando } = blocosReadme(readFileSync(caminhoReadme, 'utf8'), tabelas(), NUMEROS);
-writeFileSync(caminhoReadme, md);
+const { docs, faltando } = processarDocumentos();
+for (const { rel, md } of docs) writeFileSync(resolve(RAIZ, rel), md);
 
 console.log(`Gerados em docs/readme/:\n  ${escritos.join('\n  ')}`);
-console.log(faltando.length ? `README: marcadores ausentes — ${faltando.join(', ')}` : 'README: tabelas e números atualizados.');
+console.log(faltando.length ? `Documentação: marcadores ausentes — ${faltando.join(', ')}` : 'Documentação: tabelas e números atualizados.');

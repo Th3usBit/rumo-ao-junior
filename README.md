@@ -23,6 +23,8 @@
   <img src="./docs/readme/selos/build.svg" height="22" alt="Build: nenhum">
 </p>
 
+<p align="center"><a href="https://th3usbit.github.io/rumo-ao-junior/"><strong>Abrir o app online</strong></a>. Sem instalar nada e sem cadastro; o seu progresso fica só no seu navegador.</p>
+
 <p align="center">
   <a href="#comece-em-1-minuto">Começar</a> ·
   <a href="#veja-funcionando">Veja funcionando</a> ·
@@ -54,7 +56,7 @@ O app é HTML, CSS e JavaScript puro (ES modules): sem build, sem framework, sem
 
 ## Comece em 1 minuto
 
-Você precisa do **Node.js LTS** ([nodejs.org](https://nodejs.org/)) e de internet na primeira vez. O app em si não instala nada.
+O jeito mais rápido é usar a [versão online](https://th3usbit.github.io/rumo-ao-junior/). Para rodar na sua máquina, você precisa do **Node.js LTS** ([nodejs.org](https://nodejs.org/)) e de internet na primeira vez. O app em si não instala nada.
 
 1. Dê **dois cliques em `start.bat`**, na pasta do projeto.
 2. Espere 8 segundos (ou aperte `1`): o servidor local sobe em `http://localhost:3000` e o navegador abre sozinho.
